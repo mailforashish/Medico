@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="com.medico.app.activity.MainActivity.EventHandler" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+
+        <androidx.drawerlayout.widget.DrawerLayout
+            android:id="@+id/drawer_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:fitsSystemWindows="true"
+            tools:openDrawer="start">
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:fitsSystemWindows="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <FrameLayout
+                        android:id="@+id/fragment_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_above="@+id/ll_tab"
+                        android:orientation="vertical" />
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_tab"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="#ffffff"
+                        android:elevation="5dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/home_tab"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:onClick="@{() -> clickListener.tabHome()}"
+                            android:orientation="vertical"
+                            android:visibility="visible">
+
+                            <View
+                                android:id="@+id/viewBarHome"
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:background="@color/color_secondary"
+                                android:visibility="visible"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/iv_home_tab"
+                                style="@style/homeImage"
+                                android:src="@drawable/ic_home_selected"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tv_home"
+                                style="@style/homeText"
+                                android:text="Home"
+                                app:layout_constraintBottom_toBottomOf="@+id/iv_home_tab"
+                                app:layout_constraintEnd_toEndOf="@+id/iv_home_tab" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/health_tab"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:onClick="@{() -> clickListener.tabHealth()}"
+                            android:orientation="vertical">
+
+                            <View
+                                android:id="@+id/viewBarHealth"
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:background="@color/color_secondary"
+                                android:visibility="invisible"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/iv_health_tab"
+                                style="@style/homeImage"
+                                android:src="@drawable/ic_healthcare_unselected"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tv_health_care"
+                                style="@style/homeText"
+                                android:text="Healthcare"
+                                app:layout_constraintBottom_toBottomOf="@+id/iv_health_tab"
+                                app:layout_constraintEnd_toEndOf="@+id/iv_health_tab" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/notification_tab"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:onClick="@{() -> clickListener.tabNotification()}"
+                            android:orientation="vertical">
+
+                            <View
+                                android:id="@+id/viewBarNotification"
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:background="@color/color_secondary"
+                                android:visibility="invisible"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/iv_notification_tab"
+                                style="@style/homeImage"
+                                android:src="@drawable/ic_noti_unselected"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tv_notification"
+                                style="@style/homeText"
+                                android:text="Notifications"
+                                app:layout_constraintBottom_toBottomOf="@+id/iv_notification_tab"
+                                app:layout_constraintEnd_toEndOf="@+id/iv_notification_tab" />
+
+                            <TextView
+                                android:id="@+id/tv_notification_num"
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_marginEnd="26dp"
+                                android:layout_marginBottom="18dp"
+                                android:background="@drawable/shape_home_message_bg"
+                                android:gravity="center"
+                                android:text="1"
+                                android:textColor="@color/white"
+                                android:textSize="8sp"
+                                android:visibility="visible"
+                                app:layout_constraintBottom_toBottomOf="@+id/notification_tab"
+                                app:layout_constraintEnd_toEndOf="@+id/notification_tab" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/account_tab"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:onClick="@{() -> clickListener.tabAccount()}"
+                            android:orientation="vertical">
+
+                            <View
+                                android:id="@+id/viewAccount"
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:background="@color/color_secondary"
+                                android:visibility="invisible"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/iv_account_tab"
+                                style="@style/homeImage"
+                                android:src="@drawable/ic_account_unselected"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tv_account"
+                                style="@style/homeText"
+                                android:text="Account"
+                                app:layout_constraintBottom_toBottomOf="@+id/iv_account_tab"
+                                app:layout_constraintEnd_toEndOf="@+id/iv_account_tab" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+            <com.google.android.material.navigation.NavigationView
+                android:id="@+id/navigationView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:fitsSystemWindows="true"
+                android:visibility="visible"
+                app:headerLayout="@layout/nav_header_main">
+
+                <LinearLayout
+                    android:id="@+id/linear_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="170dp"
+                    android:clickable="true"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_appointment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:clickable="true"
+                        android:onClick="@{()->clickListener.appointment()}"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp">
+
+                        <ImageView
+                            android:id="@+id/img_appointment"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_appointment_dr" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_toRightOf="@+id/img_appointment"
+                            android:fontFamily="@font/opensans_bold"
+                            android:text="Appointments"
+                            android:textColor="@color/black_new"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:onClick="@{()->clickListener.myOrders()}"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp">
+
+                        <ImageView
+                            android:id="@+id/img_my_orders"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_order_mediciens" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_toRightOf="@+id/img_my_orders"
+                            android:fontFamily="@font/opensans_bold"
+                            android:text="My Orders"
+                            android:textColor="@color/black_new"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:onClick="@{()->clickListener.testBooking()}"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp">
+
+                        <ImageView
+                            android:id="@+id/img_test_bookings"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_test_booking_dr" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_toRightOf="@+id/img_test_bookings"
+                            android:fontFamily="@font/opensans_bold"
+                            android:text="Test Bookings"
+                            android:textColor="@color/black_new"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:onClick="@{()->clickListener.eConsultation()}"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp">
+
+                        <ImageView
+                            android:id="@+id/img_eConsultation"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_cunsultation_dr" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_toRightOf="@+id/img_eConsultation"
+                            android:fontFamily="@font/opensans_bold"
+                            android:text="eConsultation"
+                            android:textColor="@color/black_new"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:onClick="@{()->clickListener.buySubscription()}"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp">
+
+                        <ImageView
+                            android:id="@+id/img_buy_subscription"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_subscription_dr" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_toRightOf="@+id/img_buy_subscription"
+                            android:fontFamily="@font/opensans_bold"
+                            android:text="Buy Subscription"
+                            android:textColor="@color/black_new"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:onClick="@{()->clickListener.reminder()}"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp">
+
+                        <ImageView
+                            android:id="@+id/img_reminders"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_reminder_dr" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_toRightOf="@+id/img_reminders"
+                            android:fontFamily="@font/opensans_bold"
+                            android:text="Reminders"
+                            android:textColor="@color/black_new"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:onClick="@{()->clickListener.wallet()}"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp">
+
+                        <ImageView
+                            android:id="@+id/img_wallet"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_wallet_dr" />
+
+                        <TextView
+                            android:id="@+id/tv_wallet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_toRightOf="@+id/img_wallet"
+                            android:fontFamily="@font/opensans_bold"
+                            android:text="Wallet"
+                            android:textColor="@color/black_new"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/tv_wallet_input"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:drawableStart="@drawable/ic_rupees"
+                            android:drawablePadding="1dp"
+                            android:fontFamily="@font/opensans_semibold"
+                            android:gravity="right"
+                            android:text="5100"
+                            android:textColor="@color/black_new"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linear_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:background="@color/mainViewColor" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="5dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:onClick="@{()->clickListener.setting()}"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@drawable/ic_settings_dr" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/opensans_semibold"
+                                android:gravity="center"
+                                android:paddingTop="2dp"
+                                android:text="Settings"
+                                android:textAlignment="center"
+                                android:textColor="@color/black_new"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:onClick="@{()->clickListener.helps()}"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@drawable/ic_help_dr" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/opensans_semibold"
+                                android:gravity="center"
+                                android:paddingTop="2dp"
+                                android:text="24x7 Help"
+                                android:textAlignment="center"
+                                android:textColor="@color/black_new"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:onClick="@{()->clickListener.aboutUs()}"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@drawable/ic_logo_dr" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/opensans_semibold"
+                                android:gravity="center"
+                                android:paddingTop="2dp"
+                                android:text="About us"
+                                android:textAlignment="center"
+                                android:textColor="@color/black_new"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </com.google.android.material.navigation.NavigationView>
+        </androidx.drawerlayout.widget.DrawerLayout>
+
+    </LinearLayout>
+</layout>

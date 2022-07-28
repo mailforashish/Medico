@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="com.medico.app.dialog.SelectQuantityDialog.EventHandler" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_qty"
+            android:layout_width="240dp"
+            android:layout_height="340dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bottom_sheet_bg"
+            android:paddingTop="15dp">
+
+            <TextView
+                android:id="@+id/tv_selcet_qty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_toStartOf="@+id/iv_close"
+                android:ellipsize="end"
+                android:fontFamily="@font/opensans_bold"
+                android:maxLines="2"
+                android:text="Select Quantity"
+                android:textColor="@color/color_header_text"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="15dp"
+                android:contentDescription="@null"
+                android:onClick="@{() -> clickListener.backDialog()}"
+                android:paddingStart="15dp"
+                android:paddingBottom="15dp"
+                app:srcCompat="@drawable/close_1" />
+
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/iv_close"
+                android:layout_marginTop="5dp"
+                android:background="#dfe3e6" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvQuantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view1"
+                android:layout_margin="5dp"
+                android:clipToPadding="false" />
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>

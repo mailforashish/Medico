@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp">
+
+        <TextView
+            android:id="@+id/tv_no_find"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:fontFamily="@font/opensans_bold"
+            android:text="Couldn't find what are you \nwere loking for "
+            android:textColor="@color/black_new"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/tv_today_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@+id/tv_no_find"
+            android:fontFamily="@font/opensans_semibold"
+            android:gravity="right"
+            android:paddingRight="10dp"
+            android:text="Today, 12:05PM "
+            android:textColor="@color/grey500"
+            android:textSize="12sp" />
+
+
+        <TextView
+            android:id="@+id/tv_today_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_no_find"
+            android:layout_gravity="start"
+            android:layout_marginTop="5dp"
+            android:justificationMode="inter_word"
+            android:paddingLeft="10dp"
+            android:paddingEnd="40dp"
+            android:fontFamily="@font/opensans_regular"
+            android:text="Hi im happy for medico app provoiding good services"
+            android:textColor="@color/black_new"
+            android:textSize="14sp" />
+
+
+        <ImageView
+            android:id="@+id/iv_today_update"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_below="@+id/tv_today_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/banner_1" />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

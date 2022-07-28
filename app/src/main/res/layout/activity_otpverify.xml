@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="com.medico.app.activity.OTPVerifyActivity.EventHandler" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#1C208F"
+        tools:context=".activity.OTPVerifyActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/otp_bg"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/linear_one"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:gravity="top"
+                android:orientation="vertical"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensans_bold"
+                    android:padding="5dp"
+                    android:text="Verify OTP"
+                    android:textColor="#1D252D"
+                    android:textSize="18sp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="@string/we_have"
+                    android:textColor="#506D85"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_mobile_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/opensans_semibold"
+                        android:padding="5dp"
+                        android:text="9810098100"
+                        android:textColor="#506D85"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/opensans_semibold"
+                        android:onClick="@{() -> clickListener.changeNumber()}"
+                        android:padding="5dp"
+                        android:paddingLeft="8dp"
+                        android:text="Change.."
+                        android:textColor="#14BFFF"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="30dp">
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_otp"
+                        android:layout_width="0dp"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/et_otp1"
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_item_otp_view"
+                            android:gravity="center"
+                            android:hint="-"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:nextFocusDown="@id/et_otp2"
+                            android:nextFocusForward="@id/et_otp2"
+                            android:textColor="#1D252D"
+                            android:textColorHint="#8B8B8B"
+                            android:textSize="16sp"
+                            tools:background="@drawable/bg_item_otp_view_error"
+                            tools:ignore="HardcodedText" />
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/et_otp2"
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_item_otp_view"
+                            android:gravity="center"
+                            android:hint="-"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:nextFocusLeft="@id/et_otp1"
+                            android:nextFocusDown="@id/et_otp3"
+                            android:nextFocusForward="@id/et_otp3"
+                            android:textColor="#1D252D"
+                            android:textColorHint="#8B8B8B"
+                            android:textSize="16sp"
+                            tools:background="@drawable/bg_item_otp_view_error"
+                            tools:ignore="HardcodedText" />
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/et_otp3"
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_item_otp_view"
+                            android:gravity="center"
+                            android:hint="-"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:nextFocusLeft="@id/et_otp2"
+                            android:nextFocusDown="@id/et_otp4"
+                            android:nextFocusForward="@id/et_otp4"
+                            android:textColor="#1D252D"
+                            android:textColorHint="#8B8B8B"
+                            android:textSize="16sp"
+                            tools:background="@drawable/bg_item_otp_view_error"
+                            tools:ignore="HardcodedText" />
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/et_otp4"
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_item_otp_view"
+                            android:gravity="center"
+                            android:hint="-"
+                            android:imeOptions="actionGo"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:nextFocusLeft="@id/et_otp3"
+                            android:nextFocusDown="@id/et_otp5"
+                            android:nextFocusForward="@id/et_otp5"
+                            android:textColor="#1D252D"
+                            android:textColorHint="#8B8B8B"
+                            android:textSize="16sp"
+                            tools:background="@drawable/bg_item_otp_view_error"
+                            tools:ignore="HardcodedText" />
+
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/et_otp5"
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_item_otp_view"
+                            android:gravity="center"
+                            android:hint="-"
+                            android:imeOptions="actionGo"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:nextFocusLeft="@id/et_otp4"
+                            android:nextFocusDown="@id/et_otp6"
+                            android:nextFocusForward="@id/et_otp6"
+                            android:textColor="#1D252D"
+                            android:textColorHint="#8B8B8B"
+                            android:textSize="16sp"
+                            tools:background="@drawable/bg_item_otp_view_error"
+                            tools:ignore="HardcodedText" />
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/et_otp6"
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_item_otp_view"
+                            android:gravity="center"
+                            android:hint="-"
+                            android:imeOptions="actionGo"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:nextFocusLeft="@id/et_otp5"
+                            android:textColor="#1D252D"
+                            android:textColorHint="#8B8B8B"
+                            android:textSize="16sp"
+                            tools:background="@drawable/bg_item_otp_view_error"
+                            tools:ignore="HardcodedText" />
+
+
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_invalid_otp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Invalid OTP"
+                        android:textColor="#BA1D1D"
+                        android:textSize="10sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ll_otp"
+                        tools:ignore="HardcodedText,SmallSp"
+                        tools:visibility="invisible" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="100dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/opensans_semibold"
+                        android:gravity="left"
+                        android:text="Didn’t receive the code?"
+                        android:textColor="#506D85"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_resend_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/opensans_semibold"
+                        android:onClick="@{() -> clickListener.resendCode()}"
+                        android:text="Resend code"
+                        android:textColor="#14BFFF"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>

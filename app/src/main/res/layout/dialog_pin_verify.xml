@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="com.medico.app.dialog.CheckPinCodeDialog.EventHandler" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:padding="25sp">
+
+        <TextView
+            android:id="@+id/tv_choose_your_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/opensans_bold"
+            android:layout_toStartOf="@+id/iv_cross"
+            android:text="Choose your\nLocation"
+            android:textColor="@color/color_header_text"
+            android:textSize="26sp" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_cross"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="15dp"
+            android:onClick="@{() -> clickListener.closePage()}"
+            android:paddingStart="25dp"
+            android:paddingBottom="25dp"
+            android:visibility="visible"
+            app:srcCompat="@drawable/ic_close_select_city" />
+
+        <RelativeLayout
+            android:id="@+id/rl_verify_pincode"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@+id/tv_choose_your_location"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/bg_pincode">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edt_pincode"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/btn_check"
+                android:background="@null"
+                android:gravity="left|center_vertical|center_horizontal|center|start"
+                android:hint="Enter PIN Code"
+                android:inputType="number"
+                android:fontFamily="@font/opensans_semibold"
+                android:maxLength="6"
+                android:paddingStart="20dp"
+                android:textColorHint="@color/grey_darker"
+                android:textSize="16sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_check"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/bg_check"
+                android:fontFamily="@font/opensans_bold"
+                android:gravity="center"
+                android:onClick="@{() -> clickListener.checkPin()}"
+                android:text="Check"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_invalid_pincode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_verify_pincode"
+            android:layout_marginTop="8dp"
+            android:text="Please enter a valid pincode."
+            android:textColor="@color/color_error"
+            android:textSize="16sp"
+            android:visibility="invisible" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_current_location"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_below="@+id/tv_invalid_pincode"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_my_location" />
+
+        <TextView
+            android:id="@+id/tv_select_current_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_invalid_pincode"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/iv_current_location"
+            android:fontFamily="@font/opensans_semibold"
+            android:text="Select Current Location"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_saved_addresses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/rv_addresses"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="@font/opensans_bold"
+            android:text="Saved Addresses"
+            android:textColor="@color/color_header_text"
+            android:textSize="16sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_addresses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/dummy_view"
+            android:layout_marginBottom="15dp"
+            android:clipToPadding="false"
+            android:maxHeight="140dp"
+            android:visibility="visible" />
+
+        <ProgressBar
+            android:id="@+id/progress_address"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_above="@+id/dummy_view"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="50dp"
+            android:visibility="gone" />
+
+
+        <View
+            android:id="@+id/dummy_view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+</layout>

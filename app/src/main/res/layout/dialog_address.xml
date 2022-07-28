@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="com.medico.app.dialog.AddressDialog.EventHandler" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rl_add_address_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:paddingTop="24dp">
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="52dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginLeft="15dp"
+            android:onClick="@{() -> clickListener.backDialog()}"
+            android:padding="10dp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back_pay" />
+
+        <TextView
+            android:id="@+id/tv_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/opensans_bold"
+            android:text="Manage Address"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_close"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/iv_close"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollNewAddress"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_save"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_text">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_add_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/disc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="#dfe3e6"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:padding="10dp"
+                    android:text="@string/items_will_be"
+                    android:textColor="@color/black_new"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_name_lbl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="15dp"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:text="Bill To*"
+                    android:textColor="@color/color_header_text"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/disc" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/tv_name"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@drawable/selector_address_rectangle"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:hint="Full name(Required)*"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapSentences"
+                    android:maxLines="1"
+                    android:nextFocusDown="@+id/tv_phone"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:textColor="@color/color_header_text"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_name_lbl" />
+
+                <TextView
+                    android:id="@+id/tv_name_error"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="Please enter full name"
+                    android:textColor="#f05965"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+                <TextView
+                    android:id="@+id/tv_bill_to_disclamer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@drawable/rounded_orange_filled_rect"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="16dp"
+                    android:paddingBottom="10dp"
+                    android:text="The bill will be prepared against this name"
+                    android:textColor="#fc8019"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_name_error" />
+
+                <TextView
+                    android:id="@+id/tv_phone_lbl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="15dp"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:text="Mobile Number*"
+                    android:textColor="@color/color_header_text"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_bill_to_disclamer" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/tv_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@drawable/selector_address_rectangle"
+                    android:digits="0123456789"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:hint="Phone number(Required)*"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:maxLength="14"
+                    android:nextFocusDown="@+id/edtpincode"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:textColor="@color/color_header_text"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_phone_lbl" />
+
+                <TextView
+                    android:id="@+id/tv_phone_error"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="Invalid Number"
+                    android:textColor="#f05965"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_phone" />
+
+                <TextView
+                    android:id="@+id/tv_mobile_note"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="15dp"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:text="For all delivery related communication"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_phone_error" />
+
+                <TextView
+                    android:id="@+id/tv_pincode_lbl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="15dp"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:text="Pincode*"
+                    android:textColor="@color/color_header_text"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_mobile_note" />
+
+                <RelativeLayout
+                    android:id="@+id/float_pincode_ll"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_pincode_lbl">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edtpincode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:background="@drawable/selector_address_rectangle"
+                        android:fontFamily="@font/opensans_semibold"
+                        android:hint="Pincode(Required)*"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLength="6"
+                        android:minWidth="85dp"
+                        android:nextFocusDown="@+id/tv_flat_number"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:textColor="@color/color_header_text"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_pincode_error"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/edtpincode"
+                        android:fontFamily="@font/opensans_regular"
+                        android:paddingLeft="7dp"
+                        android:text="Invalid Pin"
+                        android:textColor="#f05965"
+                        android:textSize="12sp"
+                        android:visibility="invisible" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txt_pin_valid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_toRightOf="@+id/edtpincode"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/color_header_text"
+                        android:textSize="12sp" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_flat_lbl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="15dp"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:text="House Number and Building*"
+                    android:textColor="@color/color_header_text"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/float_pincode_ll" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/tv_flat_number"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@drawable/selector_address_rectangle"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:hint="HouseNo. Building Name(Required)*"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapSentences"
+                    android:maxLines="1"
+                    android:nextFocusDown="@+id/tv_street_name"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:textColor="@color/color_header_text"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_flat_lbl" />
+
+                <TextView
+                    android:id="@+id/tv_flat_error"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="can't null"
+                    android:textColor="#f05965"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_flat_number" />
+
+                <TextView
+                    android:id="@+id/tv_street_lbl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="15dp"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:text="Street Name*"
+                    android:textColor="@color/color_header_text"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_flat_error" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/tv_street_name"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@drawable/selector_address_rectangle"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:hint="Road name,Area, Colony(Required)*"
+                    android:inputType="textCapSentences"
+                    android:maxLines="1"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:textColor="@color/color_header_text"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_street_lbl" />
+
+                <TextView
+                    android:id="@+id/tv_street_error"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="Please provide the necessary details"
+                    android:textColor="#f05965"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_street_name" />
+
+
+                <TextView
+                    android:id="@+id/tv_landmark_lbl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="15dp"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:text="Landmark"
+                    android:textColor="@color/color_header_text"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_street_error" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/tv_landmark_name"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@drawable/selector_address_rectangle"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:hint="Landmark (optional)"
+                    android:inputType="textCapSentences"
+                    android:maxLines="1"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:textColor="@color/color_header_text"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_landmark_lbl" />
+
+                <TextView
+                    android:id="@+id/tv_landmark_error"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="Please provide the necessary details"
+                    android:textColor="#f05965"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_landmark_name" />
+
+
+                <TextView
+                    android:id="@+id/tv_addresstype_lbl"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="15dp"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:text="Address Type*"
+                    android:textColor="@color/color_header_text"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_landmark_error" />
+
+                <LinearLayout
+                    android:id="@+id/ll_address_main_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="#dfe3e6"
+                    android:orientation="vertical"
+                    android:paddingBottom="14dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_addresstype_lbl">
+
+                    <LinearLayout
+                        android:id="@+id/ll_address_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="12dp"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
+
+                        <TextView
+                            android:id="@+id/tv_home_address"
+                            android:layout_width="100dp"
+                            android:layout_height="38dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/unselected_addresstype_bg"
+                            android:fontFamily="@font/opensans_semibold"
+                            android:gravity="center"
+                            android:onClick="@{() -> clickListener.homeSelect()}"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text="Home"
+                            android:textColor="@color/color_header_text"
+                            android:textSize="16sp"
+                            app:drawableLeftCompat="@drawable/ic_home_vector"
+                            app:drawableStartCompat="@drawable/ic_home_vector" />
+
+                        <TextView
+                            android:id="@+id/tv_office"
+                            android:layout_width="100dp"
+                            android:layout_height="38dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="15dp"
+                            android:background="@drawable/unselected_addresstype_bg"
+                            android:fontFamily="@font/opensans_semibold"
+                            android:gravity="center"
+                            android:onClick="@{() -> clickListener.officeSelect()}"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:tag="binding_18"
+                            android:text="Office"
+                            android:textColor="@color/color_header_text"
+                            android:textSize="16sp"
+                            app:drawableLeftCompat="@drawable/ic_work_vector"
+                            app:drawableStartCompat="@drawable/ic_work_vector" />
+
+                        <TextView
+                            android:id="@+id/tv_others"
+                            android:layout_width="100dp"
+                            android:layout_height="38dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="15dp"
+                            android:background="@drawable/unselected_addresstype_bg"
+                            android:fontFamily="@font/opensans_semibold"
+                            android:gravity="center"
+                            android:onClick="@{() -> clickListener.otherSelect()}"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text="Other"
+                            android:textColor="@color/color_header_text"
+                            android:textSize="16sp"
+                            app:drawableLeftCompat="@drawable/ic_other"
+                            app:drawableStartCompat="@drawable/ic_other" />
+
+                    </LinearLayout>
+
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/et_other_free_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:background="@drawable/round_rec_grey_border"
+                        android:fontFamily="@font/opensans_semibold"
+                        android:hint=" Mom's Home"
+                        android:imeOptions="actionDone"
+                        android:maxLength="32"
+                        android:padding="10dp"
+                        android:tag="binding_21"
+                        android:textColor="@color/color_header_text"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/button_save_countinue"
+            android:elevation="5dp"
+            android:fontFamily="@font/opensans_bold"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center|center_horizontal"
+            android:onClick="@{() -> clickListener.saveContinue()}"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Save and Continue"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

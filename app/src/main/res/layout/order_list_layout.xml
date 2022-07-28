@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl_purchase"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="15dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="15dp"
+    android:background="@drawable/ic_order_list_bg"
+    android:elevation="5dp">
+
+    <TextView
+        android:id="@+id/tv_order_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0.5dp"
+        android:layout_marginRight="0.5dp"
+        android:background="@drawable/ic_order_in_progress"
+        android:ellipsize="end"
+        android:fontFamily="@font/opensans_semibold"
+        android:padding="2dp"
+        android:text="ORDER IN PROGRESS"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_patients_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/opensans_bold"
+        android:singleLine="true"
+        android:text="Girish"
+        android:textColor="@color/color_header_text"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_order_status" />
+
+    <TextView
+        android:id="@+id/tv_all_order_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/opensans_semibold"
+        android:lineSpacingExtra="5dp"
+        android:maxLines="2"
+        android:text="&#8226; Rozawell Tablet"
+        android:textColor="@color/color_header_text"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_patients_name" />
+
+    <TextView
+        android:id="@+id/tv_more"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/opensans_semibold"
+        android:text="+2 more"
+        android:textColor="@color/color_header_text"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_all_order_list" />
+
+    <LinearLayout
+        android:id="@+id/linear_place_on"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="1dp"
+        android:background="@drawable/ic_place_order_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_all_order_list">
+
+        <TextView
+            android:id="@+id/tv_place_on"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/opensans_bold"
+            android:gravity="left"
+            android:paddingLeft="15dp"
+            android:text="Place On 17 jun"
+            android:textColor="@color/color_header_text"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_view_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/ic_forword_order"
+            android:fontFamily="@font/opensans_bold"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="View Details"
+            android:textColor="@color/color_header_text"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

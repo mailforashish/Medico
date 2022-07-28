@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Medico</string>
+    <string name="your_Specialist">Find your Specialist</string>
+    <string name="your_doctor">Now it\'s easy to make an appointment with your doctor.</string>
+    <string name="search_pharmacy">Search Pharmacy</string>
+    <string name="with_24_hours">Get medicines delivered at doorstep with 24 hours</string>
+    <string name="connected">Get Connected</string>
+    <string name="consult_to">Consult to your specialist doctor online</string>
+    <string name="we_have">We have sent an OTP to your mobile number</string>
+    <string name="str_allow_access">Allow access to the following permissions for better services</string>
+    <string name="str_allow_permissions">Allow Permissions</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="please_verify_your_email_address">Please verify your email address  incase  \n you did not receive any mail from us you can reverify</string>
+    <string name="items_will_be">items will be safely packed &amp; Sanitized.Pay online for \ncontactless delivery</string>
+
+    <string-array name="quantity">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20 Max Qty</item>
+
+    </string-array>
+
+
+    <string name="tab_account">Account</string>
+    <string name="tab_diagnostics">Diagnostics</string>
+    <string name="tab_healthcare">Healthcare</string>
+    <string name="tab_home">Home</string>
+    <string name="tab_notifications">Notifications</string>
+</resources>

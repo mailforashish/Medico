@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="com.medico.app.activity.EditProfileActivity.EventHandler" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="20dp"
+        android:background="@color/white">
+
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/activity_background"
+            android:layout_above="@+id/bottom">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/floatName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:hint="Name"
+                    android:padding="10dp"
+                    app:errorTextAppearance="@style/AppTheme.TextErrorAppearance">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapSentences"
+                        android:longClickable="false"
+                        android:singleLine="true"
+                        android:text="Arjun Arora"
+                        android:textColor="@color/black_new"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/floatMobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/white"
+                    android:hint="Mobile"
+                    android:padding="10dp"
+                    android:visibility="visible"
+                    app:errorTextAppearance="@style/AppTheme.TextErrorAppearance">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtMobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:cursorVisible="false"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:text="9480742132"
+                        android:textColor="@color/black_new"
+                        android:textSize="16sp"
+                        android:visibility="visible" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/floatEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:hint="Email"
+                    android:padding="10dp"
+                    app:errorTextAppearance="@style/AppTheme.TextErrorAppearance">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtemailId"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:imeOptions="actionDone"
+                        android:inputType="textEmailAddress"
+                        android:longClickable="false"
+                        android:text="Rajesh@gmail.com"
+                        android:textColor="@color/black_new"
+                        android:textSize="16sp" />
+
+
+                    <TextView
+                        android:id="@+id/tv_verified"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/floatEmail"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Not verifyed"
+                        android:textColor="#ff0000"
+                        android:textSize="12sp"
+                        android:visibility="visible" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_re_verify"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/white"
+                    android:paddingLeft="12dp"
+                    android:paddingTop="20dp"
+                    android:paddingRight="12dp"
+                    android:paddingBottom="20dp"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:id="@+id/iv_alert"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_error" />
+
+                    <TextView
+                        android:id="@+id/tv_verify_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_toRightOf="@+id/iv_alert"
+                        android:text="@string/please_verify_your_email_address"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/tv_btn_re_verify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_verify_text"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@+id/iv_alert"
+                        android:text="Re- VERIFY"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom">
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:background="@drawable/btn_save_details"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/opensans_bold"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:onClick="@{() -> clickListener.btnSaveDetails()}"
+                android:text="Save"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>

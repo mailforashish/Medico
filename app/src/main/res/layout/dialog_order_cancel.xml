@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="com.medico.app.dialog.OrderCancelDialog.EventHandler" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bottom_sheet_bg"
+            android:paddingTop="15dp">
+
+            <TextView
+                android:id="@+id/tv_cancellation_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_toStartOf="@+id/iv_close"
+                android:ellipsize="end"
+                android:fontFamily="@font/opensans_bold"
+                android:maxLines="2"
+                android:text="Reasons for cancellation"
+                android:textColor="@color/color_header_text"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="15dp"
+                android:contentDescription="@null"
+                android:onClick="@{() -> clickListener.closeDialog()}"
+                android:paddingStart="15dp"
+                android:paddingBottom="15dp"
+                app:srcCompat="@drawable/close_1" />
+
+            <TextView
+                android:id="@+id/tv_order_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_cancellation_title"
+                android:layout_marginStart="15dp"
+                android:layout_toStartOf="@+id/iv_close"
+                android:ellipsize="end"
+                android:fontFamily="@font/opensans_semibold"
+                android:maxLines="2"
+                android:text="M564657658"
+                android:textColor="@color/color_header_text"
+                android:textSize="12sp" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/tv_order_number"
+                android:layout_marginTop="5dp"
+                android:background="#dfe3e6" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_cancel_reasons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view1"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:clipToPadding="false" />
+
+            <EditText
+                android:id="@+id/et_reason_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rv_cancel_reasons"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/round_rec_grey_border"
+                android:gravity="top|left|center_vertical|center_horizontal|center|start"
+                android:hint="your reason here"
+                android:maxLines="5"
+                android:minHeight="120dp"
+                android:padding="10dp"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/view_divider_cta"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/rv_cancel_reasons"
+                android:layout_marginTop="10dp"
+                android:background="#dfe3e6" />
+
+            <TextView
+                android:id="@+id/tv_cancel_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_divider_cta"
+                android:layout_margin="15dp"
+                android:fontFamily="@font/opensans_bold"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/cancel_order_bottom"
+                android:clickable="false"
+                android:focusable="false"
+                android:gravity="center"
+                android:onClick="@{() -> clickListener.cancelOrder()}"
+                android:minHeight="45dp"
+                android:text="Cancel Order"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>

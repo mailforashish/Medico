@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_dialog"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/permission_dialog_bg"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginTop="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/str_allow_permissions"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:gravity="center"
+            android:text="@string/str_allow_access"
+            android:textColor="#999999"
+            android:textSize="12sp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="232dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_permission"
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
+
+            <ImageView
+                android:id="@+id/iv_camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="16dp"
+                android:src="@mipmap/icon_permission_camera"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:fontFamily="@font/opensans_semibold"
+                android:gravity="center"
+                android:text="Camera"
+                android:textColor="@color/color_header_text"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_camera"
+                app:layout_constraintStart_toEndOf="@+id/iv_camera"
+                app:layout_constraintTop_toTopOf="@+id/iv_camera" />
+
+
+            <ImageView
+                android:id="@+id/iv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:src="@mipmap/icon_permission_location"
+                app:layout_constraintStart_toStartOf="@+id/iv_camera"
+                app:layout_constraintTop_toBottomOf="@+id/iv_camera" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:fontFamily="@font/opensans_semibold"
+                android:gravity="center"
+                android:text="Location"
+                android:textColor="@color/color_header_text"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_location"
+                app:layout_constraintStart_toEndOf="@+id/iv_location"
+                app:layout_constraintTop_toTopOf="@+id/iv_location" />
+
+            <ImageView
+                android:id="@+id/iv_storage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:src="@mipmap/icon_permission_storage"
+                app:layout_constraintStart_toStartOf="@+id/iv_location"
+                app:layout_constraintTop_toBottomOf="@+id/iv_location" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:fontFamily="@font/opensans_semibold"
+                android:gravity="center"
+                android:text="Storage"
+                android:textColor="@color/color_header_text"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_storage"
+                app:layout_constraintStart_toEndOf="@+id/iv_storage"
+                app:layout_constraintTop_toTopOf="@+id/iv_storage" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_allow"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="37dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="37dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/allow_button_bg"
+            android:fontFamily="@font/opensans_bold"
+            android:gravity="center"
+            android:text="Allow"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="com.medico.app.activity.PaymentActivity.EventHandler" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="24dp">
+
+        <ImageView
+            android:id="@+id/iv_back_payment"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="10dp"
+            android:onClick="@{() -> clickListener.backPaymentPage()}"
+            android:src="@drawable/ic_back_pay"
+            app:layout_constraintEnd_toStartOf="@+id/tv_payment"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/opensans_bold"
+            android:text="Payment Options"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/iv_back_payment"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_payment">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_display_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/tv_amount_to_be_paid"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/opensans_bold"
+                    android:paddingLeft="15dp"
+                    android:text="Amount to be paid"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_price_breakdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:text="Price Breakdown"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_amount_to_be_paid" />
+
+                <ImageView
+                    android:id="@+id/iv_price_breakdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="7dp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_price_breakdown"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_amount_to_be_paid"
+                    app:srcCompat="@drawable/ic_price_break" />
+
+
+                <TextView
+                    android:id="@+id/tv_total_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_rupees_pay"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:paddingRight="15dp"
+                    android:text="189.34"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_amount_to_be_paid" />
+
+
+                <RelativeLayout
+                    android:id="@+id/rv_term"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/rounded_orange_payment"
+                    android:padding="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_price_breakdown">
+
+
+                    <ImageView
+                        android:id="@+id/img_logo"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/ic_wallet_dr" />
+
+
+                    <TextView
+                        android:id="@+id/tv_medico_wallet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@+id/img_logo"
+                        android:fontFamily="@font/opensans_bold"
+                        android:gravity="center_vertical"
+                        android:text="Medico Wallet"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_term"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_medico_wallet"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="2dp"
+                        android:layout_toRightOf="@+id/img_logo"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/opensans_semibold"
+                        android:maxLines="1"
+                        android:paddingEnd="40dp"
+                        android:text="T&amp;C Apply"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+
+                    <CheckBox
+                        android:id="@+id/checkbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:buttonTint="#14BFFF"
+                        android:checked="true" />
+
+                </RelativeLayout>
+
+
+                <View
+                    android:id="@+id/view_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#2F2196F3"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_term" />
+
+
+                <TextView
+                    android:id="@+id/tv_payment_offer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/opensans_bold"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="Offers"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view_1" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_payment_offer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:paddingBottom="5dp"
+                    app:layout_constraintStart_toStartOf="@+id/tv_payment_offer"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_payment_offer" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
