@@ -20,6 +20,8 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.medico.app.R;
 import com.medico.app.activity.ProductDetailsActivity;
 import com.medico.app.interfaceClass.CartItemCount;
@@ -98,25 +100,20 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     final myViewHolder holder = (myViewHolder) hld;
                     if (type.equals("HealthCare")) {
                         final ProductListResponse.Data listNew = list.get(position);
-                        holder.tv_medicine_name.setText(listNew.getDrugName());
+                        holder.tv_drug_name.setText(listNew.getDrugName());
                         holder.tv_drug_type.setText(listNew.getDrugType());
-                        holder.tv_medicine_cm_name.setText(listNew.getManufactur());
+                        holder.tv_manufacturer.setText(listNew.getManufactur());
+                        holder.tv_discPercent.setText(listNew.getDiscount() + "% OFF");
+                        holder.tv_real_price.setPaintFlags(holder.tv_real_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        float actualPrice = Float.parseFloat(listNew.getUnitPrice());
+                        float totalDiscount = (actualPrice * Float.parseFloat(listNew.getDiscount())) / 100;
+                        holder.tv_real_price.setText(String.valueOf("MRP " + listNew.getUnitPrice()));
+                        float priceAfterDiscount = actualPrice - totalDiscount;
+                        holder.tv_off_price.setText("₹ " + String.valueOf(String.format("%.2f", priceAfterDiscount)));
+                       Glide.with(context).load(list.get(position).getItemImage())
+                                .apply(new RequestOptions().placeholder(R.drawable.home_care).error
+                                        (R.drawable.home_care).circleCrop()).into(holder.iv_medicine);
 
-                        if (!listNew.getDiscount().equals("0")) {
-                            holder.tv_discPercent.setText(listNew.getDiscount() + "% OFF");
-                            holder.tv_real_price.setPaintFlags(holder.tv_real_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                            float actualPrice = Float.parseFloat(listNew.getUnitPrice());
-                            float totalDiscount = (actualPrice * Float.parseFloat(listNew.getDiscount())) / 100;
-                            holder.tv_real_price.setText(String.valueOf("MRP " + listNew.getUnitPrice()));
-                            float priceAfterDiscount = actualPrice - totalDiscount;
-                            holder.tv_off_price.setText("₹ " + String.valueOf(String.format("%.2f", priceAfterDiscount)));
-                            //Glide.with(context).load(listNew.medicine_image).into(holder.iv_medicine);
-                        } else {
-                            holder.tv_real_price.setText(String.valueOf("₹ " + listNew.getUnitPrice()));
-                            //Glide.with(context).load(listNew.medicine_image).into(holder.iv_medicine);
-                            holder.tv_off_price.setVisibility(View.INVISIBLE);
-                            holder.tv_off_price.setVisibility(View.INVISIBLE);
-                        }
                         holder.tv_add_cart.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -151,7 +148,6 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                                 }
                             }
                         });
-
                         holder.iv_plus.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -165,7 +161,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                                             cartList.remove(listNew);
                                             listNew.quantity = a;
                                             cartList.add(listNew);
-                                           // sessionManager.saveListInLocal("cart", cartList);
+                                            // sessionManager.saveListInLocal("cart", cartList);
                                             ((Activity) context).invalidateOptionsMenu();
                                             if (a <= 10) {
                                                 cartItemCount.getCartItem(true, "UpdateQuantity", String.valueOf(cartList.size()), listNew.getDrugId(),
@@ -187,7 +183,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                                     holder.llAddPlusMinus.setVisibility(View.GONE);
                                     holder.tv_add_cart.setVisibility(View.VISIBLE);
                                     cartList.remove(listNew);
-                                   // sessionManager.saveListInLocal("cart", cartList);
+                                    // sessionManager.saveListInLocal("cart", cartList);
                                     ((Activity) context).invalidateOptionsMenu();
                                     cartItemCount.getCartItem(true, "remove", String.valueOf(cartList.size()), listNew.getDrugId(),
                                             String.valueOf(listNew.quantity));
@@ -198,7 +194,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                                     cartList.remove(listNew);
                                     listNew.quantity = a;
                                     cartList.add(listNew);
-                                   // sessionManager.saveListInLocal("cart", cartList);
+                                    // sessionManager.saveListInLocal("cart", cartList);
                                     cartItemCount.getCartItem(true, "UpdateQuantity", String.valueOf(cartList.size()), listNew.getDrugId(),
                                             String.valueOf(listNew.quantity));
                                     ((Activity) context).invalidateOptionsMenu();
@@ -247,7 +243,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public class myViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_medicine_name, tv_drug_type, tv_medicine_cm_name,
+        public TextView tv_drug_name, tv_drug_type,
                 tv_add_cart, tv_off_price, tv_real_price, tv_quantity, tv_discPercent;
         public ImageView iv_minus, iv_plus, iv_medicine;
         public LinearLayout llAddPlusMinus;
@@ -258,9 +254,9 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public myViewHolder(View itemView) {
             super(itemView);
 
-            tv_medicine_name = itemView.findViewById(R.id.tv_medicine_name);
+            tv_drug_name = itemView.findViewById(R.id.tv_drug_name);
             tv_drug_type = itemView.findViewById(R.id.tv_drug_type);
-            tv_medicine_cm_name = itemView.findViewById(R.id.tv_medicine_cm_name);
+            tv_manufacturer = itemView.findViewById(R.id.tv_manufacturer);
             tv_off_price = itemView.findViewById(R.id.tv_off_price);
             tv_add_cart = itemView.findViewById(R.id.tv_add_cart);
             tv_real_price = itemView.findViewById(R.id.tv_real_price);

@@ -136,7 +136,7 @@ public class HomeFragment extends Fragment implements ShowFragment, ApiResponseI
         }
 
         public void openPinDialog() {
-            CheckPinCodeDialog checkPinCodeDialog = new CheckPinCodeDialog(mContext);
+            CheckPinCodeDialog checkPinCodeDialog = new CheckPinCodeDialog(mContext,getActivity());
             checkPinCodeDialog.show();
             checkPinCodeDialog.setDialogResult(new CheckPinCodeDialog.OnMyDialogPinCode() {
                 @Override

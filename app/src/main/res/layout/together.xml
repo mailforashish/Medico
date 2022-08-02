@@ -66,16 +66,38 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_product_name"
         app:layout_goneMarginStart="16dp" />
 
-    <include
+    <LinearLayout
         android:id="@+id/ratings_layout"
-        layout="@layout/add_ratings_bar_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
         android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_product_type" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_product_type">
+
+        <RatingBar
+            android:id="@+id/rbItem"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:isIndicator="true"
+            android:layerType="software"
+            android:numStars="5"
+            android:stepSize="0.05" />
+
+        <TextView
+            android:id="@+id/tv_ratings_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="4.8"
+            android:textColor="@color/color_text_grey"
+            android:textSize="12sp"
+            app:layout_goneMarginStart="16dp" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_product_price"

@@ -18,17 +18,14 @@ import com.medico.app.R;
 import com.medico.app.adapter.NotificationMenuAdapter;
 
 public class NotificationFragment extends Fragment {
-
     private TabLayout tabLayout;
     private ViewPager tabViewpager;
     private ImageView iv_nt_offer;
     private NotificationMenuAdapter notificationMenuAdapter;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notification, container, false);
-
         tabLayout = view.findViewById(R.id.tab_layout);
         tabViewpager = view.findViewById(R.id.tab_Viewpager);
         iv_nt_offer = view.findViewById(R.id.iv_nt_offer);

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,7 +35,7 @@ public class CategoryFilterAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private String errorMsg;
     public boolean isImageChanged = false;
 
-    public CategoryFilterAdapter(Context context, PaginationAdapterCallback mCallback,List<CategoryList> list, String type) {
+    public CategoryFilterAdapter(Context context, PaginationAdapterCallback mCallback, List<CategoryList> list, String type) {
         this.context = context;
         this.mCallback = mCallback;
         this.list = list;
@@ -74,28 +75,22 @@ public class CategoryFilterAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     if (type.equals("Filter")) {
                         final CategoryList listNew = list.get(position);
                         holder.tv_name.setText(listNew.getCategory());
-
                         //holder.tv_product_type.setText(listNew.getDrugType());
-                        if (!listNew.getDiscount().equals("0")) {
-                            holder.tv_price_comment.setText(listNew.getDiscount() + "% OFF");
-                            holder.tv_price.setPaintFlags(holder.tv_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                            float actualPrice = Float.parseFloat(listNew.getPrice());
-                            float totalDiscount = (actualPrice * Float.parseFloat(listNew.getDiscount())) / 100;
-                            holder.tv_price.setText(String.valueOf("MRP " + listNew.getPrice()));
-                            float priceAfterDiscount = actualPrice - totalDiscount;
-                            holder.tv_discounted_price.setText("₹ " +String.valueOf(String.format("%.2f", priceAfterDiscount)));
-                            holder.iv_product.setImageResource(list.get(position).getCategory_image());
-                        } else {
-                            holder.tv_price.setText(String.valueOf("₹ " + listNew.getCategory()));
-                            Glide.with(context).load(listNew.getCategory_image()).into(holder.iv_product);
-                            holder.tv_discounted_price.setVisibility(View.INVISIBLE);
-                        }
+                        holder.tv_price_comment.setText(listNew.getDiscount() + "% OFF");
+                        holder.tv_price.setPaintFlags(holder.tv_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        float actualPrice = Float.parseFloat(listNew.getPrice());
+                        float totalDiscount = (actualPrice * Float.parseFloat(listNew.getDiscount())) / 100;
+                        holder.tv_price.setText(String.valueOf("MRP " + listNew.getPrice()));
+                        float priceAfterDiscount = actualPrice - totalDiscount;
+                        holder.tv_discounted_price.setText("₹ " + String.valueOf(String.format("%.2f", priceAfterDiscount)));
+                        holder.iv_product.setImageResource(list.get(position).getCategory_image());
+                        holder.rbItem.setRating((float) 3.5);
                     }
 
                     holder.iv_rx_heart.setOnClickListener(view -> {
                         if (isImageChanged) {
                             holder.iv_rx_heart.setImageResource(R.drawable.ic_heart);
-                            isImageChanged=false;
+                            isImageChanged = false;
                         } else {
                             holder.iv_rx_heart.setImageResource(R.drawable.ic_save_heart);
                             isImageChanged = true;
@@ -119,7 +114,6 @@ public class CategoryFilterAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
 
-
     @Override
     public int getItemCount() {
         return list == null ? 0 : list.size();
@@ -131,8 +125,9 @@ public class CategoryFilterAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     public class myViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_name, tv_product_type,tv_discounted_price, tv_price, tv_price_comment;
-        public ImageView iv_product,iv_rx_heart;
+        public TextView tv_name, tv_product_type, tv_discounted_price, tv_price, tv_price_comment;
+        public ImageView iv_product, iv_rx_heart;
+        public RatingBar rbItem;
 
         public myViewHolder(View itemView) {
             super(itemView);
@@ -143,6 +138,7 @@ public class CategoryFilterAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             tv_discounted_price = itemView.findViewById(R.id.tv_discounted_price);
             tv_price = itemView.findViewById(R.id.tv_price);
             tv_price_comment = itemView.findViewById(R.id.tv_price_comment);
+            rbItem = itemView.findViewById(R.id.rbItem);
 
         }
     }

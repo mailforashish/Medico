@@ -9,25 +9,30 @@ import android.view.WindowManager;
 
 import com.medico.app.R;
 import com.medico.app.databinding.ActivitySettingBinding;
+import com.medico.app.utils.HideStatus;
 
 public class SettingActivity extends AppCompatActivity {
     ActivitySettingBinding binding;
+    HideStatus hideStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_setting);
+        hideStatus = new HideStatus(getWindow(), true);
         binding.setClickListener(new EventHandler(this));
 
     }
+
     public class EventHandler {
         Context mContext;
+
         public EventHandler(Context mContext) {
             this.mContext = mContext;
         }
 
-        public void backPage(){
+        public void backPage() {
             onBackPressed();
         }
 

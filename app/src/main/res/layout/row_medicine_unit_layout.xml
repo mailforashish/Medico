@@ -9,10 +9,10 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:foreground="?android:attr/selectableItemBackground"
-        android:paddingBottom="20dp">
+        android:paddingBottom="10dp">
 
         <TextView
-            android:id="@+id/tv_medicine_name"
+            android:id="@+id/tv_drug_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -40,7 +40,7 @@
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_medicine_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_drug_name"
             app:layout_goneMarginStart="16dp" />
 
         <TextView
@@ -50,7 +50,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="5dp"
             android:ellipsize="end"
             android:fontFamily="@font/opensans_semibold"
             android:maxLines="2"
@@ -62,21 +62,52 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_manufacturer"
             app:layout_goneMarginStart="16dp" />
 
+        <LinearLayout
+            android:id="@+id/ratings_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@+id/tv_quantity_pack"
+            app:layout_constraintTop_toBottomOf="@+id/tv_quantity_pack">
+
+            <RatingBar
+                android:id="@+id/rbItem"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:isIndicator="true"
+                android:layerType="software"
+                android:numStars="5"
+                android:stepSize="0.05" />
+
+            <TextView
+                android:id="@+id/tv_ratings_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="4.8"
+                android:textColor="@color/color_text_grey"
+                android:textSize="12sp"
+                app:layout_goneMarginStart="16dp" />
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/tv_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
-            android:text="12"
             android:drawableStart="@drawable/ic_rupees_new"
             android:fontFamily="@font/opensans_bold"
+            android:text="12"
             android:textColor="@color/color_header_text"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_quantity_pack"
+            app:layout_constraintTop_toBottomOf="@+id/ratings_layout"
             app:layout_goneMarginStart="16dp" />
 
         <TextView
@@ -84,8 +115,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:text="MRP 14"
             android:fontFamily="@font/opensans_bold"
+            android:text="MRP 14"
             android:textColor="@color/grey_darker"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_price"
@@ -97,9 +128,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:background="@drawable/ribbon_horizontal"
+            android:fontFamily="@font/opensans_semibold"
             android:gravity="center_vertical"
             android:text="15%OFF"
-            android:fontFamily="@font/opensans_semibold"
             android:textColor="@color/white"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_strike_price"
@@ -110,12 +141,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:text="inclusive of all taxes"
+            android:text="Inclusive of all taxes"
             android:textColor="@color/grey_darker"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="@+id/tv_price"
             app:layout_constraintTop_toBottomOf="@+id/tv_price" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

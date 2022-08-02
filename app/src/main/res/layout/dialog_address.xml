@@ -542,6 +542,7 @@
                         android:background="@drawable/round_rec_grey_border"
                         android:fontFamily="@font/opensans_semibold"
                         android:hint=" Mom's Home"
+                        android:textColorHint="@color/color_header_text"
                         android:imeOptions="actionDone"
                         android:maxLength="32"
                         android:padding="10dp"

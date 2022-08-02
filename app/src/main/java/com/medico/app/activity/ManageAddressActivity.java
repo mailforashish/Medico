@@ -41,7 +41,6 @@ public class ManageAddressActivity extends AppCompatActivity implements ApiRespo
         binding.setClickListener(new EventHandler(this));
         apiManager = new ApiManager(this, this);
         apiManager.getAddressList();
-
         binding.rvManageAddress.setLayoutManager(new LinearLayoutManager(ManageAddressActivity.this, LinearLayoutManager.VERTICAL, false));
 
     }
@@ -82,12 +81,15 @@ public class ManageAddressActivity extends AppCompatActivity implements ApiRespo
     public void addressChanges(String action, AddressResult addressResult, int pos) {
         if (action.equals("delete")) {
             addressLists.remove(addressResult);
+            addressAdapter.notifyDataSetChanged();
         } else if (action.equals("add")) {
             addressLists.add(addressResult);
+            addressAdapter.notifyDataSetChanged();
         } else if (action.equals("edit")) {
             addressLists.set(pos, addressResult);
+            addressAdapter.notifyDataSetChanged();
         }
-        addressAdapter.notifyDataSetChanged();
+
     }
 
     public class EventHandler {

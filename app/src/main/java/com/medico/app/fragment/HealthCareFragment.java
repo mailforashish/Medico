@@ -99,7 +99,7 @@ public class HealthCareFragment extends Fragment implements CartItemCount, ApiRe
 
         ItemList = sessionManager.getListFromLocal("cart");
         if (ItemList != null) {
-            binding.tvCartNum.setText(String.valueOf(ItemList.size()));
+            binding.tvCartItem.setText(String.valueOf(ItemList.size()));
         }
 
         binding.clCart.setOnClickListener(new View.OnClickListener() {
@@ -181,7 +181,7 @@ public class HealthCareFragment extends Fragment implements CartItemCount, ApiRe
             AddCartResponse rsp = (AddCartResponse) response;
             if (rsp != null) {
                 TotalCartItem = rsp.getData();
-                binding.tvCartNum.setText(String.valueOf(TotalCartItem));
+                binding.tvCartItem.setText(String.valueOf(TotalCartItem));
                 Log.e("CartFunction", "Total Item After Add " + TotalCartItem);
             }
         }
@@ -192,7 +192,7 @@ public class HealthCareFragment extends Fragment implements CartItemCount, ApiRe
         if (ServiceCode == Constant.REMOVE_CART) {
             RemoveCartResponse rsp = (RemoveCartResponse) response;
             TotalCartItem = rsp.getData();
-            binding.tvCartNum.setText(String.valueOf(TotalCartItem));
+            binding.tvCartItem.setText(String.valueOf(TotalCartItem));
             Log.e("CartFunction", "Total Item After remove " + TotalCartItem);
         }
 
@@ -221,7 +221,7 @@ public class HealthCareFragment extends Fragment implements CartItemCount, ApiRe
         super.onResume();
         ItemList = sessionManager.getListFromLocal("cart");
         if (ItemList != null) {
-            binding.tvCartNum.setText(String.valueOf(ItemList.size()));
+            binding.tvCartItem.setText(String.valueOf(ItemList.size()));
         }
 
        /* if (productAdapter != null) {

@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_medicine_name"
+        android:id="@+id/tv_drug_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -31,6 +31,8 @@
         android:ellipsize="end"
         android:fontFamily="@font/opensans_bold"
         android:maxLines="2"
+        android:scrollIndicators="right"
+        android:singleLine="true"
         android:text="Combiflame"
         android:textColor="@color/color_header_text"
         android:textSize="14sp"
@@ -41,21 +43,19 @@
         android:id="@+id/tv_drug_type"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="15dp"
-        android:layout_toRightOf="@+id/tv_medicine_name"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="3dp"
         android:backgroundTint="@color/color_header_text"
         android:fontFamily="@font/opensans_semibold"
-        android:gravity="center"
+        android:gravity="start"
         android:text="Tablet"
         android:textColor="@color/black_new"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_medicine_name"
-        app:layout_constraintStart_toEndOf="@id/tv_medicine_name"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/iv_medicine"
+        app:layout_constraintTop_toBottomOf="@id/tv_drug_name" />
 
     <TextView
-        android:id="@+id/tv_medicine_cm_name"
+        android:id="@+id/tv_manufacturer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -67,13 +67,13 @@
         android:textSize="12sp"
         android:visibility="visible"
         app:layout_constraintStart_toEndOf="@+id/iv_medicine"
-        app:layout_constraintTop_toBottomOf="@+id/tv_medicine_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_drug_type" />
 
     <TextView
         android:id="@+id/tv_out_of_stock"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_medicine_cm_name"
+        android:layout_below="@+id/tv_manufacturer"
         android:layout_marginStart="10dp"
         android:paddingTop="7dp"
         android:text="Out Of Stock"
@@ -81,7 +81,7 @@
         android:textSize="12sp"
         android:visibility="gone"
         app:layout_constraintStart_toEndOf="@+id/iv_medicine"
-        app:layout_constraintTop_toBottomOf="@+id/tv_medicine_cm_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_manufacturer" />
 
     <LinearLayout
         android:id="@+id/linear_pd_pricing"
@@ -163,14 +163,14 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_minus"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/ic_remove_cart" />
 
         <TextView
             android:id="@+id/tv_quantity"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:layout_marginLeft="10dp"
@@ -188,7 +188,7 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_plus"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/ic_add_cart" />

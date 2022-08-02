@@ -60,10 +60,10 @@ public class MyAccountFragment extends Fragment {
         public void editProfile() {
             startActivity(new Intent(getContext(), EditProfileActivity.class));
         }
+
         public void userLogOut() {
             new ExitDialog(MyAccountFragment.this);
         }
-
 
     }
 
@@ -72,6 +72,7 @@ public class MyAccountFragment extends Fragment {
         super.onResume();
         binding.tvName.setText(sessionManager.getUserName());
         binding.tvMobile.setText(sessionManager.getMobile());
+        binding.tvEmail.setText(sessionManager.getUserEmail());
     }
 
     private void setData() {

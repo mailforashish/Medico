@@ -18,7 +18,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingTop="24dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -35,8 +36,8 @@
                         android:id="@+id/setting_back"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="16dp"
                         android:onClick="@{() -> clickListener.backPage()}"
+                        android:padding="16dp"
                         android:src="@drawable/ic_setting_back" />
 
                     <TextView
@@ -64,9 +65,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:paddingBottom="5dp"
+                    android:onClick="@{()->clickListener.notificationSettings()}"
                     android:paddingTop="5dp"
-                    android:onClick="@{()->clickListener.notificationSettings()}">
+                    android:paddingBottom="5dp">
 
                     <ImageView
                         android:id="@+id/img_wallet"
@@ -95,8 +96,8 @@
                         android:layout_alignRight="@+id/tv_wallet"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:checked="true"
                         android:layout_gravity="center_vertical"
+                        android:checked="true"
                         android:fontFamily="@font/opensans_regular"
                         android:thumb="@drawable/custom_thumb"
                         app:track="@drawable/custom_track" />
@@ -106,9 +107,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:paddingBottom="5dp"
+                    android:onClick="@{()->clickListener.changePassword()}"
                     android:paddingTop="5dp"
-                    android:onClick="@{()->clickListener.changePassword()}">
+                    android:paddingBottom="5dp">
 
                     <ImageView
                         android:id="@+id/img_change_password"
@@ -134,9 +135,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:paddingBottom="5dp"
+                    android:onClick="@{()->clickListener.shareOurApp()}"
                     android:paddingTop="5dp"
-                    android:onClick="@{()->clickListener.shareOurApp()}">
+                    android:paddingBottom="5dp">
 
                     <ImageView
                         android:id="@+id/img_share_our_app"
@@ -162,9 +163,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:paddingBottom="5dp"
+                    android:onClick="@{()->clickListener.rateOurApp()}"
                     android:paddingTop="5dp"
-                    android:onClick="@{()->clickListener.rateOurApp()}">
+                    android:paddingBottom="5dp">
 
                     <ImageView
                         android:id="@+id/img_rate_our_app"
@@ -190,9 +191,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:paddingBottom="5dp"
+                    android:onClick="@{()->clickListener.termsConditions()}"
                     android:paddingTop="5dp"
-                    android:onClick="@{()->clickListener.termsConditions()}">
+                    android:paddingBottom="5dp">
 
                     <ImageView
                         android:id="@+id/img_terms_conditions"
@@ -218,9 +219,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:paddingBottom="5dp"
+                    android:onClick="@{()->clickListener.privacyPolicy()}"
                     android:paddingTop="5dp"
-                    android:onClick="@{()->clickListener.privacyPolicy()}">
+                    android:paddingBottom="5dp">
 
                     <ImageView
                         android:id="@+id/img_privacy_policy"
@@ -246,9 +247,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:paddingBottom="5dp"
+                    android:onClick="@{()->clickListener.logout()}"
                     android:paddingTop="5dp"
-                    android:onClick="@{()->clickListener.logout()}">
+                    android:paddingBottom="5dp">
 
                     <ImageView
                         android:id="@+id/img_logout"

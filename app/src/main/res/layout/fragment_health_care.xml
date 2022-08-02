@@ -28,13 +28,12 @@
 
                 <ImageView
                     android:id="@+id/iv_back_order"
-                    android:layout_width="52dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
                     android:onClick="@{() -> clickListener.backProductPage()}"
-                    android:padding="10dp"
-                    android:src="@drawable/ic_back_doctor"
+                    android:src="@drawable/ic_back_pay"
                     app:layout_constraintEnd_toStartOf="@+id/tv_order_medicine"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -45,31 +44,28 @@
                     android:id="@+id/tv_order_medicine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="12dp"
                     android:fontFamily="@font/opensans_bold"
                     android:text="Order Medicine"
-                    android:textColor="#1D252D"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/iv_back_order"
-                    app:layout_constraintEnd_toStartOf="@+id/cl_cart"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/iv_back_order"
                     app:layout_constraintTop_toTopOf="parent" />
-
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_cart"
                     android:layout_width="wrap_content"
                     android:layout_height="44dp"
                     android:layout_gravity="right"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="2dp"
+                    android:layout_marginRight="5dp"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingTop="5dp"
                     android:paddingRight="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/tv_order_medicine"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
@@ -85,7 +81,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tv_cart_num"
+                        android:id="@+id/tvCartItem"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_marginBottom="20dp"
@@ -129,8 +125,8 @@
                     android:layout_gravity="center"
                     android:layout_toEndOf="@+id/img_search"
                     android:clickable="true"
-                    android:fontFamily="@font/opensans_semibold"
                     android:focusable="true"
+                    android:fontFamily="@font/opensans_semibold"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:gravity="center"
                     android:imeOptions="actionSearch"

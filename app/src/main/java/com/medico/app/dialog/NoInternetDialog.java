@@ -26,7 +26,7 @@ public class NoInternetDialog extends Dialog {
     private NetworkCheck networkCheck;
 
     public NoInternetDialog(@NonNull Context context) {
-        super(context);
+        super(context, R.style.Theme_AppCompat_Dialog);
         this.context = context;
         init();
     }

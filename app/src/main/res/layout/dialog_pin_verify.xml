@@ -60,6 +60,7 @@
                 android:gravity="left|center_vertical|center_horizontal|center|start"
                 android:hint="Enter PIN Code"
                 android:inputType="number"
+                android:textColor="@color/color_header_text"
                 android:fontFamily="@font/opensans_semibold"
                 android:maxLength="6"
                 android:paddingStart="20dp"
@@ -94,10 +95,12 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_current_location"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="50dp"
+            android:padding="10dp"
+            android:layout_height="50dp"
+            android:onClick="@{() -> clickListener.getCurrentLocation()}"
             android:layout_below="@+id/tv_invalid_pincode"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:src="@drawable/ic_my_location" />
 
         <TextView

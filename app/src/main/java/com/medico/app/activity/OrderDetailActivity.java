@@ -125,7 +125,7 @@ public class OrderDetailActivity extends AppCompatActivity implements ApiRespons
             if (binding.tvCancel.getText().toString().equals("Cancel")) {
                 new OrderCancelDialog(mContext, binding.tvOrderNoInput.getText().toString());
             } else {
-               /* String product_id = "";
+                String product_id = "";
                 String quantity = "";
                 boolean is_reOderVerify = false;
                 for (int i = 0; i < orderItem.size(); i++) {
@@ -136,21 +136,21 @@ public class OrderDetailActivity extends AppCompatActivity implements ApiRespons
                 }
                 if (is_reOderVerify) {
                     startActivity(new Intent(mContext, CartActivity.class));
-                }*/
-                print(orderItem, 0);
+                }
+                //print(orderItem, 0);
 
             }
         }
     }
 
-    void print(List<OrderItem> a, int index) {
+  /*  void print(List<OrderItem> a, int index) {
         //using a recursive method:
         if ((a != null) && (index < a.size())) {
             Log.e("REORDER", "getProductId" + a.get(index).getProductId());
             Log.e("REORDER", "getQuantity" + a.get(index).getQuantity());
             print(a, ++index);
         }
-    }
+    }*/
 
     @Override
     public void isError(String errorCode) {

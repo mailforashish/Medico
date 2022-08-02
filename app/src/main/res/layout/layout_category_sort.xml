@@ -40,15 +40,40 @@
         app:layout_constraintTop_toBottomOf="@+id/iv_product"
         app:lineHeight="18dp" />
 
-    <include
+
+    <LinearLayout
         android:id="@+id/ratings_layout"
-        layout="@layout/add_ratings_bar_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="@+id/tv_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_measurement" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_measurement">
+
+        <RatingBar
+            android:id="@+id/rbItem"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:isIndicator="true"
+            android:layerType="software"
+            android:numStars="5"
+            android:stepSize="0.05" />
+
+        <TextView
+            android:id="@+id/tv_ratings_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="3.8"
+            android:textColor="@color/color_text_grey"
+            android:textSize="12sp"
+            app:layout_goneMarginStart="16dp" />
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/tv_measurement"
@@ -84,8 +109,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
-        android:text="75.00"
         android:fontFamily="@font/opensans_semibold"
+        android:text="75.00"
         android:textColor="@color/color_text_grey"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/tv_name"
@@ -98,9 +123,9 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/ribbon_horizontal"
+        android:fontFamily="@font/opensans_semibold"
         android:gravity="center_vertical"
         android:text="2%"
-        android:fontFamily="@font/opensans_semibold"
         android:textColor="@color/white"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_price"
