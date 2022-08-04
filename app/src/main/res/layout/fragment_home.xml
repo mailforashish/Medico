@@ -81,6 +81,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="@{() -> clickListener.openNotification()}"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/ic_notification" />
         </RelativeLayout>

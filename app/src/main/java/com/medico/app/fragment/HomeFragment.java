@@ -124,6 +124,7 @@ public class HomeFragment extends Fragment implements ShowFragment, ApiResponseI
 
     public class EventHandler {
         Context mContext;
+
         public EventHandler(Context mContext) {
             this.mContext = mContext;
         }
@@ -131,12 +132,13 @@ public class HomeFragment extends Fragment implements ShowFragment, ApiResponseI
         public void openDrawer() {
             MainActivity.drawer.openDrawer(Gravity.LEFT);
         }
+
         public void nextActivity() {
             startActivity(new Intent(mContext, SearchProductActivity.class));
         }
 
         public void openPinDialog() {
-            CheckPinCodeDialog checkPinCodeDialog = new CheckPinCodeDialog(mContext,getActivity());
+            CheckPinCodeDialog checkPinCodeDialog = new CheckPinCodeDialog(mContext, getActivity());
             checkPinCodeDialog.show();
             checkPinCodeDialog.setDialogResult(new CheckPinCodeDialog.OnMyDialogPinCode() {
                 @Override
@@ -146,8 +148,13 @@ public class HomeFragment extends Fragment implements ShowFragment, ApiResponseI
             });
 
         }
+
         public void viewCategory() {
             startActivity(new Intent(mContext, AllCategoryActivity.class));
+        }
+
+        public void openNotification() {
+            ((MainActivity) getActivity()).rePlaceFragment("2");
         }
 
     }

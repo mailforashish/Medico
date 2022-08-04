@@ -15,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.medico.app.R;
 import com.medico.app.activity.ManageAddressActivity;
 import com.medico.app.activity.OrderListActivity;
+import com.medico.app.activity.PrescriptionActivity;
+import com.medico.app.activity.SaveActivity;
+import com.medico.app.activity.WalletActivity;
 import com.medico.app.response.MyAccountList;
 
 import java.util.List;
@@ -43,6 +46,13 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.MyVi
             holder.rl_my_account.setOnClickListener(v -> {
                 if (position == 0) {
                     context.startActivity(new Intent(context, OrderListActivity.class));
+                } else if (position == 1) {
+                    context.startActivity(new Intent(context, PrescriptionActivity.class)
+                            .putExtra("Event", "Account"));
+                } else if (position == 2) {
+                    context.startActivity(new Intent(context, SaveActivity.class));
+                } else if (position == 3) {
+                    context.startActivity(new Intent(context, WalletActivity.class));
                 } else if (position == 5) {
                     context.startActivity(new Intent(context, ManageAddressActivity.class));
                 }

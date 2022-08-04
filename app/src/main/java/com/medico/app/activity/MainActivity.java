@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements TextSizeIncrease 
 
         public void myOrders() {
             if (addressLists.size() > 1 && purchaseLists.size() > 1) {
-                startActivity(new Intent(mContext, OrderDetailActivity.class));
+                startActivity(new Intent(mContext, OrderListActivity.class));
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 drawer.closeDrawer(Gravity.LEFT);
             } else {
@@ -232,7 +232,14 @@ public class MainActivity extends AppCompatActivity implements TextSizeIncrease 
             showFragment(homeFragment);
             textSizeIncrease.setTextSize(binding.tvHome.getId());
             binding.viewBarHome.setVisibility(View.VISIBLE);
+        }else if (pos.equals("2")){
+            unselectAllMenu();
+            binding.ivNotificationTab.setImageResource(R.drawable.ic_noti_selected);
+            showFragment(notificationFragment);
+            textSizeIncrease.setTextSize(binding.tvNotification.getId());
+            binding.viewBarNotification.setVisibility(View.VISIBLE);
         }
+
     }
 
     @Override

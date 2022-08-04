@@ -33,7 +33,7 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:lineSpacingExtra="0.8dp"
-            android:text="No internet. Please check your \n internet connectio and try \n again."
+            android:text="No internet. Please check your \n internet connection and try \n again."
             android:textColor="#4c000000"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"

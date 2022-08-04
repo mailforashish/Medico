@@ -66,7 +66,6 @@ public class CartActivity extends AppCompatActivity implements ApiResponseInterf
                 float priceAfterDiscount = actualPrice - totalDiscount;
                 sum = (sum + (priceAfterDiscount * cartList.get(i).getQuantity()));
             }
-
             tv_amount_input.setText(String.valueOf(String.format("%.2f", sum)));
             Log.e("Total Amount : INR", " finalamountactivity " + sum);
             binding.btnPay.setText("Proceed to Pay ₹ " + String.valueOf(String.format("%.2f", sum)));
@@ -156,9 +155,11 @@ public class CartActivity extends AppCompatActivity implements ApiResponseInterf
 
         public void buttonPay() {
             if (cartList.size() >= 1 && addressLists.size() >= 1) {
-                startActivity(new Intent(CartActivity.this, PaymentActivity.class)
+               /* startActivity(new Intent(CartActivity.this, PaymentActivity.class)
                         .putExtra("pay_amount", binding.tvAmountInput.getText().toString()));
-                cartAdapter.notifyDataSetChanged();
+               */
+                startActivity(new Intent(CartActivity.this, PrescriptionActivity.class)
+                        .putExtra("Event", "Cart"));
                 finish();
             } else {
                 Toast.makeText(CartActivity.this, "Please Add Item&Address", Toast.LENGTH_SHORT).show();
@@ -175,24 +176,4 @@ public class CartActivity extends AppCompatActivity implements ApiResponseInterf
         overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
     }
 
-    //1-Api Integration
-    // 1- mobile-login-otp =>for Login with mobile number
-    // 2- mobile-login  => for after Login put otp Static 111111 then next
-    // 3- states  => get State list on homefragment top
-    // 4- banner-list => get bannerList and show banner
-    // 5- products => get product listin health care fragment
-    // 6- add-cart => Add product in cart
-    // 7- remove-cart => remove product in cart
-    // 8- change-quantity => change quantity product in cart
-    // 9- carts => get Cart list item
-    // 10- address-list => get Address List added by user
-    // 11- add-edit-address =>  add new Address by user
-    // 12- add-edit-address => Edit Address by user with Address_id
-    // 13 - delete-address => Delete Address by user
-    // 14 - products => get product list by Search quary in Search Activty
-    // 15-  pincode => get pincode inter by user
-    //***********************************************************************
-    // 16- PaymentOrder => Create Order by User (under maintenance)
-    // 17 - PaymentCheck => After creating order then payment check(if online) (under maintenance)
-    // 18 - orderList = > get successful orderlist (under maintenance)
 }

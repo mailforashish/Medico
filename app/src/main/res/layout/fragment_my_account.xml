@@ -148,23 +148,23 @@
         <RelativeLayout
             android:id="@+id/rl_log_out"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
             android:layout_alignParentBottom="true"
             android:background="@color/activity_background"
-            android:onClick="@{() -> clickListener.userLogOut()}"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
             android:visibility="visible">
-
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
+                android:fontFamily="@font/opensans_bold"
+                android:onClick="@{() -> clickListener.userLogOut()}"
                 android:text="Log Out"
                 android:textColor="@color/grey500"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -172,8 +172,10 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
+                android:fontFamily="@font/opensans_semibold"
                 android:text="Version: 1.1.0"
-                android:textColor="@color/grey500" />
+                android:textColor="@color/grey500"
+                android:textSize="14sp" />
         </RelativeLayout>
 
     </RelativeLayout>

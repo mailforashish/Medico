@@ -12,16 +12,28 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.medico.app.R;
+import com.medico.app.activity.CartActivity;
+import com.medico.app.activity.MobileNumberActivity;
+import com.medico.app.activity.OTPVerifyActivity;
 import com.medico.app.adapter.NotificationMenuAdapter;
+import com.medico.app.response.Cartlist.CartResult;
+import com.medico.app.utils.SessionManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NotificationFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager tabViewpager;
-    private ImageView iv_nt_offer;
+    private ImageView iv_nt_offer,iv_cart;
+    private TextView tvCartItem;
     private NotificationMenuAdapter notificationMenuAdapter;
+    private SessionManager sessionManager;
+    List<CartResult> cartItem = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,13 +41,14 @@ public class NotificationFragment extends Fragment {
         tabLayout = view.findViewById(R.id.tab_layout);
         tabViewpager = view.findViewById(R.id.tab_Viewpager);
         iv_nt_offer = view.findViewById(R.id.iv_nt_offer);
+        iv_cart = view.findViewById(R.id.iv_cart);
+        tvCartItem = view.findViewById(R.id.tvCartItem);
         notificationMenuAdapter = new NotificationMenuAdapter(getChildFragmentManager(), getContext());
         tabViewpager.setAdapter(notificationMenuAdapter);
         tabLayout.setupWithViewPager(tabViewpager);
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
             tab.setCustomView(notificationMenuAdapter.getTabView(i));
-
         }
         notificationMenuAdapter.setOnSelectView(tabLayout, 0);
 
@@ -64,12 +77,18 @@ public class NotificationFragment extends Fragment {
         animMove.setRepeatCount(Animation.INFINITE);
         iv_nt_offer.startAnimation(animMove);
 
+
+        sessionManager = new SessionManager(getContext());
+        cartItem = sessionManager.getListFromLocal("cart");
+        if (cartItem != null) {
+            tvCartItem.setText(String.valueOf(cartItem.size()));
+            iv_cart.setOnClickListener(move -> {
+                startActivity(new Intent(getContext(), CartActivity.class));
+            });
+        }
+
         return view;
     }
-
-
-
-
 
 
 }

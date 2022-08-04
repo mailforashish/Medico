@@ -23,8 +23,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="15dp"
-            android:fontFamily="@font/opensans_bold"
             android:layout_toStartOf="@+id/iv_cross"
+            android:fontFamily="@font/opensans_bold"
             android:text="Choose your\nLocation"
             android:textColor="@color/color_header_text"
             android:textSize="26sp" />
@@ -57,13 +57,13 @@
                 android:layout_alignParentStart="true"
                 android:layout_toStartOf="@+id/btn_check"
                 android:background="@null"
+                android:fontFamily="@font/opensans_semibold"
                 android:gravity="left|center_vertical|center_horizontal|center|start"
                 android:hint="Enter PIN Code"
                 android:inputType="number"
-                android:textColor="@color/color_header_text"
-                android:fontFamily="@font/opensans_semibold"
                 android:maxLength="6"
                 android:paddingStart="20dp"
+                android:textColor="@color/color_header_text"
                 android:textColorHint="@color/grey_darker"
                 android:textSize="16sp" />
 
@@ -96,11 +96,11 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_current_location"
             android:layout_width="50dp"
-            android:padding="10dp"
             android:layout_height="50dp"
-            android:onClick="@{() -> clickListener.getCurrentLocation()}"
             android:layout_below="@+id/tv_invalid_pincode"
             android:layout_marginTop="5dp"
+            android:onClick="@{() -> clickListener.getCurrentLocation()}"
+            android:padding="10dp"
             android:src="@drawable/ic_my_location" />
 
         <TextView
@@ -137,14 +137,18 @@
             android:maxHeight="140dp"
             android:visibility="visible" />
 
-        <ProgressBar
-            android:id="@+id/progress_address"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_above="@+id/dummy_view"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="50dp"
-            android:visibility="gone" />
+        <com.medico.app.utils.MedicoLoading
+            android:id="@+id/progress_pin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="invisible"
+            app:animDelay="125"
+            app:animDistance="15dp"
+            app:animDuration="700"
+            app:animInterpolator="overshoot"
+            app:circleMargin="12dp"
+            app:circleRadius="12dp" />
 
 
         <View

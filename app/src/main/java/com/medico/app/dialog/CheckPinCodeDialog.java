@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -15,6 +16,7 @@ import android.location.LocationManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,9 +61,8 @@ public class CheckPinCodeDialog extends Dialog {
     private HideStatus hideStatus;
     private boolean is_valid;
     Context context;
-    private OnMyDialogPinCode myDialogResult;
+    OnMyDialogPinCode myDialogResult;
     String name;
-    String pinCode;
 
     public CheckPinCodeDialog(@NonNull Context context, Activity activity) {
         super(context, R.style.Theme_AppCompat_Dialog);
@@ -97,6 +98,7 @@ public class CheckPinCodeDialog extends Dialog {
                 }
             }
         });
+
         show();
 
     }
@@ -114,6 +116,7 @@ public class CheckPinCodeDialog extends Dialog {
 
         public void checkPin() {
             if (is_valid) {
+                binding.progressPin.setVisibility(View.VISIBLE);
                 getDataFromPinCode(binding.edtPincode.getText().toString());
             }
         }
@@ -126,6 +129,7 @@ public class CheckPinCodeDialog extends Dialog {
             }
         }
     }
+
     private boolean checkIfAlreadyhavePermission() {
         int result = ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION);
         return result == PackageManager.PERMISSION_GRANTED;
@@ -156,12 +160,14 @@ public class CheckPinCodeDialog extends Dialog {
                         String state = postOfficeArray.get(0).getState();
                         if (myDialogResult != null) {
                             myDialogResult.finish(pinCode, name);
+                            binding.progressPin.setVisibility(View.INVISIBLE);
                             dismiss();
                         }
                         Log.e("Details_pin_code:", "" + "\n" + "District is : " + district + "\n" + "State : " + state + "\n" + "City : " + name);
                     } catch (Exception e) {
                         binding.tvInvalidPincode.setVisibility(View.VISIBLE);
                         binding.tvInvalidPincode.setText("Pin code is not valid");
+                        binding.progressPin.setVisibility(View.INVISIBLE);
                         e.printStackTrace();
                         Log.e("Details_pin_error:", "" + e.getMessage());
                     }
@@ -175,32 +181,6 @@ public class CheckPinCodeDialog extends Dialog {
             }
         });
     }
-
-   /* private void getPermission() {
-        Dexter.withActivity(activity)
-                .withPermissions(Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION)
-                .withListener(new MultiplePermissionsListener() {
-                    @Override
-                    public void onPermissionsChecked(MultiplePermissionsReport report) {
-                        try {
-                            if (report.areAllPermissionsGranted()) {
-                                autoLocationSelect();
-                            } else {
-                            }
-
-                        } catch (Exception e) {
-                        }
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-                        token.continuePermissionRequest();
-                    }
-                })
-                .onSameThread()
-                .check();
-    }*/
 
     private void autoLocationSelect() {
         LocationManager lm = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
@@ -218,13 +198,19 @@ public class CheckPinCodeDialog extends Dialog {
                         String latitude = String.valueOf(location.getLatitude());
                         String longitude = String.valueOf(location.getLongitude());
                         new SessionManager(context).saveLocation(city, postalCode, address, latitude, longitude);
-                        dismiss();
+                        if (myDialogResult != null) {
+                            myDialogResult.finish(postalCode, city);
+                            dismiss();
+                        }
                         break;
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             } else {
+                Toast toast = Toast.makeText(context, "No location could be detected, kindly use the keyboard to input the pincode manually.", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
 
             }
         }

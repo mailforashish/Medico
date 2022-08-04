@@ -39,10 +39,10 @@
 
     </string-array>
 
-
     <string name="tab_account">Account</string>
     <string name="tab_diagnostics">Diagnostics</string>
     <string name="tab_healthcare">Healthcare</string>
     <string name="tab_home">Home</string>
     <string name="tab_notifications">Notifications</string>
+    <string name="get_a_free">Get a FREE Consultation by a licenced \nthird party doctor</string>
 </resources>
