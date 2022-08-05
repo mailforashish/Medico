@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.medico.app.R;
 import com.medico.app.response.CategoryList;
+import com.medico.app.utils.MedicoLoading;
 import com.medico.app.utils.PaginationAdapterCallback;
 
 import java.util.List;
@@ -144,22 +145,18 @@ public class CategoryFilterAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     protected class LoadingVH extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private ImageButton mRetryBtn;
-        private LinearLayout mErrorLayout;
-
+        private MedicoLoading progress;
         public LoadingVH(View itemView) {
             super(itemView);
-            mRetryBtn = itemView.findViewById(R.id.loadmore_retry);
-            mErrorLayout = itemView.findViewById(R.id.loadmore_errorlayout);
-            mRetryBtn.setOnClickListener(this);
-            mErrorLayout.setOnClickListener(this);
+            progress = itemView.findViewById(R.id.progress);
+            progress.setOnClickListener(this);
+
         }
 
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.loadmore_retry:
-                case R.id.loadmore_errorlayout:
+                case R.id.progress:
                     showRetry(false, null);
                     mCallback.retryPageLoad();
                     break;

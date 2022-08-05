@@ -18,7 +18,6 @@ import com.medico.app.adapter.CategoryArticleAdapter;
 import com.medico.app.adapter.CategoryFilterAdapter;
 import com.medico.app.databinding.ActivityCategoryBinding;
 import com.medico.app.fragment.HomeFragment;
-import com.medico.app.response.AllSpecialityDoctorsList;
 import com.medico.app.response.Banner.BannerResult;
 import com.medico.app.response.CategoryList;
 import com.medico.app.utils.HideStatus;
@@ -33,7 +32,6 @@ import java.util.TimerTask;
 
 public class CategoryActivity extends AppCompatActivity implements PaginationAdapterCallback {
     ActivityCategoryBinding binding;
-    private List<AllSpecialityDoctorsList> list = new ArrayList<>();
     private String category;
     SessionManager sessionManager;
     private Timer timer;

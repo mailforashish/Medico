@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.medico.app.R;
 import com.medico.app.activity.MainActivity;
 import com.medico.app.activity.CartActivity;
@@ -116,6 +117,7 @@ public class HealthCareFragment extends Fragment implements CartItemCount, ApiRe
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
+
             @Override
             public boolean onQueryTextChange(String newText) {
                 filter(newText);
@@ -143,6 +145,7 @@ public class HealthCareFragment extends Fragment implements CartItemCount, ApiRe
     @Override
     public void isError(String errorCode) {
     }
+
     @Override
     public void isSuccess(Object response, int ServiceCode) {
         if (ServiceCode == Constant.PRODUCT_LIST) {
@@ -163,7 +166,7 @@ public class HealthCareFragment extends Fragment implements CartItemCount, ApiRe
                         isLastPage = true;
                     }
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
             }
 
         }
@@ -237,17 +240,20 @@ public class HealthCareFragment extends Fragment implements CartItemCount, ApiRe
     }
 
     private void filter(String text) {
-        ArrayList<ProductListResponse.Data> filteredlist = new ArrayList<>();
+        List<ProductListResponse.Data> filteredlist = new ArrayList<>();
         for (ProductListResponse.Data item : list) {
             if (item.getDrugName().toLowerCase().contains(text.toLowerCase())) {
                 filteredlist.add(item);
+                Log.e("TotalItem", "search1 " + text + new Gson().toJson(filteredlist));
             }
         }
         if (filteredlist.isEmpty()) {
             Toast.makeText(getContext(), "No Data Found..", Toast.LENGTH_SHORT).show();
         } else {
+            Log.e("TotalItem", "search2 " + text + new Gson().toJson(filteredlist));
             productAdapter.filterList(filteredlist);
         }
+
     }
 
 

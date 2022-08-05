@@ -7,7 +7,7 @@
 
         <variable
             name="clickListener"
-            type="com.medico.app.activity.LegalActivity.EventHandler" />
+            type="com.medico.app.activity.NeedHelpActivity.EventHandler" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:paddingTop="25dp"
-        tools:context=".activity.LegalActivity">
+        tools:context=".activity.NeedHelpActivity">
 
         <ImageView
             android:id="@+id/iv_back"
@@ -24,21 +24,21 @@
             android:layout_marginStart="10dp"
             android:onClick="@{() -> clickListener.backPage()}"
             android:src="@drawable/ic_back_pay"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_legal"
-            app:layout_constraintEnd_toStartOf="@+id/tv_legal"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_need"
+            app:layout_constraintEnd_toStartOf="@+id/tv_need"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/tv_legal"
+            android:id="@+id/tv_need"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/opensans_bold"
             android:gravity="center_vertical"
-            android:text="Legal"
+            android:text="Need Help"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp"
             app:layout_constraintHorizontal_bias="0"
@@ -46,17 +46,32 @@
             app:layout_constraintStart_toEndOf="@+id/iv_back"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/tv_topic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/opensans_bold"
+            android:gravity="center_vertical"
+            android:text="Select Topic"
+            android:textColor="@color/color_header_text"
+            android:textSize="16sp"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_need" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_legal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/rv_help"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_legal" />
-
+            app:layout_constraintTop_toBottomOf="@+id/tv_topic" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

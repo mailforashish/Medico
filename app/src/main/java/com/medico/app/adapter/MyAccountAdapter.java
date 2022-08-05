@@ -13,7 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.medico.app.R;
+import com.medico.app.activity.LegalActivity;
 import com.medico.app.activity.ManageAddressActivity;
+import com.medico.app.activity.NeedHelpActivity;
 import com.medico.app.activity.OrderListActivity;
 import com.medico.app.activity.PrescriptionActivity;
 import com.medico.app.activity.SaveActivity;
@@ -53,8 +55,12 @@ public class MyAccountAdapter extends RecyclerView.Adapter<MyAccountAdapter.MyVi
                     context.startActivity(new Intent(context, SaveActivity.class));
                 } else if (position == 3) {
                     context.startActivity(new Intent(context, WalletActivity.class));
+                } else if (position == 4) {
+                    context.startActivity(new Intent(context, NeedHelpActivity.class));
                 } else if (position == 5) {
                     context.startActivity(new Intent(context, ManageAddressActivity.class));
+                } else if (position == 8) {
+                    context.startActivity(new Intent(context, LegalActivity.class));
                 }
             });
 

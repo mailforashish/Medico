@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,6 +29,7 @@ import com.medico.app.activity.ProductDetailsActivity;
 import com.medico.app.interfaceClass.CartItemCount;
 import com.medico.app.response.ProductList.ProductListResponse;
 import com.medico.app.utils.MaxLimit;
+import com.medico.app.utils.MedicoLoading;
 import com.medico.app.utils.PaginationAdapterCallback;
 import com.medico.app.utils.SessionManager;
 
@@ -65,6 +68,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.mCallback = mCallback;
         this.list = new ArrayList<>();
         this.type = type;
+
     }
 
     @NonNull
@@ -273,25 +277,21 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     protected class LoadingVH extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private ImageButton mRetryBtn;
-        private TextView mErrorTxt;
-        private LinearLayout mErrorLayout;
-
+        private MedicoLoading progress;
         public LoadingVH(View itemView) {
             super(itemView);
-
-            mRetryBtn = itemView.findViewById(R.id.loadmore_retry);
-            mErrorTxt = itemView.findViewById(R.id.loadmore_errortxt);
-            mErrorLayout = itemView.findViewById(R.id.loadmore_errorlayout);
-            mRetryBtn.setOnClickListener(this);
-            mErrorLayout.setOnClickListener(this);
+            progress = itemView.findViewById(R.id.progress);
+            progress.setOnClickListener(this);
+            if(isLoadingAdded){
+                progress.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.loadmore_retry:
-                case R.id.loadmore_errorlayout:
+                case R.id.progress:
+                    progress.setVisibility(View.INVISIBLE);
                     showRetry(false, null);
                     mCallback.retryPageLoad();
                     break;
@@ -299,11 +299,6 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
     }
-
-           /*
-   Helpers
-   _________________________________________________________________________________________________
-    */
 
     public void add(ProductListResponse.Data results) {
         list.add(results);
@@ -320,12 +315,6 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return list;
     }
 
-
-    public void updateItem(int position, ProductListResponse.Data data) {
-        list.set(position, data);
-        notifyItemChanged(position);
-    }
-
     public void remove(ProductListResponse.Result r) {
         int position = list.indexOf(r);
         if (position > -1) {
@@ -340,7 +329,6 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-
     public void addLoadingFooter() {
         isLoadingAdded = true;
         add(new ProductListResponse.Data());
@@ -350,7 +338,6 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         isLoadingAdded = false;
         int position = list.size() - 1;
         ProductListResponse.Data result = getItem(position);
-
         if (result != null) {
             list.remove(position);
             notifyItemRemoved(position);
@@ -367,9 +354,8 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public ProductListResponse.Data getItem(int position) {
         return list.get(position);
     }
-
     // method for filtering our recyclerview items.
-    public void filterList(ArrayList<ProductListResponse.Data> filterllist) {
+    public void filterList(List<ProductListResponse.Data> filterllist) {
         list = filterllist;
         notifyDataSetChanged();
     }

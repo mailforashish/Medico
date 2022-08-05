@@ -214,9 +214,7 @@ public class CheckPinCodeDialog extends Dialog {
 
             }
         }
-
     }
-
     public void setDialogResult(OnMyDialogPinCode dialogResult) {
         myDialogResult = dialogResult;
     }
