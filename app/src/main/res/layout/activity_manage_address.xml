@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:paddingTop="25dp"
-        tools:context=".activity.OrderDetailActivity">
+        tools:context=".activity.ManageAddressActivity">
 
 
         <ImageView
@@ -53,11 +53,11 @@
             android:layout_height="45dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
-            android:onClick="@{() -> clickListener.addAddressPage()}"
             android:layout_marginEnd="15dp"
             android:background="@drawable/selector_address_rectangle"
             android:fontFamily="@font/opensans_bold"
             android:gravity="center_vertical|center"
+            android:onClick="@{() -> clickListener.addAddressPage()}"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="Add New"
@@ -67,31 +67,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_manage" />
 
-        <LinearLayout
-            android:id="@+id/root_order"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_manage_address"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="15dp"
-            android:paddingBottom="120dp"
-            android:background="@color/white"
-            android:descendantFocusability="blocksDescendants"
-            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_all_order">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_manage_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:overScrollMode="never"
-                android:padding="1dp" />
-
-        </LinearLayout>
-
+            app:layout_constraintTop_toBottomOf="@+id/tv_all_order" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

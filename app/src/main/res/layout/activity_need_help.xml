@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:fontFamily="@font/opensans_bold"
             android:gravity="center_vertical"
             android:text="Select Topic"

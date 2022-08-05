@@ -120,7 +120,6 @@ public class NeedHelpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     protected class LoadingVH extends RecyclerView.ViewHolder implements View.OnClickListener {
         private MedicoLoading progress;
-
         public LoadingVH(View itemView) {
             super(itemView);
             progress = itemView.findViewById(R.id.progress);
@@ -129,7 +128,6 @@ public class NeedHelpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 progress.setVisibility(View.VISIBLE);
             }
         }
-
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
@@ -168,7 +166,6 @@ public class NeedHelpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         notifyItemChanged(list.size() - 1);
         if (errorMsg != null) this.errorMsg = errorMsg;
     }
-
     public List<MyAccountList> getList() {
         return list;
     }
