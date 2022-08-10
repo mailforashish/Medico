@@ -83,7 +83,6 @@ public class ApiManager {
         });
     }
 
-
     public void loginOTP(String username, String password) {
         //showDialog();
         Call<OTPResponse> call = apiService.loginUserMobileOtp(username, password);
@@ -448,10 +447,9 @@ public class ApiManager {
                 if (response.body().getSuccess()) {
                     mApiResponseInterface.isSuccess(response.body(), Constant.CREATE_ORDER_UPI);
                 } else {
-                    Toast.makeText(mContext, new Gson().toJson(response.body().getError()), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, new Gson().toJson(response.body().getData().getErrors()), Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onFailure(Call<CreateOrderResponseUpi> call, Throwable t) {
                 Log.e("orderUpiLog", "apierror = " + t.getMessage());

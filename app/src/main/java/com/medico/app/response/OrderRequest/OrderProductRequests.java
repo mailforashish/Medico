@@ -3,51 +3,107 @@ package com.medico.app.response.OrderRequest;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class OrderProductRequests {
-    @SerializedName("payment_type")
+    @SerializedName("drugs")
     @Expose
-    private String paymentType;
-    @SerializedName("amount")
+    private List<Drug> drugs = null;
+    @SerializedName("is_checkout")
     @Expose
-    private String amount;
-    @SerializedName("shipping_charge")
+    private Integer isCheckout;
+    @SerializedName("payment_mode")
     @Expose
-    private String shippingCharge;
-    @SerializedName("order_details_json")
+    private String paymentMode;
+    @SerializedName("address_id")
     @Expose
-    private OrderDetailsJson orderDetailsJson;
+    private Integer addressId;
+    @SerializedName("wallet")
+    @Expose
+    private String wallet;
+    @SerializedName("coupon_code")
+    @Expose
+    private String couponCode;
+    @SerializedName("perception")
+    @Expose
+    private String perception;
+    @SerializedName("lat")
+    @Expose
+    private String lat;
+    @SerializedName("lon")
+    @Expose
+    private String lon;
 
-    public String getPaymentType() {
-        return paymentType;
+    public List<Drug> getDrugs() {
+        return drugs;
     }
 
-    public void setPaymentType(String paymentType) {
-        this.paymentType = paymentType;
+    public void setDrugs(List<Drug> drugs) {
+        this.drugs = drugs;
     }
 
-    public String getAmount() {
-        return amount;
+    public Integer getIsCheckout() {
+        return isCheckout;
     }
 
-    public void setAmount(String amount) {
-        this.amount = amount;
+    public void setIsCheckout(Integer isCheckout) {
+        this.isCheckout = isCheckout;
     }
 
-    public String getShippingCharge() {
-        return shippingCharge;
+    public String getPaymentMode() {
+        return paymentMode;
     }
 
-    public void setShippingCharge(String shippingCharge) {
-        this.shippingCharge = shippingCharge;
+    public void setPaymentMode(String paymentMode) {
+        this.paymentMode = paymentMode;
     }
 
-    public OrderDetailsJson getOrderDetailsJson() {
-        return orderDetailsJson;
+    public Integer getAddressId() {
+        return addressId;
     }
 
-    public void setOrderDetailsJson(OrderDetailsJson orderDetailsJson) {
-        this.orderDetailsJson = orderDetailsJson;
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
+    }
+
+    public String getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(String wallet) {
+        this.wallet = wallet;
+    }
+
+    public String getCouponCode() {
+        return couponCode;
+    }
+
+    public void setCouponCode(String couponCode) {
+        this.couponCode = couponCode;
+    }
+
+    public String getPerception() {
+        return perception;
+    }
+
+    public void setPerception(String perception) {
+        this.perception = perception;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLon() {
+        return lon;
+    }
+
+    public void setLon(String lon) {
+        this.lon = lon;
     }
 
 }
-

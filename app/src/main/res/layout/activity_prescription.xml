@@ -66,6 +66,7 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="30dp"
                     android:fontFamily="@font/opensans_bold"
+                    android:singleLine="true"
                     android:text="1 Item in cart require prescription"
                     android:textColor="@color/color_header_text"
                     android:textSize="16sp"
@@ -79,11 +80,29 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/opensans_semibold"
-                    android:text="Eco Sprin 75MG STRIP OF 14 Tablets"
+                    android:maxLines="3"
+                    android:text="&#8226;Eco Sprin 75MG STRIP OF 14 Tablets"
                     android:textColor="@color/color_header_text"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_cart_item" />
+
+                <TextView
+                    android:id="@+id/tv_viewMore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="15dp"
+                    android:onClick="@{() -> clickListener.viewMore()}"
+                    android:drawableEnd="@drawable/ic_arrow_medicine"
+                    android:drawablePadding="5dp"
+                    android:text="View More"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/color_secondary"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_drug_name" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_have_prescription"
@@ -98,7 +117,7 @@
                     android:paddingBottom="15dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_drug_name">
+                    app:layout_constraintTop_toBottomOf="@+id/tv_viewMore">
 
                     <ImageView
                         android:id="@+id/iv_payment_icon"
@@ -407,6 +426,7 @@
                 android:fontFamily="@font/opensans_bold"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="center"
+                android:onClick="@{() -> clickListener.withPrescription()}"
                 android:text="Continue with Prescription"
                 android:textColor="@color/white"
                 android:textSize="16sp"

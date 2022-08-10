@@ -7,12 +7,12 @@ public class CreateOrderResponseUpi {
     @SerializedName("success")
     @Expose
     private Boolean success;
-    @SerializedName("result")
+    @SerializedName("data")
     @Expose
-    private CreateOrderResult result;
-    @SerializedName("error")
+    private CreateOrderResult data;
+    @SerializedName("message")
     @Expose
-    private Object error;
+    private String message;
 
     public Boolean getSuccess() {
         return success;
@@ -22,21 +22,23 @@ public class CreateOrderResponseUpi {
         this.success = success;
     }
 
-    public CreateOrderResult getResult() {
-        return result;
+    public CreateOrderResult getData() {
+        return data;
     }
 
-    public void setResult(CreateOrderResult result) {
-        this.result = result;
+    public void setData(CreateOrderResult data) {
+        this.data = data;
     }
 
-    public Object getError() {
-        return error;
+    public String getMessage() {
+        return message;
     }
 
-    public void setError(Object error) {
-        this.error = error;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
 }
+
+
 

@@ -108,7 +108,6 @@ public class HealthCareFragment extends Fragment implements CartItemCount, ApiRe
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), CartActivity.class);
                 startActivity(intent);
-
             }
         });
 
@@ -128,9 +127,8 @@ public class HealthCareFragment extends Fragment implements CartItemCount, ApiRe
     }
 
     @Override
-    public void getCartItem(boolean add, String action, String count, String product_id, String quantity) {
+    public void getCartItem(boolean add, String action, String product_id, String quantity) {
         if (add) {
-            Log.e("HelthCareFragment", "CartCount " + count);
             if (action.equals("addCart")) {
                 apiManager.addCart(product_id, quantity);
             } else if (action.equals("remove")) {
@@ -190,7 +188,6 @@ public class HealthCareFragment extends Fragment implements CartItemCount, ApiRe
         }
         if (ServiceCode == Constant.CHANGE_QUANTITY) {
             Object rsp = (Object) response;
-
         }
         if (ServiceCode == Constant.REMOVE_CART) {
             RemoveCartResponse rsp = (RemoveCartResponse) response;

@@ -37,7 +37,7 @@ public class CartActivity extends AppCompatActivity implements ApiResponseInterf
     ActivityCartBinding binding;
     private CartAdapter cartAdapter;
     private MainAddressAdapter addressAdapter;
-    private List<CartResult> cartList;
+    private List<CartResult> cartList = new ArrayList<>();
     private List<AddressResult> addressLists = new ArrayList<>();
     private SessionManager sessionManager;
     private LinearLayoutManager linearLayoutManager;
@@ -79,7 +79,7 @@ public class CartActivity extends AppCompatActivity implements ApiResponseInterf
     }
 
     @Override
-    public void getCartItem(boolean add, String action, String count, String product_id, String quantity) {
+    public void getCartItem(boolean add, String action, String product_id, String quantity) {
         if (add) {
             if (action.equals("remove")) {
                 apiManager.deleteCart(product_id);
@@ -155,11 +155,9 @@ public class CartActivity extends AppCompatActivity implements ApiResponseInterf
 
         public void buttonPay() {
             if (cartList.size() >= 1 && addressLists.size() >= 1) {
-               /* startActivity(new Intent(CartActivity.this, PaymentActivity.class)
-                        .putExtra("pay_amount", binding.tvAmountInput.getText().toString()));
-               */
                 startActivity(new Intent(CartActivity.this, PrescriptionActivity.class)
-                        .putExtra("Event", "Cart"));
+                        .putExtra("Event", "Cart")
+                        .putExtra("pay_amount", binding.tvAmountInput.getText().toString()));
                 finish();
             } else {
                 Toast.makeText(CartActivity.this, "Please Add Item&Address", Toast.LENGTH_SHORT).show();
@@ -167,7 +165,6 @@ public class CartActivity extends AppCompatActivity implements ApiResponseInterf
             }
         }
     }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();

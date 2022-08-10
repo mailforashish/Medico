@@ -72,9 +72,9 @@ public class PaymentOffersAdapter extends RecyclerView.Adapter<PaymentOffersAdap
                 holder.rb_payment_select.setChecked(true);
                 holder.btn_place_order.setVisibility(View.VISIBLE);
                 if (holder.payment_modeTitle.getText().toString().equals("Pay on Delivery")) {
-                    transactionType = "1";
+                    transactionType = "cod";
                 } else {
-                    transactionType = "2";
+                    transactionType = "razorpay";
                 }
             } else {
                 holder.rb_payment_select.setChecked(false);

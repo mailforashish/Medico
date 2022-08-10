@@ -56,25 +56,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         try {
             holder.tv_drug_name.setText(listNew.getProductId().getDrugName());
             holder.tv_manufacturer.setText(listNew.getProductId().getManufactur());
+            holder.tv_discPercent.setText(listNew.getProductId().getDiscount() + "%OFF");
+            holder.tv_real_price.setPaintFlags(holder.tv_real_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            float actualPrice = Float.parseFloat(listNew.getProductId().getUnitPrice());
+            float totalDiscount = (actualPrice * Float.parseFloat(listNew.getProductId().getDiscount())) / 100;
+            holder.tv_real_price.setText(String.valueOf("MRP " + listNew.getProductId().getUnitPrice()));
+            float priceAfterDiscount = actualPrice - totalDiscount;
+            holder.tv_off_price.setText("₹ " + String.valueOf(String.format("%.2f", priceAfterDiscount)));
             //Glide.with(context).load(listNew.medicine_image).into(holder.iv_medicine);
-            if (!listNew.getProductId().getDiscount().equals("0")) {
-                holder.tv_discPercent.setText(listNew.getProductId().getDiscount() + "%OFF");
-                holder.tv_real_price.setPaintFlags(holder.tv_real_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                float actualPrice = Float.parseFloat(listNew.getProductId().getUnitPrice());
-                float totalDiscount = (actualPrice * Float.parseFloat(listNew.getProductId().getDiscount())) / 100;
-                holder.tv_real_price.setText(String.valueOf("MRP " + listNew.getProductId().getUnitPrice()));
-                float priceAfterDiscount = actualPrice - totalDiscount;
-                holder.tv_off_price.setText("₹ " +String.valueOf(String.format("%.2f", priceAfterDiscount)));
-                //Glide.with(context).load(listNew.medicine_image).into(holder.iv_medicine);
-            } else {
-                holder.tv_real_price.setText(String.valueOf("₹ " + listNew.getProductId().getUnitPrice()));
-                //Glide.with(context).load(listNew.medicine_image).into(holder.iv_medicine);
-                holder.tv_off_price.setVisibility(View.INVISIBLE);
-                holder.tv_off_price.setVisibility(View.INVISIBLE);
-            }
-
             updateprice();
-
         } catch (Exception e) {
 
         }
@@ -110,7 +100,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                             Log.e("CartFunction", "Cart Adapter " + listNew.getProductId().getDrugId() +
                                     String.valueOf(listNew.getQuantity()));
                             if (a <= 10) {
-                                cartItemCount.getCartItem(true, "UpdateQuantity", String.valueOf(cartList.size()),
+                                cartItemCount.getCartItem(true, "UpdateQuantity",
                                         listNew.getProductId().getDrugId(), String.valueOf(listNew.getQuantity()));
                             } else {
                                 Toast.makeText(context, "limit exceeded", Toast.LENGTH_SHORT).show();
@@ -133,7 +123,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     notifyDataSetChanged();
                     updateprice();
                     ((Activity) context).invalidateOptionsMenu();
-                    cartItemCount.getCartItem(true, "remove", String.valueOf(cartList.size()),
+                    cartItemCount.getCartItem(true, "remove",
                             listNew.getProductId().getDrugId(), String.valueOf(listNew.getQuantity()));
                 } else {
                     int a = Integer.parseInt(holder.tv_quantity.getText().toString());
@@ -145,7 +135,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     sessionManager.saveListInLocal("cart", cartList);
                     updateprice();
                     //notifyDataSetChanged();
-                    cartItemCount.getCartItem(true, "UpdateQuantity", String.valueOf(cartList.size()),
+                    cartItemCount.getCartItem(true, "UpdateQuantity",
                             listNew.getProductId().getDrugId(), String.valueOf(listNew.getQuantity()));
                     ((Activity) context).invalidateOptionsMenu();
                 }
@@ -154,7 +144,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.iv_cart_item_delete.setOnClickListener(v -> {
             notifyDataSetChanged();
             ((Activity) context).invalidateOptionsMenu();
-            cartItemCount.getCartItem(true, "remove", String.valueOf(cartList.size()),
+            cartItemCount.getCartItem(true, "remove",
                     cartList.get(position).getProductId().getDrugId(), String.valueOf(cartList.get(position).getQuantity()));
             cartList.remove(cartList.get(position));
             sessionManager.saveListInLocal("cart", cartList);
@@ -165,7 +155,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        Log.e("CartLiost", "" + cartList);
         return cartList.size();
     }
 

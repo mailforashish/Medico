@@ -20,7 +20,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -229,8 +231,8 @@ public class ProductDetailsActivity extends AppCompatActivity implements ApiResp
                 .addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
                     @Override
                     public void onScrollChanged() {
-                        Log.e("VisibleTop", "appBar " + (binding.nsvBelowTabs.getBottom() - (200)));
-                        Log.e("VisibleTop", "nsvBelowTabs " + (binding.nsvBelowTabs.getHeight() + binding.nsvBelowTabs.getScrollY()));
+                       // Log.e("VisibleTop", "appBar " + (binding.nsvBelowTabs.getBottom() - (200)));
+                       // Log.e("VisibleTop", "nsvBelowTabs " + (binding.nsvBelowTabs.getHeight() + binding.nsvBelowTabs.getScrollY()));
                         if ((binding.nsvBelowTabs.getBottom() - (200)) <= (binding.nsvBelowTabs.getHeight() + binding.nsvBelowTabs.getScrollY())) {
                             //scroll view is at bottom
                             binding.collapse.setVisibility(View.VISIBLE);
@@ -242,6 +244,14 @@ public class ProductDetailsActivity extends AppCompatActivity implements ApiResp
                         }
                     }
                 });
+
+
+
+        Animation animMove = new TranslateAnimation(0.0f, 10.0f, 0.0f, 0.0f);
+        animMove.setDuration(300);
+        animMove.setRepeatMode(Animation.REVERSE);
+        animMove.setRepeatCount(Animation.INFINITE);
+        binding.ivOfferIconPercent.startAnimation(animMove);
 
     }
 

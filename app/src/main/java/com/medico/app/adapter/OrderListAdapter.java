@@ -56,7 +56,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
         } else if (orderList.get(position).getOrderStatus() == 5) {
             holder.tv_order_status.setText("Failed");
         }
-        holder.tv_patients_name.setText(orderList.get(position).getOrderDetailsJson().getShippingAddress().getName());
+       /* holder.tv_patients_name.setText(orderList.get(position).getOrderDetailsJson().getShippingAddress().getName());
         holder.tv_place_on.setText("Place On " + String.valueOf(orderList.get(position).getDeliveredDate()));
         int size = Math.min(2, orderList.get(position).getOrderDetailsJson().getOrderItem().size());
         Log.e("orderdapter", "onBindViewHolder: " + size);
@@ -71,7 +71,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
                 // break;
             }
 
-        }
+        }*/
 
         holder.linear_place_on.setOnClickListener(view -> {
             Intent intent = new Intent(context, OrderDetailActivity.class);

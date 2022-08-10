@@ -154,7 +154,6 @@ public class SessionManager {
         return null;
     }
 
-
     public <T> void saveAddressInLocal(String key, List<T> list) {
         Gson gson = new Gson();
         String json = gson.toJson(list);

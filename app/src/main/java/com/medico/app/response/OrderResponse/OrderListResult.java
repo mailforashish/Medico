@@ -2,7 +2,7 @@ package com.medico.app.response.OrderResponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.medico.app.response.OrderRequest.OrderDetailsJson;
+import com.medico.app.response.OrderRequest.Drug;
 
 import java.io.Serializable;
 
@@ -36,7 +36,7 @@ public class OrderListResult implements Serializable {
     private Integer amount;
     @SerializedName("order_details_json")
     @Expose
-    private OrderDetailsJson orderDetailsJson;
+    private Drug drug;
     @SerializedName("status")
     @Expose
     private Integer status;
@@ -134,12 +134,12 @@ public class OrderListResult implements Serializable {
         this.amount = amount;
     }
 
-    public OrderDetailsJson  getOrderDetailsJson() {
-        return orderDetailsJson;
+    public Drug getOrderDetailsJson() {
+        return drug;
     }
 
-    public void setOrderDetailsJson(OrderDetailsJson  orderDetailsJson) {
-        this.orderDetailsJson = orderDetailsJson;
+    public void setOrderDetailsJson(Drug drug) {
+        this.drug = drug;
     }
 
     public Integer getStatus() {

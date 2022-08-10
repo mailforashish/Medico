@@ -27,6 +27,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.medico.app.R;
 import com.medico.app.activity.ProductDetailsActivity;
 import com.medico.app.interfaceClass.CartItemCount;
+import com.medico.app.response.Cartlist.CartResult;
 import com.medico.app.response.ProductList.ProductListResponse;
 import com.medico.app.utils.MaxLimit;
 import com.medico.app.utils.MedicoLoading;
@@ -49,7 +50,6 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private boolean isLoadingAdded = false;
     private boolean retryPageLoad = false;
     private String errorMsg;
-    SessionManager sessionManager;
     CartItemCount cartItemCount;
     MaxLimit maxLimit;
 
@@ -59,7 +59,6 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.list = new ArrayList<>();
         this.type = type;
         this.cartItemCount = cartItemCount;
-        sessionManager = new SessionManager(context);
         maxLimit = new MaxLimit(0);
     }
 
@@ -100,133 +99,123 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         switch (getItemViewType(position)) {
             case ITEM:
-                try {
-                    final myViewHolder holder = (myViewHolder) hld;
-                    if (type.equals("HealthCare")) {
-                        final ProductListResponse.Data listNew = list.get(position);
-                        holder.tv_drug_name.setText(listNew.getDrugName());
-                        holder.tv_drug_type.setText(listNew.getDrugType());
-                        holder.tv_manufacturer.setText(listNew.getManufactur());
-                        holder.tv_discPercent.setText(listNew.getDiscount() + "% OFF");
-                        holder.tv_real_price.setPaintFlags(holder.tv_real_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                        float actualPrice = Float.parseFloat(listNew.getUnitPrice());
-                        float totalDiscount = (actualPrice * Float.parseFloat(listNew.getDiscount())) / 100;
-                        holder.tv_real_price.setText(String.valueOf("MRP " + listNew.getUnitPrice()));
-                        float priceAfterDiscount = actualPrice - totalDiscount;
-                        holder.tv_off_price.setText("₹ " + String.valueOf(String.format("%.2f", priceAfterDiscount)));
-                       Glide.with(context).load(list.get(position).getItemImage())
-                                .apply(new RequestOptions().placeholder(R.drawable.home_care).error
-                                        (R.drawable.home_care).circleCrop()).into(holder.iv_medicine);
 
-                        holder.tv_add_cart.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
+                final myViewHolder holder = (myViewHolder) hld;
+                if (type.equals("HealthCare")) {
+                    final ProductListResponse.Data listNew = list.get(position);
+                    holder.tv_drug_name.setText(list.get(position).getDrugName());
+                    holder.tv_drug_type.setText(list.get(position).getDrugType());
+                    holder.tv_manufacturer.setText(list.get(position).getManufactur());
+                    holder.tv_discPercent.setText(list.get(position).getDiscount() + "% OFF");
+                    holder.tv_real_price.setPaintFlags(holder.tv_real_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    float actualPrice = Float.parseFloat(listNew.getUnitPrice());
+                    float totalDiscount = (actualPrice * Float.parseFloat(list.get(position).getDiscount())) / 100;
+                    holder.tv_real_price.setText(String.valueOf("MRP " + list.get(position).getUnitPrice()));
+                    float priceAfterDiscount = actualPrice - totalDiscount;
+                    holder.tv_off_price.setText("₹ " + String.valueOf(String.format("%.2f", priceAfterDiscount)));
+                    Glide.with(context).load(list.get(position).getItemImage())
+                            .apply(new RequestOptions().placeholder(R.drawable.home_care).error
+                                    (R.drawable.home_care).circleCrop()).into(holder.iv_medicine);
+
+                    holder.tv_add_cart.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            holder.tv_add_cart.setVisibility(View.GONE);
+                            holder.llAddPlusMinus.setVisibility(View.VISIBLE);
+                            cartList = new ArrayList<ProductListResponse.Data>(Arrays.asList(listNew));
+                            cartList.remove(listNew);
+                            listNew.quantity = 1;
+                            cartList.add(listNew);
+                            ((Activity) context).invalidateOptionsMenu();
+                            cartItemCount.getCartItem(true, "addCart", listNew.getDrugId(),
+                                    String.valueOf(listNew.quantity));
+                        }
+                    });
+
+                    if (cartList != null) {
+                        for (int i = 0; i < cartList.size(); i++) {
+                            if (cartList.get(i).getDrugId().equals(list.get(position).getDrugId())) {
                                 holder.tv_add_cart.setVisibility(View.GONE);
                                 holder.llAddPlusMinus.setVisibility(View.VISIBLE);
+                            }else {
+                                holder.tv_add_cart.setVisibility(View.VISIBLE);
+                                holder.llAddPlusMinus.setVisibility(View.GONE);
+                            }
+                        }
+                    }
+
+                    holder.iv_plus.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (Integer.parseInt(holder.tv_quantity.getText().toString()) >= 1) {
+                                holder.iv_minus.setVisibility(View.VISIBLE);
+                                int a = Integer.parseInt(holder.tv_quantity.getText().toString());
+                                a++;
+                                holder.tv_quantity.setText(Integer.toString(maxLimit.limit(a)));
                                 if (cartList != null) {
                                     if (cartList.contains(listNew)) {
                                         cartList.remove(listNew);
-                                        listNew.quantity = 1;
+                                        listNew.quantity = a;
                                         cartList.add(listNew);
-                                        //sessionManager.saveListInLocal("cart", cartList);
                                         ((Activity) context).invalidateOptionsMenu();
-                                        cartItemCount.getCartItem(true, "addCart", String.valueOf(cartList.size()), listNew.getDrugId(),
-                                                String.valueOf(listNew.quantity));
-                                    } else {
-                                        listNew.quantity = 1;
-                                        cartList.add(listNew);
-                                        //sessionManager.saveListInLocal("cart", cartList);
-                                        ((Activity) context).invalidateOptionsMenu();
-                                        cartItemCount.getCartItem(true, "addCart", String.valueOf(cartList.size()), listNew.getDrugId(),
-                                                String.valueOf(listNew.quantity));
-                                    }
-                                } else {
-                                    cartList = new ArrayList<ProductListResponse.Data>(Arrays.asList(listNew));
-                                    cartList.remove(listNew);
-                                    listNew.quantity = 1;
-                                    cartList.add(listNew);
-                                    //sessionManager.saveListInLocal("cart", cartList);
-                                    ((Activity) context).invalidateOptionsMenu();
-                                    cartItemCount.getCartItem(true, "addCart", String.valueOf(cartList.size()), listNew.getDrugId(),
-                                            String.valueOf(listNew.quantity));
-                                }
-                            }
-                        });
-                        holder.iv_plus.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                if (Integer.parseInt(holder.tv_quantity.getText().toString()) >= 1) {
-                                    holder.iv_minus.setVisibility(View.VISIBLE);
-                                    int a = Integer.parseInt(holder.tv_quantity.getText().toString());
-                                    a++;
-                                    holder.tv_quantity.setText(Integer.toString(maxLimit.limit(a)));
-                                    if (cartList != null) {
-                                        if (cartList.contains(listNew)) {
-                                            cartList.remove(listNew);
-                                            listNew.quantity = a;
-                                            cartList.add(listNew);
-                                            // sessionManager.saveListInLocal("cart", cartList);
-                                            ((Activity) context).invalidateOptionsMenu();
-                                            if (a <= 10) {
-                                                cartItemCount.getCartItem(true, "UpdateQuantity", String.valueOf(cartList.size()), listNew.getDrugId(),
-                                                        String.valueOf(listNew.quantity));
-                                            } else {
-                                                Toast.makeText(context, "limit exceeded", Toast.LENGTH_SHORT).show();
+                                        if (a <= 10) {
+                                            cartItemCount.getCartItem(true, "UpdateQuantity", listNew.getDrugId(),
+                                                    String.valueOf(listNew.quantity));
+                                        } else {
+                                            Toast.makeText(context, "limit exceeded", Toast.LENGTH_SHORT).show();
 
-                                            }
                                         }
                                     }
                                 }
-
                             }
-                        });
-                        holder.iv_minus.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                if (Integer.parseInt(holder.tv_quantity.getText().toString()) <= 1) {
-                                    holder.llAddPlusMinus.setVisibility(View.GONE);
-                                    holder.tv_add_cart.setVisibility(View.VISIBLE);
-                                    cartList.remove(listNew);
-                                    // sessionManager.saveListInLocal("cart", cartList);
-                                    ((Activity) context).invalidateOptionsMenu();
-                                    cartItemCount.getCartItem(true, "remove", String.valueOf(cartList.size()), listNew.getDrugId(),
-                                            String.valueOf(listNew.quantity));
-                                } else {
-                                    int a = Integer.parseInt(holder.tv_quantity.getText().toString());
-                                    a--;
-                                    holder.tv_quantity.setText(Integer.toString(a));
-                                    cartList.remove(listNew);
-                                    listNew.quantity = a;
-                                    cartList.add(listNew);
-                                    // sessionManager.saveListInLocal("cart", cartList);
-                                    cartItemCount.getCartItem(true, "UpdateQuantity", String.valueOf(cartList.size()), listNew.getDrugId(),
-                                            String.valueOf(listNew.quantity));
-                                    ((Activity) context).invalidateOptionsMenu();
-                                }
-                            }
-                        });
-                    } else {
-                        holder.tv_product_name.setText(list.get(position).getDrugName());
-                        holder.tv_manufacturer.setText(list.get(position).getManufactur());
 
-                    }
-                    holder.main_container.setOnClickListener(view -> {
-                        Intent intent = new Intent(context, ProductDetailsActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("drug_id", list.get(position).getDrugId());
-                        bundle.putSerializable("pd_Name", list.get(position).getDrugName());
-                        bundle.putSerializable("pd_Type", list.get(position).getDrugType());
-                        bundle.putSerializable("manufacture", list.get(position).getManufactur());
-                        bundle.putSerializable("price", list.get(position).getUnitPrice());
-                        bundle.putSerializable("discount", list.get(position).getDiscount());
-                        intent.putExtras(bundle);
-                        context.startActivity(intent);
-
+                        }
                     });
-                    break;
-
-                } catch (Exception e) {
+                    holder.iv_minus.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (Integer.parseInt(holder.tv_quantity.getText().toString()) <= 1) {
+                                holder.llAddPlusMinus.setVisibility(View.GONE);
+                                holder.tv_add_cart.setVisibility(View.VISIBLE);
+                                cartList.remove(listNew);
+                                ((Activity) context).invalidateOptionsMenu();
+                                cartItemCount.getCartItem(true, "remove", listNew.getDrugId(),
+                                        String.valueOf(listNew.quantity));
+                            } else {
+                                int a = Integer.parseInt(holder.tv_quantity.getText().toString());
+                                a--;
+                                holder.tv_quantity.setText(Integer.toString(a));
+                                cartList.remove(listNew);
+                                listNew.quantity = a;
+                                cartList.add(listNew);
+                                cartItemCount.getCartItem(true, "UpdateQuantity", listNew.getDrugId(),
+                                        String.valueOf(listNew.quantity));
+                                ((Activity) context).invalidateOptionsMenu();
+                            }
+                        }
+                    });
+                } else {
+                    holder.tv_product_name.setText(list.get(position).getDrugName());
+                    holder.tv_manufacturer.setText(list.get(position).getManufactur());
                 }
+
+                holder.main_container.setOnClickListener(view -> {
+                    Intent intent = new Intent(context, ProductDetailsActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("drug_id", list.get(position).getDrugId());
+                    bundle.putSerializable("pd_Name", list.get(position).getDrugName());
+                    bundle.putSerializable("pd_Type", list.get(position).getDrugType());
+                    bundle.putSerializable("manufacture", list.get(position).getManufactur());
+                    bundle.putSerializable("price", list.get(position).getUnitPrice());
+                    bundle.putSerializable("discount", list.get(position).getDiscount());
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+
+                });
+                break;
+           /* try {
+                } catch (Exception e) {
+                }*/
             case LOADING:
                 if (retryPageLoad) {
                 } else {
@@ -272,17 +261,17 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             tv_discPercent = itemView.findViewById(R.id.tv_discPercent);
             main_container = itemView.findViewById(R.id.main_container);
             tv_product_name = itemView.findViewById(R.id.tv_product_name);
-            tv_manufacturer = itemView.findViewById(R.id.tv_manufacturer);
         }
     }
 
     protected class LoadingVH extends RecyclerView.ViewHolder implements View.OnClickListener {
         private MedicoLoading progress;
+
         public LoadingVH(View itemView) {
             super(itemView);
             progress = itemView.findViewById(R.id.progress);
             progress.setOnClickListener(this);
-            if(isLoadingAdded){
+            if (isLoadingAdded) {
                 progress.setVisibility(View.VISIBLE);
             }
         }
@@ -354,6 +343,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public ProductListResponse.Data getItem(int position) {
         return list.get(position);
     }
+
     // method for filtering our recyclerview items.
     public void filterList(List<ProductListResponse.Data> filterllist) {
         list = filterllist;

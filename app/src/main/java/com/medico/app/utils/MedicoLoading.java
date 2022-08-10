@@ -46,9 +46,9 @@ public class MedicoLoading extends View {
 
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        colors.add(Color.parseColor("#4285F4"));//COLOR_BLUE
-        colors.add(Color.parseColor("#DB4437"));//COLOR_RED
-        colors.add(Color.parseColor("#F4B400"));//COLOR_YELLOW
+        colors.add(Color.parseColor("#14BFFF"));//COLOR_BLUE
+        colors.add(Color.parseColor("#14BFFF"));//COLOR_RED
+        colors.add(Color.parseColor("#14BFFF"));//COLOR_YELLOW
         colors.add(Color.parseColor("#14BFFF"));//COLOR_THEME
 
         float startPoint = (float) (this.getWidth() / 2) - (float) 3 * (this.circleRadius + this.circleMargin / (float) 2);

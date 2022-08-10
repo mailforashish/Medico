@@ -59,7 +59,7 @@ public class OrderDetailActivity extends AppCompatActivity implements ApiRespons
 
         orderListResults = (OrderListResult) getIntent().getSerializableExtra("LIST");
         Log.e("getData", "fomrAdapter " + new Gson().toJson(orderListResults));
-        totalItems = String.valueOf(orderListResults.getOrderDetailsJson().getOrderItem().size());
+       /* totalItems = String.valueOf(orderListResults.getOrderDetailsJson().getOrderItem().size());
         if (orderListResults != null) {
             binding.tvPatientsNameInput.setText(orderListResults.getOrderDetailsJson().getShippingAddress().getName());
             binding.tvOrderNoInput.setText(orderListResults.getOrderId());
@@ -75,7 +75,7 @@ public class OrderDetailActivity extends AppCompatActivity implements ApiRespons
         binding.tvDeliverDate.setText(String.valueOf("Delivery Date " + orderListResults.getDeliveredDate()));
         for (int i = 0; i < orderListResults.getOrderDetailsJson().getOrderItem().size(); i++) {
             orderItem.add(orderListResults.getOrderDetailsJson().getOrderItem().get(i));
-        }
+        }*/
         Log.e("orderItem", "sizefix " + orderItem.size());
         binding.rvOrderItem.setLayoutManager(new LinearLayoutManager(OrderDetailActivity.this, LinearLayoutManager.VERTICAL, false));
         orderItemAdapter = new OrderItemAdapter(OrderDetailActivity.this, orderItem);

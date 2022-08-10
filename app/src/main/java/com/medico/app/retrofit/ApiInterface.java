@@ -89,11 +89,11 @@ public interface ApiInterface {
     @GET("products")
     Call<ProductListResponse> getSearchProduct(@Query("q") String p, @Query("per_page") String lim);
 
-    @POST("PaymentOrder")
+    @POST("place-order")
     Call<CreateOrderResponse> OrderProduct(@Header("Authorization") String token, @Header("Accept") String accept,
                                            @Body OrderProductRequests order_detail);
 
-    @POST("PaymentOrder")
+    @POST("place-order")
     Call<CreateOrderResponseUpi> OrderProductUpi(@Header("Authorization") String token, @Header("Accept") String accept,
                                                  @Body OrderProductRequests order_detail);
 

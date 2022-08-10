@@ -12,7 +12,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -22,11 +21,8 @@ import com.medico.app.response.Address.AddressResult;
 import com.medico.app.response.OrderProduct.CreateOrderResponse;
 import com.medico.app.response.OrderProduct.CreateOrderResponseUpi;
 import com.medico.app.response.OrderProduct.CreateOrderResult;
-import com.medico.app.response.OrderRequest.OrderDetailsJson;
-import com.medico.app.response.OrderRequest.OrderItem;
+import com.medico.app.response.OrderRequest.Drug;
 import com.medico.app.response.OrderRequest.OrderProductRequests;
-import com.medico.app.response.OrderRequest.ShippingAddress;
-import com.medico.app.response.OrderResponse.OrderListResult;
 import com.medico.app.response.Payment.ReportResponse;
 import com.medico.app.R;
 import com.medico.app.adapter.PaymentOffersAdapter;
@@ -45,7 +41,13 @@ import com.razorpay.PaymentResultListener;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import static com.medico.app.utils.SessionManager.CITY;
+import static com.medico.app.utils.SessionManager.LATITUDE;
+import static com.medico.app.utils.SessionManager.LONGITUDE;
+import static com.medico.app.utils.SessionManager.PIN_CODE;
 
 public class PaymentActivity extends AppCompatActivity implements ApiResponseInterface, PaymentResultListener, PlaceOrder {
     ActivityPaymentBinding binding;
@@ -59,12 +61,14 @@ public class PaymentActivity extends AppCompatActivity implements ApiResponseInt
     private List<AddressResult> addressLists = new ArrayList<>();
     private List<CartResult> purchaseLists = new ArrayList<>();
     private String shippingCharge = "0";
-    List<OrderItem> orderItem = new ArrayList<>();
+    List<Drug> orderItem = new ArrayList<>();
     private String orderId;
     private String transactionId = "TID" + System.currentTimeMillis();
     private Integer finalAmount;
     private String raz_payType, payment_Selector = "raz";
     HideStatus hideStatus;
+    String latitude, longitude;
+    String prescriptionImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +79,7 @@ public class PaymentActivity extends AppCompatActivity implements ApiResponseInt
 
         Checkout.preload(getApplicationContext());
         amount = getIntent().getStringExtra("pay_amount");
+        prescriptionImage = getIntent().getStringExtra("UploadImage");
         sessionManager = new SessionManager(this);
         apiManager = new ApiManager(this, this);
         binding.tvTotalAmount.setText(amount);
@@ -84,6 +89,13 @@ public class PaymentActivity extends AppCompatActivity implements ApiResponseInt
         addressLists = sessionManager.getAddressFromLocal("address");
         purchaseLists = sessionManager.getListFromLocal("cart");
         address_position = new SessionManager(this).getAddressPosition();
+
+        HashMap<String, String> location = sessionManager.getSaveLocation();
+        if (location.isEmpty()) {
+        } else {
+            latitude = location.get(LATITUDE);
+            longitude = location.get(LONGITUDE);
+        }
         setData();
     }
 
@@ -125,57 +137,35 @@ public class PaymentActivity extends AppCompatActivity implements ApiResponseInt
 
     private void createOrder(String transactionType) {
         try {
-            float actualPrice, totalDiscount, priceAfterDiscount;
             for (int i = 0; i < purchaseLists.size(); i++) {
-                OrderItem orderItemAdd = new OrderItem();
-                orderItemAdd.setProductId(purchaseLists.get(i).getProductId().getDrugId());
-                orderItemAdd.setProductName(purchaseLists.get(i).getProductId().getDrugName());
-                orderItemAdd.setManufactureName(purchaseLists.get(i).getProductId().getManufactur());
-                orderItemAdd.setQuantity(String.valueOf(purchaseLists.get(i).getQuantity()));
-                orderItemAdd.setProductPrice(purchaseLists.get(i).getProductId().getUnitPrice());
-                orderItemAdd.setDiscount(purchaseLists.get(i).getProductId().getDiscount());
-                actualPrice = Float.parseFloat(purchaseLists.get(i).getProductId().getUnitPrice());
-                totalDiscount = (actualPrice * Float.parseFloat(purchaseLists.get(i).getProductId().getDiscount())) / 100;
-                priceAfterDiscount = actualPrice - totalDiscount;
-                orderItemAdd.setDiscountAfterPrice(String.valueOf(String.format("%.2f", priceAfterDiscount)));
-                orderItem.add(orderItemAdd);
-
+                Drug drug = new Drug();
+                drug.setDrugId(purchaseLists.get(i).getProductId().getDrugId());
+                drug.setQuantity(String.valueOf(purchaseLists.get(i).getQuantity()));
+                orderItem.add(drug);
             }
-            ShippingAddress shippingAddress;
-            shippingAddress = new ShippingAddress();
-            shippingAddress.setName(addressLists.get(address_position).getName());
-            shippingAddress.setMobile(addressLists.get(address_position).getMobile());
-            shippingAddress.setAddress1(addressLists.get(address_position).getAddress1());
-            shippingAddress.setAddress2(addressLists.get(address_position).getAddress2());
-            shippingAddress.setLandmark(addressLists.get(address_position).getLandmark());
-            shippingAddress.setPincode(String.valueOf(addressLists.get(address_position).getPincode()));
-            shippingAddress.setType(String.valueOf(addressLists.get(address_position).getType().getId()));
-            shippingAddress.setTypeName(addressLists.get(address_position).getType().getValue());
-
             OrderProductRequests orderProductRequests = new OrderProductRequests();
-            orderProductRequests.setPaymentType(transactionType);
-            // orderProductRequests.setAmount("1");
-            orderProductRequests.setAmount(amount);
-            orderProductRequests.setShippingCharge(shippingCharge);
-            OrderDetailsJson orderDetailsJson = new OrderDetailsJson();
-            orderDetailsJson.setOrderItem(orderItem);
-            orderDetailsJson.setShippingAddress(shippingAddress);
-            orderProductRequests.setOrderDetailsJson(orderDetailsJson);
-
-            if (transactionType.equals("1")) {
-                //COD = 1
+            orderProductRequests.setDrugs(orderItem);
+            orderProductRequests.setIsCheckout(1);
+            orderProductRequests.setPaymentMode(transactionType);
+            orderProductRequests.setAddressId(addressLists.get(address_position).getId());
+            orderProductRequests.setWallet("0");
+            orderProductRequests.setCouponCode("");
+            orderProductRequests.setPerception(prescriptionImage);
+            orderProductRequests.setLat(latitude);
+            orderProductRequests.setLon(longitude);
+            Log.e("OrderItem", "" + new Gson().toJson(orderProductRequests));
+            if (transactionType.equals("cod")) {
+                //COD = 1//cod
                 apiManager.createOrder(orderProductRequests);
             } else {
-                //All Online = 2
+                //All Online = 2//razorpay
                 apiManager.createOrderUpi(orderProductRequests);
             }
-
         } catch (IllegalStateException e) {
             e.printStackTrace();
         }
 
     }
-
 
     @Override
     public void isSuccess(Object response, int ServiceCode) {
@@ -189,10 +179,10 @@ public class PaymentActivity extends AppCompatActivity implements ApiResponseInt
             CreateOrderResponseUpi rsp = (CreateOrderResponseUpi) response;
             try {
                 if (rsp != null) {
-                    orderId = rsp.getResult().getOrderId();
-                    finalAmount = rsp.getResult().getNotes().getAmount();
-                    if (rsp.getResult().getOrderId() != null && rsp.getResult().getOrderId().length() > 1) {
-                        startRazorPayGateway(rsp.getResult());
+                    orderId = String.valueOf(rsp.getData().getOrderDetails().getId());
+                    finalAmount = rsp.getData().getOrderDetails().getCutAmount();
+                    if (rsp.getData().getOrderDetails().getId() != null) {
+                        startRazorPayGateway(rsp.getData());
                     }
                 }
             } catch (Exception e) {
@@ -211,29 +201,28 @@ public class PaymentActivity extends AppCompatActivity implements ApiResponseInt
         CreateOrderResult data = orderData;
         final Activity activity = this;
         final Checkout checkout = new Checkout();
-        checkout.setKeyID(data.getKey());
-
-        //checkout.setKeyID("rzp_test_E5erobZUHcNr6o");
+        //checkout.setKeyID(data.getKey());
+        checkout.setKeyID("rzp_live_eZnz4rVH8Xxrdv");
         //Log.e("razKey", data.getKey());
 
         try {
             JSONObject options = new JSONObject();
             // Notes Object
             JSONObject notes = new JSONObject();
-            notes.put("amount", "" + data.getNotes().getAmount());
-            notes.put("merchant_order_id", "" + data.getNotes().getMerchant_order_id());
+            //notes.put("amount", "" + data.getOrderDetails().getCutAmount());
+            notes.put("amount", "" + "100");
+            notes.put("merchant_order_id", "merchant_order_" + data.getOrderDetails().getId());
             options.put("notes", notes);
-
-            options.put("key", data.getKey());
-            String amount = String.valueOf(data.getAmount());
+            options.put("key", "rzp_live_eZnz4rVH8Xxrdv");
+            //String amount = String.valueOf(data.getOrderDetails().getCutAmount() * 100);
+            String amount = "100";
             options.put("amount", amount);
-            options.put("name", "" + data.getName());
-            options.put("description", data.getDescription());
-            options.put("image", data.getImage());
-            options.put("theme.color", data.getTheme().getColor());
-            options.put("order_id", data.getOrderId());
+            options.put("name", "GO MEDICOS" );
+            options.put("description", "Order Created by "+ data.getOrderDetails().getAddress().get(0).getName());
+            options.put("image","https://i.ibb.co/5c4GNMd/Asset-4100.png");
+            options.put("color", R.color.color_secondary);
+            options.put("id", data.getOrderDetails().getId());
             options.put("currency", "INR");
-
             if (raz_payType.equals("card")) {
                 options.put("prefill.email", sessionManager.getMobile() + "@gmail.com");
                 options.put("prefill.contact", sessionManager.getMobile());
