@@ -62,13 +62,13 @@ public class OrderDetails {
     private Object otherCharges;
     @SerializedName("cut_amount")
     @Expose
-    private Integer cutAmount;
+    private Double cutAmount;
     @SerializedName("wallet")
     @Expose
-    private Object wallet;
+    private Double wallet;
     @SerializedName("total")
     @Expose
-    private Integer total;
+    private Double total;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
@@ -226,27 +226,27 @@ public class OrderDetails {
         this.otherCharges = otherCharges;
     }
 
-    public Integer getCutAmount() {
+    public Double getCutAmount() {
         return cutAmount;
     }
 
-    public void setCutAmount(Integer cutAmount) {
+    public void setCutAmount(Double cutAmount) {
         this.cutAmount = cutAmount;
     }
 
-    public Object getWallet() {
+    public Double getWallet() {
         return wallet;
     }
 
-    public void setWallet(Object wallet) {
+    public void setWallet(Double wallet) {
         this.wallet = wallet;
     }
 
-    public Integer getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 

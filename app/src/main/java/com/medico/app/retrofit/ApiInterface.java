@@ -97,13 +97,13 @@ public interface ApiInterface {
     Call<CreateOrderResponseUpi> OrderProductUpi(@Header("Authorization") String token, @Header("Accept") String accept,
                                                  @Body OrderProductRequests order_detail);
 
+
     @FormUrlEncoded
-    @POST("PaymentCheck")
-    Call<ReportResponse> verifyPayment(@Header("Authorization") String token, @Header("Accept") String accept,
-                                       @Field("transaction_id") String transaction_id, @Field("order_id") String order_id);
+    @POST("validate-Order")
+    Call<ReportResponse> verifyPayment(@Header("Authorization") String token, @Header("Accept") String accept, @Field("order_id") String order_id,
+                                       @Field("payment_id") String payment_id, @Field("payment_mode") String payment_mode);
 
-
-    @GET("orderList")
+    @GET("orders")
     Call<OrderListResponse> getOrderData(@Header("Authorization") String token, @Header("Accept") String accept);
 
     @GET("{pincode}")

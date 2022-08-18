@@ -75,4 +75,23 @@
         </attr>
     </declare-styleable>
 
+    <style name="StepView">
+        <item name="sv_selectedCircleColor">@color/color_secondary</item>
+        <item name="sv_selectedCircleRadius">14dp</item>
+        <item name="sv_selectedTextColor">@color/color_header_text</item>
+        <item name="sv_selectedStepNumberColor">@color/color_header_text</item>
+        <item name="sv_stepNumberTextSize">12sp</item>
+        <item name="sv_doneStepMarkColor">@color/white</item>
+        <item name="sv_doneCircleColor">@color/color_secondary</item>
+        <item name="sv_doneCircleRadius">14dp</item>
+        <item name="sv_doneTextColor">@color/color_header_text</item>
+        <item name="sv_nextTextColor">@color/grey_header_bg</item>
+        <item name="sv_nextStepLineColor">@color/white</item>
+        <item name="sv_doneStepLineColor">@color/color_third</item>
+        <item name="sv_stepPadding">12dp</item>
+        <item name="sv_textPadding">12dp</item>
+        <item name="sv_stepLineWidth">0.5dp</item>
+        <item name="sv_textSize">14sp</item>
+    </style>
+
 </resources>

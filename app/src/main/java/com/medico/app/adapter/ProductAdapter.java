@@ -5,13 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,12 +23,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.medico.app.R;
 import com.medico.app.activity.ProductDetailsActivity;
 import com.medico.app.interfaceClass.CartItemCount;
-import com.medico.app.response.Cartlist.CartResult;
 import com.medico.app.response.ProductList.ProductListResponse;
 import com.medico.app.utils.MaxLimit;
 import com.medico.app.utils.MedicoLoading;
 import com.medico.app.utils.PaginationAdapterCallback;
-import com.medico.app.utils.SessionManager;
 
 
 import java.util.ArrayList;
@@ -79,7 +73,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             case ITEM:
                 View v1 = null;
                 if (type.equals("HealthCare")) {
-                    v1 = inflater.inflate(R.layout.product_list_new, parent, false);
+                    v1 = inflater.inflate(R.layout.product_list_layout, parent, false);
                 } else if (type.equals("search")) {
                     v1 = inflater.inflate(R.layout.adapter_search, parent, false);
                 }
@@ -113,9 +107,9 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     holder.tv_real_price.setText(String.valueOf("MRP " + list.get(position).getUnitPrice()));
                     float priceAfterDiscount = actualPrice - totalDiscount;
                     holder.tv_off_price.setText("₹ " + String.valueOf(String.format("%.2f", priceAfterDiscount)));
-                    Glide.with(context).load(list.get(position).getItemImage())
-                            .apply(new RequestOptions().placeholder(R.drawable.home_care).error
-                                    (R.drawable.home_care).circleCrop()).into(holder.iv_medicine);
+                    Glide.with(context).load(list.get(position).getImages().get(0).getImageUrl())
+                            .apply(new RequestOptions().placeholder(R.drawable.ic_order_mediciens).error
+                                    (R.drawable.ic_order_mediciens).circleCrop()).into(holder.iv_medicine);
 
                     holder.tv_add_cart.setOnClickListener(new View.OnClickListener() {
                         @Override

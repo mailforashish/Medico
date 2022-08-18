@@ -203,6 +203,13 @@ public class ProductListResponse {
         @SerializedName("is_cart")
         @Expose
         private Boolean isCart;
+        @SerializedName("category_id")
+        @Expose
+        private CategoryId categoryId;
+        @SerializedName("images")
+        @Expose
+        private List<Image> images = null;
+
 
         public String getDrugId() {
             return drugId;
@@ -346,6 +353,118 @@ public class ProductListResponse {
 
         public void setIsCart(Boolean isCart) {
             this.isCart = isCart;
+        }
+        public CategoryId getCategoryId() {
+            return categoryId;
+        }
+
+        public void setCategoryId(CategoryId categoryId) {
+            this.categoryId = categoryId;
+        }
+
+        public List<Image> getImages() {
+            return images;
+        }
+
+        public void setImages(List<Image> images) {
+            this.images = images;
+        }
+
+    }
+
+    public class Image {
+        @SerializedName("id")
+        @Expose
+        private Integer id;
+        @SerializedName("drug_id")
+        @Expose
+        private String drugId;
+        @SerializedName("image_url")
+        @Expose
+        private String imageUrl;
+        @SerializedName("created_at")
+        @Expose
+        private String createdAt;
+        @SerializedName("updated_at")
+        @Expose
+        private String updatedAt;
+
+        public Integer getId() {
+            return id;
+        }
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
+
+        public String getDrugId() {
+            return drugId;
+        }
+
+        public void setDrugId(String drugId) {
+            this.drugId = drugId;
+        }
+
+        public String getImageUrl() {
+            return imageUrl;
+        }
+
+        public void setImageUrl(String imageUrl) {
+            this.imageUrl = imageUrl;
+        }
+
+        public String getCreatedAt() {
+            return createdAt;
+        }
+
+        public void setCreatedAt(String createdAt) {
+            this.createdAt = createdAt;
+        }
+
+        public String getUpdatedAt() {
+            return updatedAt;
+        }
+
+        public void setUpdatedAt(String updatedAt) {
+            this.updatedAt = updatedAt;
+        }
+
+    }
+
+    public class CategoryId {
+
+        @SerializedName("id")
+        @Expose
+        private Integer id;
+        @SerializedName("title")
+        @Expose
+        private String title;
+        @SerializedName("child")
+        @Expose
+        private List<Object> child = null;
+
+        public Integer getId() {
+            return id;
+        }
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public List<Object> getChild() {
+            return child;
+        }
+
+        public void setChild(List<Object> child) {
+            this.child = child;
         }
 
     }

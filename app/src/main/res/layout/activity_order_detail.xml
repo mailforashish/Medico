@@ -268,6 +268,47 @@
                     android:layout_marginTop="10dp"
                     android:background="#f4f7fb" />
 
+
+                <TextView
+                    android:id="@+id/tv_shipment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/opensans_bold"
+                    android:text="Shipment Summary"
+                    android:textColor="@color/color_header_text"
+                    android:textSize="16sp" />
+
+                <com.medico.app.utils.OrderTrack
+                    android:id="@+id/step_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:sv_doneCircleColor="@color/color_secondary"
+                    app:sv_doneCircleRadius="12dp"
+                    app:sv_doneStepLineColor="@color/colorAccent"
+                    app:sv_doneStepMarkColor="@color/white"
+                    app:sv_nextStepLineColor="#dfe3e6"
+                    app:sv_nextTextColor="#dfe3e6"
+                    app:sv_selectedCircleColor="@color/colorAccent"
+                    app:sv_selectedCircleRadius="12dp"
+                    app:sv_selectedStepNumberColor="@color/color_header_text"
+                    app:sv_selectedTextColor="@color/color_header_text"
+                    app:sv_stepLineWidth="1dp"
+                    app:sv_stepNumberTextSize="12sp"
+                    app:sv_stepPadding="4dp"
+                    app:sv_stepViewStyle="@style/StepView"
+                    app:sv_typeface="@font/opensans_semibold" />
+
+                <View
+                    android:id="@+id/view4"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#f4f7fb" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

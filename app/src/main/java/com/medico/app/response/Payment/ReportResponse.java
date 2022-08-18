@@ -7,12 +7,12 @@ public class ReportResponse {
     @SerializedName("success")
     @Expose
     private Boolean success;
-    @SerializedName("result")
+    @SerializedName("data")
     @Expose
-    private String result;
-    @SerializedName("error")
+    private ReportResponseData data;
+    @SerializedName("message")
     @Expose
-    private String error;
+    private String message;
 
     public Boolean getSuccess() {
         return success;
@@ -22,20 +22,70 @@ public class ReportResponse {
         this.success = success;
     }
 
-    public String getResult() {
-        return result;
+    public ReportResponseData getData() {
+        return data;
     }
 
-    public void setResult(String result) {
-        this.result = result;
+    public void setData(ReportResponseData data) {
+        this.data = data;
     }
 
-    public String getError() {
-        return error;
+    public String getMessage() {
+        return message;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public void setMessage(String message) {
+        this.message = message;
     }
+
+    public class ReportResponseData {
+        @SerializedName("id")
+        @Expose
+        private Integer id;
+        @SerializedName("status")
+        @Expose
+        private Integer status;
+        @SerializedName("cut_amount")
+        @Expose
+        private Integer cutAmount;
+        @SerializedName("updated_at")
+        @Expose
+        private String updatedAt;
+
+        public Integer getId() {
+            return id;
+        }
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
+
+        public Integer getStatus() {
+            return status;
+        }
+
+        public void setStatus(Integer status) {
+            this.status = status;
+        }
+
+        public Integer getCutAmount() {
+            return cutAmount;
+        }
+
+        public void setCutAmount(Integer cutAmount) {
+            this.cutAmount = cutAmount;
+        }
+
+        public String getUpdatedAt() {
+            return updatedAt;
+        }
+
+        public void setUpdatedAt(String updatedAt) {
+            this.updatedAt = updatedAt;
+        }
+
+
+    }
+
 
 }

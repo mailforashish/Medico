@@ -162,7 +162,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
         public TextView tv_drug_name, tv_manufacturer,
                 tv_add_cart, tv_off_price, tv_real_price, tv_quantity, tv_discPercent;
-        public ImageView iv_minus, iv_plus, iv_medicine, iv_cart_item_delete;
+        public ImageView iv_medicine, iv_minus, iv_plus, iv_cart_item_delete;
         public LinearLayout llAddPlusMinus;
 
         public ViewHolder(View itemView) {
@@ -178,7 +178,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             iv_minus = itemView.findViewById(R.id.iv_minus);
             iv_plus = itemView.findViewById(R.id.iv_plus);
             llAddPlusMinus = itemView.findViewById(R.id.llAddPlusMinus);
-            iv_medicine = itemView.findViewById(R.id.iv_medicine_cart);
+            iv_medicine = itemView.findViewById(R.id.iv_medicine);
             tv_discPercent = itemView.findViewById(R.id.tv_discPercent);
 
         }

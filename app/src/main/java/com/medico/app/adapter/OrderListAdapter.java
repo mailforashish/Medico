@@ -14,12 +14,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.medico.app.R;
 import com.medico.app.activity.OrderDetailActivity;
 import com.medico.app.activity.ProductDetailsActivity;
 import com.medico.app.response.Address.AddressResult;
 import com.medico.app.response.Cartlist.CartResult;
 import com.medico.app.response.OrderRequest.OrderItem;
+import com.medico.app.response.OrderResponse.AddressList;
+import com.medico.app.response.OrderResponse.DrugData;
+import com.medico.app.response.OrderResponse.DrugList;
+import com.medico.app.response.OrderResponse.OrderDataList;
 import com.medico.app.response.OrderResponse.OrderListResult;
 
 import java.io.Serializable;
@@ -27,12 +32,13 @@ import java.util.List;
 
 
 public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyViewHolder> {
-    List<OrderListResult> orderList;
+    List<OrderDataList> orderList;
     Context context;
 
-    public OrderListAdapter(Context context, List<OrderListResult> orderList) {
+    public OrderListAdapter(Context context, List<OrderDataList> orderList) {
         this.context = context;
         this.orderList = orderList;
+
     }
 
     @NonNull
@@ -45,37 +51,40 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        if (orderList.get(position).getOrderStatus() == 1) {
+        if (orderList.get(position).getStatus().equals("1")) {
             holder.tv_order_status.setText("Processing");
-        } else if (orderList.get(position).getOrderStatus() == 2) {
+        } else if (orderList.get(position).getStatus().equals("2")) {
             holder.tv_order_status.setText("Packing");
-        } else if (orderList.get(position).getOrderStatus() == 3) {
+        } else if (orderList.get(position).getStatus().equals("3")) {
             holder.tv_order_status.setText("Shipped");
-        } else if (orderList.get(position).getOrderStatus() == 4) {
+        } else if (orderList.get(position).getStatus().equals("4")) {
             holder.tv_order_status.setText("Delivered");
-        } else if (orderList.get(position).getOrderStatus() == 5) {
+        } else if (orderList.get(position).getStatus().equals("5")) {
             holder.tv_order_status.setText("Failed");
         }
-       /* holder.tv_patients_name.setText(orderList.get(position).getOrderDetailsJson().getShippingAddress().getName());
-        holder.tv_place_on.setText("Place On " + String.valueOf(orderList.get(position).getDeliveredDate()));
-        int size = Math.min(2, orderList.get(position).getOrderDetailsJson().getOrderItem().size());
-        Log.e("orderdapter", "onBindViewHolder: " + size);
-        for (int i = 0; i < size - 1; i++) {
-            if (size == 1) {
-                holder.tv_all_order_list.setText(orderList.get(position).getOrderDetailsJson().getOrderItem().get(i).getProductName());
-                holder.tv_more.setVisibility(View.GONE);
-            } else {
-                holder.tv_all_order_list.setText(orderList.get(position).getOrderDetailsJson().getOrderItem().get(i).getProductName() + "\n"
-                        + orderList.get(position).getOrderDetailsJson().getOrderItem().get(i + 1).getProductName());
-                holder.tv_more.setVisibility(View.VISIBLE);
-                // break;
+        List<AddressList> address = orderList.get(position).getAddress();
+        if (address != null && !address.isEmpty())
+            holder.tv_patients_name.setText(address.get(0).getName());
+        // holder.tv_place_on.setText("Place On " + String.valueOf(orderList.get(position).getDeliveredDate()));
+        List<DrugData> drugs = orderList.get(position).getDrugs();
+        if (drugs != null && !drugs.isEmpty()) {
+            List<DrugList> drug = drugs.get(0).getDrug();
+            if (drug != null && !drug.isEmpty()) {
+                if (drugs.size() == 1) {
+                    holder.tv_all_order_list.setText(drug.get(0).getDrugName());
+                    holder.tv_more.setVisibility(View.GONE);
+                } else if (2 <= drugs.size()) // 2 <= 3
+                {
+                    holder.tv_all_order_list.setText(drug.get(0).getDrugName() + "\n"
+                            + drug.get(1).getDrugName());
+                    holder.tv_more.setVisibility(View.VISIBLE);
+                }
             }
-
-        }*/
+        }
 
         holder.linear_place_on.setOnClickListener(view -> {
             Intent intent = new Intent(context, OrderDetailActivity.class);
-            OrderListResult listNew = orderList.get(position);
+            OrderDataList listNew = orderList.get(position);
             Bundle bundle = new Bundle();
             bundle.putSerializable("LIST", listNew);
             intent.putExtras(bundle);
@@ -85,6 +94,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
         try {
 
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

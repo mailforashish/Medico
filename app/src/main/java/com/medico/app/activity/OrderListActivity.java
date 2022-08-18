@@ -13,6 +13,7 @@ import com.medico.app.adapter.OrderListAdapter;
 import com.medico.app.databinding.ActivityOrderListBinding;
 import com.medico.app.response.Cartlist.CartResponse;
 import com.medico.app.response.Cartlist.CartResult;
+import com.medico.app.response.OrderResponse.OrderDataList;
 import com.medico.app.response.OrderResponse.OrderListResponse;
 import com.medico.app.response.OrderResponse.OrderListResult;
 import com.medico.app.retrofit.ApiManager;
@@ -27,7 +28,7 @@ import java.util.List;
 public class OrderListActivity extends AppCompatActivity implements ApiResponseInterface {
     ActivityOrderListBinding binding;
     private OrderListAdapter orderListAdapter;
-    private List<OrderListResult> orderList = new ArrayList<>();
+    private List<OrderDataList> orderList = new ArrayList<>();
     HideStatus hideStatus;
     ApiManager apiManager;
 
@@ -55,7 +56,7 @@ public class OrderListActivity extends AppCompatActivity implements ApiResponseI
         if (ServiceCode == Constant.ORDER_LIST) {
             OrderListResponse rsp = (OrderListResponse) response;
             if (rsp != null) {
-                orderList = rsp.getResult();
+                orderList = rsp.getResult().getData();
                 orderListAdapter = new OrderListAdapter(this, orderList);
                 binding.rvOrderList.setAdapter(orderListAdapter);
                 orderListAdapter.notifyDataSetChanged();

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.medico.app.R;
 import com.medico.app.response.Cartlist.CartResult;
 import com.medico.app.response.OrderRequest.OrderItem;
+import com.medico.app.response.OrderResponse.DrugList;
 import com.medico.app.response.OrderResponse.OrderListResult;
 import com.medico.app.response.ProductList.ProductListResponse;
 
@@ -21,9 +22,9 @@ import java.util.List;
 public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.ViewHolder> {
     private Context context;
     private LayoutInflater layoutInflater;
-    public List<OrderItem> orderList = null;
+    public List<DrugList> orderList = null;
 
-    public OrderItemAdapter(Context context, List<OrderItem> orderList) {
+    public OrderItemAdapter(Context context, List<DrugList> orderList) {
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
         this.orderList = orderList;
@@ -37,12 +38,16 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final OrderItem listNew = orderList.get(position);
-        holder.tv_medicine_name.setText(listNew.getProductName());
-        holder.tv_medicine_cm_name.setText(listNew.getManufactureName());
-        holder.tv_real_price.setPaintFlags(holder.tv_real_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        holder.tv_real_price.setText("₹ " + listNew.getProductPrice());
-        holder.tv_off_price.setText(String.valueOf(listNew.getDiscountAfterPrice()));
+        final DrugList listNew = orderList.get(position);
+        holder.tv_drug_name.setText(listNew.getDrugName());
+        //holder.tv_manufacturer.setText(listNew.get);
+        holder.tv_strike_price.setPaintFlags(holder.tv_strike_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        holder.tv_strike_price.setText("MRP " + listNew.getMrp());
+        holder.tv_discount_percent.setText(String.valueOf(listNew.getDiscount()) + "%OFF");
+        float actualPrice = Float.parseFloat(listNew.getMrp());
+        float totalDiscount = (actualPrice * Float.parseFloat(listNew.getDiscount())) / 100;
+        float priceAfterDiscount = actualPrice - totalDiscount;
+        holder.tv_price.setText("₹ " + String.valueOf(String.format("%.2f", priceAfterDiscount)));
         holder.tv_quantity.setText("Qty " + String.valueOf(listNew.getQuantity()));
         //Glide.with(context).load(listNew.medicine_image).into(holder.iv_medicine);
 
@@ -59,18 +64,18 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_medicine_name, tv_medicine_cm_name,
-                tv_off_price, tv_real_price, tv_quantity;
+        public TextView tv_drug_name, tv_manufacturer,
+                tv_price, tv_strike_price, tv_discount_percent, tv_quantity;
         public ImageView iv_medicine;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tv_medicine_name = itemView.findViewById(R.id.tv_medicine_name);
-            tv_medicine_cm_name = itemView.findViewById(R.id.tv_medicine_cm_name);
-            tv_off_price = itemView.findViewById(R.id.tv_off_price);
-            tv_real_price = itemView.findViewById(R.id.tv_real_price);
+            tv_drug_name = itemView.findViewById(R.id.tv_drug_name);
+            tv_manufacturer = itemView.findViewById(R.id.tv_manufacturer);
+            tv_price = itemView.findViewById(R.id.tv_price);
+            tv_strike_price = itemView.findViewById(R.id.tv_strike_price);
+            tv_discount_percent = itemView.findViewById(R.id.tv_discount_percent);
             tv_quantity = itemView.findViewById(R.id.tv_quantity);
-            iv_medicine = itemView.findViewById(R.id.iv_medicine_cart);
 
 
         }

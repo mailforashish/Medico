@@ -25,6 +25,8 @@ import com.medico.app.response.Addcart.AddCartResponse;
 import com.medico.app.response.Address.AddressResult;
 import com.medico.app.response.Cartlist.CartResult;
 import com.medico.app.response.OrderRequest.OrderItem;
+import com.medico.app.response.OrderResponse.DrugList;
+import com.medico.app.response.OrderResponse.OrderDataList;
 import com.medico.app.response.OrderResponse.OrderListResult;
 import com.medico.app.retrofit.ApiManager;
 import com.medico.app.retrofit.ApiResponseInterface;
@@ -40,13 +42,15 @@ import java.util.List;
 public class OrderDetailActivity extends AppCompatActivity implements ApiResponseInterface {
     ActivityOrderDetailBinding binding;
     private String totalItems;
-    private OrderListResult orderListResults;
-    List<OrderItem> orderItem = new ArrayList<>();
+    private OrderDataList orderDataList;
+    List<DrugList> orderItem = new ArrayList<>();
     SessionManager sessionManager;
     OrderItemAdapter orderItemAdapter;
     private String valid_reason = null;
     ApiManager apiManager;
     HideStatus hideStatus;
+    private String typeName = "";
+    private int currentStep = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,28 +61,34 @@ public class OrderDetailActivity extends AppCompatActivity implements ApiRespons
         sessionManager = new SessionManager(this);
         apiManager = new ApiManager(this, this);
 
-        orderListResults = (OrderListResult) getIntent().getSerializableExtra("LIST");
-        Log.e("getData", "fomrAdapter " + new Gson().toJson(orderListResults));
-       /* totalItems = String.valueOf(orderListResults.getOrderDetailsJson().getOrderItem().size());
-        if (orderListResults != null) {
-            binding.tvPatientsNameInput.setText(orderListResults.getOrderDetailsJson().getShippingAddress().getName());
-            binding.tvOrderNoInput.setText(orderListResults.getOrderId());
-            binding.tvAddressView.setText(Html.fromHtml("<b>" + orderListResults.getOrderDetailsJson().getShippingAddress().getTypeName() + "</b>" + "<br />" +
-                    "<b>" + orderListResults.getOrderDetailsJson().getShippingAddress().getName() + "</b>" + "<br />" +
-                    "<small>" + orderListResults.getOrderDetailsJson().getShippingAddress().getAddress1() + "</small>" + "<br />" +
-                    "<small>" + orderListResults.getOrderDetailsJson().getShippingAddress().getPincode() + "</small>" + "<br />" +
-                    "<small>" + orderListResults.getOrderDetailsJson().getShippingAddress().getMobile() + "</small>"));
+        orderDataList = (OrderDataList) getIntent().getSerializableExtra("LIST");
+        Log.e("getData", "fomrAdapter " + new Gson().toJson(orderDataList));
+        List<DrugList> objectItemList = orderDataList.getDrugs().get(0).getDrug();
+        totalItems = String.valueOf(objectItemList.size());
+        if (orderDataList != null) {
+            binding.tvPatientsNameInput.setText(orderDataList.getAddress().get(0).getName());
+            binding.tvOrderNoInput.setText(String.valueOf("GOMEDICOS" + orderDataList.getId()));
+            if (orderDataList.getAddress().get(0).getType() == 1) {
+                typeName = "Home";
+            } else if (orderDataList.getAddress().get(0).getType() == 2) {
+                typeName = "Office";
+            } else if (orderDataList.getAddress().get(0).getType() == 3) {
+                typeName = "Others";
+            }
+            binding.tvAddressView.setText(Html.fromHtml("<b>" + typeName + "</b>" + "<br />" +
+                    "<b>" + orderDataList.getAddress().get(0).getName() + "</b>" + "<br />" +
+                    "<small>" + orderDataList.getAddress().get(0).getAddress1() + "</small>" + "<br />" +
+                    "<small>" + orderDataList.getAddress().get(0).getPincode() + "</small>" + "<br />" +
+                    "<small>" + orderDataList.getAddress().get(0).getMobile() + "</small>"));
         }
 
         binding.tvOrderItemCount.setText(totalItems + " Items");
-        binding.tvOrderAmount.setText(String.valueOf(orderListResults.getAmount()));
-        binding.tvDeliverDate.setText(String.valueOf("Delivery Date " + orderListResults.getDeliveredDate()));
-        for (int i = 0; i < orderListResults.getOrderDetailsJson().getOrderItem().size(); i++) {
-            orderItem.add(orderListResults.getOrderDetailsJson().getOrderItem().get(i));
-        }*/
+        binding.tvOrderAmount.setText(String.valueOf(orderDataList.getCutAmount()));
+       // binding.tvDeliverDate.setText(String.valueOf("Delivery Date " + orderDataList.getDeliveredDate()));
+
         Log.e("orderItem", "sizefix " + orderItem.size());
         binding.rvOrderItem.setLayoutManager(new LinearLayoutManager(OrderDetailActivity.this, LinearLayoutManager.VERTICAL, false));
-        orderItemAdapter = new OrderItemAdapter(OrderDetailActivity.this, orderItem);
+        orderItemAdapter = new OrderItemAdapter(OrderDetailActivity.this, objectItemList);
         binding.rvOrderItem.setAdapter(orderItemAdapter);
         binding.tabOrder.addTab(binding.tabOrder.newTab().setText("Order Summary"));
         binding.tabOrder.addTab(binding.tabOrder.newTab().setText("Items"));
@@ -104,6 +114,15 @@ public class OrderDetailActivity extends AppCompatActivity implements ApiRespons
             }
         });
 
+        List<String> steps = new ArrayList<>();
+        steps.add("Order \nPlace");
+        steps.add("Order \nProcessing");
+        steps.add("Out for \nDelivery");
+        steps.add("Order \nDelivered");
+        //final StepView stepView = findViewById(R.id.step_view);
+        binding.stepView.setSteps(steps);
+        binding.stepView.go(currentStep);
+        binding.stepView.done(true);
         registerReceiver(receiver, new IntentFilter("REASON_CHANGED_ACTION"));
     }
 
@@ -128,7 +147,7 @@ public class OrderDetailActivity extends AppCompatActivity implements ApiRespons
                 String product_id = "";
                 String quantity = "";
                 boolean is_reOderVerify = false;
-                for (int i = 0; i < orderItem.size(); i++) {
+                /*for (int i = 0; i < orderItem.size(); i++) {
                     product_id = orderItem.get(i).getProductId();
                     quantity = orderItem.get(i).getQuantity();
                     apiManager.addCart(product_id, quantity);
@@ -136,7 +155,7 @@ public class OrderDetailActivity extends AppCompatActivity implements ApiRespons
                 }
                 if (is_reOderVerify) {
                     startActivity(new Intent(mContext, CartActivity.class));
-                }
+                }*/
                 //print(orderItem, 0);
 
             }

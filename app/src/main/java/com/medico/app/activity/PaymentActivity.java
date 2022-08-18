@@ -30,6 +30,7 @@ import com.medico.app.databinding.ActivityPaymentBinding;
 import com.medico.app.interfaceClass.PlaceOrder;
 import com.medico.app.response.Cartlist.CartResult;
 import com.medico.app.response.PaymentOfferList;
+import com.medico.app.response.ProductList.ProductListResponse;
 import com.medico.app.retrofit.ApiManager;
 import com.medico.app.retrofit.ApiResponseInterface;
 import com.medico.app.utils.Constant;
@@ -64,11 +65,13 @@ public class PaymentActivity extends AppCompatActivity implements ApiResponseInt
     List<Drug> orderItem = new ArrayList<>();
     private String orderId;
     private String transactionId = "TID" + System.currentTimeMillis();
-    private Integer finalAmount;
+    private Double finalAmount;
     private String raz_payType, payment_Selector = "raz";
     HideStatus hideStatus;
     String latitude, longitude;
     String prescriptionImage;
+    private List<ProductListResponse.Data> cartList = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,6 +175,7 @@ public class PaymentActivity extends AppCompatActivity implements ApiResponseInt
         if (ServiceCode == Constant.CREATE_ORDER) {
             CreateOrderResponse rsp = (CreateOrderResponse) response;
             if (rsp != null) {
+                sessionManager.saveListInLocal("cart", cartList);
                 new OrderCompletedDialog(this, "Medico" + System.currentTimeMillis(), amount);
             }
         }
@@ -183,6 +187,7 @@ public class PaymentActivity extends AppCompatActivity implements ApiResponseInt
                     finalAmount = rsp.getData().getOrderDetails().getCutAmount();
                     if (rsp.getData().getOrderDetails().getId() != null) {
                         startRazorPayGateway(rsp.getData());
+                        sessionManager.saveListInLocal("cart", cartList);
                     }
                 }
             } catch (Exception e) {
@@ -190,7 +195,7 @@ public class PaymentActivity extends AppCompatActivity implements ApiResponseInt
         }
         if (ServiceCode == Constant.VERIFY_PAYMENT) {
             ReportResponse rsp = (ReportResponse) response;
-            if (rsp.getResult() != null) {
+            if (rsp.getData() != null) {
                 new OrderCompletedDialog(this, transactionId, String.valueOf(finalAmount));
             }
         }
@@ -209,17 +214,17 @@ public class PaymentActivity extends AppCompatActivity implements ApiResponseInt
             JSONObject options = new JSONObject();
             // Notes Object
             JSONObject notes = new JSONObject();
-            //notes.put("amount", "" + data.getOrderDetails().getCutAmount());
-            notes.put("amount", "" + "100");
+            notes.put("amount", "" + data.getOrderDetails().getCutAmount());
+            //notes.put("amount", "" + "100");
             notes.put("merchant_order_id", "merchant_order_" + data.getOrderDetails().getId());
             options.put("notes", notes);
             options.put("key", "rzp_live_eZnz4rVH8Xxrdv");
             //String amount = String.valueOf(data.getOrderDetails().getCutAmount() * 100);
             String amount = "100";
             options.put("amount", amount);
-            options.put("name", "GO MEDICOS" );
-            options.put("description", "Order Created by "+ data.getOrderDetails().getAddress().get(0).getName());
-            options.put("image","https://i.ibb.co/5c4GNMd/Asset-4100.png");
+            options.put("name", "GO MEDICOS");
+            options.put("description", "Order Created by " + data.getOrderDetails().getAddress().get(0).getName());
+            options.put("image", "https://i.ibb.co/5c4GNMd/Asset-4100.png");
             options.put("color", R.color.color_secondary);
             options.put("id", data.getOrderDetails().getId());
             options.put("currency", "INR");
@@ -262,7 +267,7 @@ public class PaymentActivity extends AppCompatActivity implements ApiResponseInt
         Log.e("Payment", "razorpayPaymentID  " + razorpayPaymentID);
         Log.e("Payment", "orderId  " + orderId);
         try {
-            apiManager.verifyPayment(razorpayPaymentID, orderId);
+            apiManager.verifyPayment(orderId, razorpayPaymentID, "razorpay");
         } catch (Exception e) {
             Log.e("Payment", "Exception in onPaymentSuccess", e);
         }
@@ -371,7 +376,6 @@ public class PaymentActivity extends AppCompatActivity implements ApiResponseInt
                     paymentCancel = "Payment cancelled by user.";
                 }
             }
-
             if (status.equals("success")) {
                 //Code to handle successful transaction here.
                 //apiManager.verifyPayment(approvalRefNo, orderId);
@@ -395,7 +399,6 @@ public class PaymentActivity extends AppCompatActivity implements ApiResponseInt
     @Override
     public void isError(String errorCode) {
     }
-
 
     public static boolean isConnectionAvailable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

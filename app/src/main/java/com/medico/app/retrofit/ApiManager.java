@@ -58,8 +58,8 @@ public class ApiManager {
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                Log.e("loginRequest", call.request().toString());
-                Log.e("loginResponce", new Gson().toJson(response.body()));
+                //Log.e("loginRequest", call.request().toString());
+                //Log.e("loginResponce", new Gson().toJson(response.body()));
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().getSuccess()) {
                         mApiResponseInterface.isSuccess(response.body(), Constant.LOGIN);
@@ -89,8 +89,8 @@ public class ApiManager {
         call.enqueue(new Callback<OTPResponse>() {
             @Override
             public void onResponse(Call<OTPResponse> call, Response<OTPResponse> response) {
-                Log.e("loginOtpResponse", call.request().toString());
-                Log.e("loginOtp", new Gson().toJson(response.body()));
+                //Log.e("loginOtpResponse", call.request().toString());
+                //Log.e("loginOtp", new Gson().toJson(response.body()));
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().getSuccess()) {
                         mApiResponseInterface.isSuccess(response.body(), Constant.OTP_LOGIN);
@@ -124,7 +124,7 @@ public class ApiManager {
         call.enqueue(new Callback<StateResponse>() {
             @Override
             public void onResponse(Call<StateResponse> call, Response<StateResponse> response) {
-                Log.e("stateList", new Gson().toJson(response.body()));
+                //Log.e("stateList", new Gson().toJson(response.body()));
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().getData() != null) {
                         mApiResponseInterface.isSuccess(response.body(), Constant.STATE_LIST);
@@ -142,10 +142,11 @@ public class ApiManager {
 
     public void getBannerList() {
         Call<BannerResponse> call = apiService.getBannerData(authToken, "application/json");
+        Log.e("authToken", authToken);
         call.enqueue(new Callback<BannerResponse>() {
             @Override
             public void onResponse(Call<BannerResponse> call, Response<BannerResponse> response) {
-                Log.e("BannerList", new Gson().toJson(response.body()));
+                //Log.e("BannerList", new Gson().toJson(response.body()));
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().getData() != null) {
                         mApiResponseInterface.isSuccess(response.body(), Constant.BANNER_LIST);
@@ -166,7 +167,7 @@ public class ApiManager {
         call.enqueue(new Callback<ProductListResponse>() {
             @Override
             public void onResponse(Call<ProductListResponse> call, Response<ProductListResponse> response) {
-                Log.e("ProductList", new Gson().toJson(response.body()));
+                //Log.e("ProductList", new Gson().toJson(response.body()));
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().getResult().getData() != null) {
                         mApiResponseInterface.isSuccess(response.body(), Constant.PRODUCT_LIST);
@@ -188,7 +189,7 @@ public class ApiManager {
         call.enqueue(new Callback<ProductListResponse>() {
             @Override
             public void onResponse(Call<ProductListResponse> call, Response<ProductListResponse> response) {
-                Log.e("ProductListNext", new Gson().toJson(response.body()));
+               // Log.e("ProductListNext", new Gson().toJson(response.body()));
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().getResult().getData() != null) {
                         mApiResponseInterface.isSuccess(response.body(), Constant.PRODUCT_LIST_NEXT_PAGE);
@@ -210,7 +211,7 @@ public class ApiManager {
             @Override
             public void onResponse(Call<AddCartResponse> call, Response<AddCartResponse> response) {
                 //Log.e("AddCartResponse", call.request().toString());
-                Log.e("CartFunction", "Add Cart Response " + new Gson().toJson(response.body()));
+               // Log.e("CartFunction", "Add Cart Response " + new Gson().toJson(response.body()));
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().getSuccess()) {
                         mApiResponseInterface.isSuccess(response.body(), Constant.ADD_CART);
@@ -236,7 +237,7 @@ public class ApiManager {
         call.enqueue(new Callback<RemoveCartResponse>() {
             @Override
             public void onResponse(Call<RemoveCartResponse> call, Response<RemoveCartResponse> response) {
-                Log.e("CartFunction", "Cart Item Remove Response " + new Gson().toJson(response.body()));
+               // Log.e("CartFunction", "Cart Item Remove Response " + new Gson().toJson(response.body()));
                 if (response.isSuccessful() && response.body() != null) {
                     mApiResponseInterface.isSuccess(response.body(), Constant.REMOVE_CART);
                     Toast.makeText(mContext, "Remove Item ", Toast.LENGTH_LONG).show();
@@ -256,7 +257,7 @@ public class ApiManager {
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
-                Log.e("CartFunction", "Cart Item Update Response " + new Gson().toJson(response.body()));
+                //Log.e("CartFunction", "Cart Item Update Response " + new Gson().toJson(response.body()));
                 if (response.isSuccessful() && response.body() != null) {
                     mApiResponseInterface.isSuccess(response.body(), Constant.CHANGE_QUANTITY);
                     Toast.makeText(mContext, "UpDate Qty ", Toast.LENGTH_LONG).show();
@@ -276,7 +277,7 @@ public class ApiManager {
         call.enqueue(new Callback<CartResponse>() {
             @Override
             public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
-                Log.e("CartFunction", "Cart Item List Response " + new Gson().toJson(response.body()));
+                //Log.e("CartFunction", "Cart Item List Response " + new Gson().toJson(response.body()));
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().getData() != null) {
                         mApiResponseInterface.isSuccess(response.body(), Constant.CART_LIST);
@@ -298,7 +299,7 @@ public class ApiManager {
         call.enqueue(new Callback<AddressResponse>() {
             @Override
             public void onResponse(Call<AddressResponse> call, Response<AddressResponse> response) {
-                Log.e("addressList", new Gson().toJson(response.body()));
+                //Log.e("addressList", new Gson().toJson(response.body()));
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().getData() != null) {
                         mApiResponseInterface.isSuccess(response.body(), Constant.ADDRESS_LIST);
@@ -320,7 +321,7 @@ public class ApiManager {
         call.enqueue(new Callback<AddEditAddressResponse>() {
             @Override
             public void onResponse(Call<AddEditAddressResponse> call, Response<AddEditAddressResponse> response) {
-                Log.e("addAddress", new Gson().toJson(response.body()));
+                //Log.e("addAddress", new Gson().toJson(response.body()));
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().getSuccess()) {
                         Toast.makeText(mContext, response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -348,7 +349,7 @@ public class ApiManager {
         call.enqueue(new Callback<AddEditAddressResponse>() {
             @Override
             public void onResponse(Call<AddEditAddressResponse> call, Response<AddEditAddressResponse> response) {
-                Log.e("EditAddress", new Gson().toJson(response.body()));
+               // Log.e("EditAddress", new Gson().toJson(response.body()));
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().getSuccess()) {
                         Toast.makeText(mContext, response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -374,7 +375,7 @@ public class ApiManager {
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
-                Log.e("DeleteAddress", new Gson().toJson(response.body()));
+               // Log.e("DeleteAddress", new Gson().toJson(response.body()));
                 if (response.isSuccessful() && response.body() != null) {
                     // if (response.body().getSuccess()) {
                     mApiResponseInterface.isSuccess(response.body(), Constant.DELETE_ADDRESS);
@@ -403,7 +404,7 @@ public class ApiManager {
             @Override
             public void onResponse(Call<ProductListResponse> call, Response<ProductListResponse> response) {
                 //   if (response.isSuccessful() && response.body() != null) {
-                Log.e("filterTest", new Gson().toJson(response.body()));
+               // Log.e("filterTest", new Gson().toJson(response.body()));
                 mApiResponseInterface.isSuccess(response.body(), Constant.SEARCH_PRODUCT);
             }
 
@@ -450,6 +451,7 @@ public class ApiManager {
                     Toast.makeText(mContext, new Gson().toJson(response.body().getData().getErrors()), Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
             public void onFailure(Call<CreateOrderResponseUpi> call, Throwable t) {
                 Log.e("orderUpiLog", "apierror = " + t.getMessage());
@@ -458,9 +460,9 @@ public class ApiManager {
         });
     }
 
-    public void verifyPayment(String transaction_id, String orderId) {
+    public void verifyPayment(String order_id, String payment_id, String payment_mode) {
         showDialog();
-        Call<ReportResponse> call = apiService.verifyPayment(authToken, "application/json", transaction_id, orderId);
+        Call<ReportResponse> call = apiService.verifyPayment(authToken, "application/json", order_id, payment_id, payment_mode);
         call.enqueue(new Callback<ReportResponse>() {
             @Override
             public void onResponse(Call<ReportResponse> call, Response<ReportResponse> response) {
@@ -469,7 +471,7 @@ public class ApiManager {
                     if (response.body().getSuccess()) {
                         mApiResponseInterface.isSuccess(response.body(), Constant.VERIFY_PAYMENT);
                     } else {
-                        mApiResponseInterface.isError(response.body().getError());
+                        mApiResponseInterface.isError(response.body().getMessage());
                     }
                 }
                 closeDialog();

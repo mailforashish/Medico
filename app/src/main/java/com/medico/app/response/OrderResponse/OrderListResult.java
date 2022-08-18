@@ -5,204 +5,108 @@ import com.google.gson.annotations.SerializedName;
 import com.medico.app.response.OrderRequest.Drug;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class OrderListResult implements Serializable {
-    @SerializedName("id")
+    @SerializedName("current_page")
     @Expose
-    private Integer id;
-    @SerializedName("store_id")
+    private Integer currentPage;
+    @SerializedName("data")
     @Expose
-    private Integer storeId;
-    @SerializedName("user_id")
+    private List<OrderDataList> data = null;
+    @SerializedName("first_page_url")
     @Expose
-    private Integer userId;
-    @SerializedName("payment_type")
+    private String firstPageUrl;
+    @SerializedName("from")
     @Expose
-    private Integer paymentType;
-    @SerializedName("order_id")
+    private Integer from;
+    @SerializedName("next_page_url")
     @Expose
-    private String orderId;
-    @SerializedName("transaction_id")
+    private Object nextPageUrl;
+    @SerializedName("path")
     @Expose
-    private String transactionId;
-    @SerializedName("payment_id")
+    private String path;
+    @SerializedName("per_page")
     @Expose
-    private String paymentId;
-    @SerializedName("shipping_charge")
+    private Integer perPage;
+    @SerializedName("prev_page_url")
     @Expose
-    private Integer shippingCharge;
-    @SerializedName("amount")
+    private Object prevPageUrl;
+    @SerializedName("to")
     @Expose
-    private Integer amount;
-    @SerializedName("order_details_json")
-    @Expose
-    private Drug drug;
-    @SerializedName("status")
-    @Expose
-    private Integer status;
-    @SerializedName("order_status")
-    @Expose
-    private Integer orderStatus;
-    @SerializedName("transaction_post_detail")
-    @Expose
-    private String transactionPostDetail;
-    @SerializedName("transaction_response_detail")
-    @Expose
-    private String transactionResponseDetail;
-    @SerializedName("order_date")
-    @Expose
-    private String orderDate;
-    @SerializedName("delivered_date")
-    @Expose
-    private String deliveredDate;
-    @SerializedName("created_at")
-    @Expose
-    private String createdAt;
-    @SerializedName("updated_at")
-    @Expose
-    private String updatedAt;
+    private Integer to;
 
-    public Integer getId() {
-        return id;
+    public Integer getCurrentPage() {
+        return currentPage;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCurrentPage(Integer currentPage) {
+        this.currentPage = currentPage;
     }
 
-    public Integer getStoreId() {
-        return storeId;
+    public List<OrderDataList> getData() {
+        return data;
     }
 
-    public void setStoreId(Integer storeId) {
-        this.storeId = storeId;
+    public void setData(List<OrderDataList> data) {
+        this.data = data;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getFirstPageUrl() {
+        return firstPageUrl;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setFirstPageUrl(String firstPageUrl) {
+        this.firstPageUrl = firstPageUrl;
     }
 
-    public Integer getPaymentType() {
-        return paymentType;
+    public Integer getFrom() {
+        return from;
     }
 
-    public void setPaymentType(Integer paymentType) {
-        this.paymentType = paymentType;
+    public void setFrom(Integer from) {
+        this.from = from;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public Object getNextPageUrl() {
+        return nextPageUrl;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setNextPageUrl(Object nextPageUrl) {
+        this.nextPageUrl = nextPageUrl;
     }
 
-    public Object getTransactionId() {
-        return transactionId;
+    public String getPath() {
+        return path;
     }
 
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
+    public void setPath(String path) {
+        this.path = path;
     }
 
-    public Object getPaymentId() {
-        return paymentId;
+    public Integer getPerPage() {
+        return perPage;
     }
 
-    public void setPaymentId(String paymentId) {
-        this.paymentId = paymentId;
+    public void setPerPage(Integer perPage) {
+        this.perPage = perPage;
     }
 
-    public Integer getShippingCharge() {
-        return shippingCharge;
+    public Object getPrevPageUrl() {
+        return prevPageUrl;
     }
 
-    public void setShippingCharge(Integer shippingCharge) {
-        this.shippingCharge = shippingCharge;
+    public void setPrevPageUrl(Object prevPageUrl) {
+        this.prevPageUrl = prevPageUrl;
     }
 
-    public Integer getAmount() {
-        return amount;
+    public Integer getTo() {
+        return to;
     }
 
-    public void setAmount(Integer amount) {
-        this.amount = amount;
+    public void setTo(Integer to) {
+        this.to = to;
     }
 
-    public Drug getOrderDetailsJson() {
-        return drug;
-    }
 
-    public void setOrderDetailsJson(Drug drug) {
-        this.drug = drug;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public Integer getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(Integer orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
-    public Object getTransactionPostDetail() {
-        return transactionPostDetail;
-    }
-
-    public void setTransactionPostDetail(String transactionPostDetail) {
-        this.transactionPostDetail = transactionPostDetail;
-    }
-
-    public Object getTransactionResponseDetail() {
-        return transactionResponseDetail;
-    }
-
-    public void setTransactionResponseDetail(String transactionResponseDetail) {
-        this.transactionResponseDetail = transactionResponseDetail;
-    }
-
-    public String getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public String getDeliveredDate() {
-        return deliveredDate;
-    }
-
-    public void setDeliveredDate(String deliveredDate) {
-        this.deliveredDate = deliveredDate;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 }
