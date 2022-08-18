@@ -153,11 +153,11 @@ public class OrderTrack extends View {
         this.steps.clear();
         this.steps.addAll(steps);
         requestLayout();
-        go(START_STEP);
+        setTrackStatus(START_STEP);
     }
 
 
-    public void go(int step) {
+    public void setTrackStatus(int step) {
         if (step >= START_STEP && step < getStepCount()) {
             if (startLinesX != null) {
                 if (Math.abs(step - currentStep) > 1) {

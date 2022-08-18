@@ -273,15 +273,15 @@
                     android:id="@+id/tv_shipment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="15dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/opensans_bold"
+                    android:paddingStart="15dp"
                     android:text="Shipment Summary"
                     android:textColor="@color/color_header_text"
                     android:textSize="16sp" />
 
                 <com.medico.app.utils.OrderTrack
-                    android:id="@+id/step_view"
+                    android:id="@+id/track_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="15dp"
@@ -297,7 +297,7 @@
                     app:sv_selectedStepNumberColor="@color/color_header_text"
                     app:sv_selectedTextColor="@color/color_header_text"
                     app:sv_stepLineWidth="1dp"
-                    app:sv_stepNumberTextSize="12sp"
+                    app:sv_stepNumberTextSize="14sp"
                     app:sv_stepPadding="4dp"
                     app:sv_stepViewStyle="@style/StepView"
                     app:sv_typeface="@font/opensans_semibold" />
@@ -583,6 +583,7 @@
                             android:fontFamily="@font/opensans_bold"
                             android:gravity="center"
                             android:paddingStart="15dp"
+                            android:onClick="@{() -> clickListener.needHelp()}"
                             android:paddingTop="10dp"
                             android:paddingEnd="15dp"
                             android:paddingBottom="10dp"

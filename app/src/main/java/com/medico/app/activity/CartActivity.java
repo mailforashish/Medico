@@ -154,17 +154,26 @@ public class CartActivity extends AppCompatActivity implements ApiResponseInterf
         }
 
         public void buttonPay() {
-            if (cartList.size() >= 1 && addressLists.size() >= 1) {
+
+            if (cartList != null && !cartList.isEmpty() && addressLists != null && !addressLists.isEmpty()) {
                 startActivity(new Intent(CartActivity.this, PrescriptionActivity.class)
                         .putExtra("Event", "Cart")
                         .putExtra("pay_amount", binding.tvAmountInput.getText().toString()));
                 finish();
-            } else {
-                Toast.makeText(CartActivity.this, "Please Add Item&Address", Toast.LENGTH_SHORT).show();
-
             }
+            if (cartList.isEmpty()) {
+                startActivity(new Intent(CartActivity.this, MainActivity.class));
+                finish();
+                Toast.makeText(CartActivity.this, "Please Add Item", Toast.LENGTH_SHORT).show();
+                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+            }
+            if (addressLists.isEmpty()) {
+                new AddressDialog(mContext, "add", CartActivity.this);
+            }
+
         }
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

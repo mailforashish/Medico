@@ -88,7 +88,7 @@
         <item name="sv_nextTextColor">@color/grey_header_bg</item>
         <item name="sv_nextStepLineColor">@color/white</item>
         <item name="sv_doneStepLineColor">@color/color_third</item>
-        <item name="sv_stepPadding">12dp</item>
+        <item name="sv_stepPadding">4dp</item>
         <item name="sv_textPadding">12dp</item>
         <item name="sv_stepLineWidth">0.5dp</item>
         <item name="sv_textSize">14sp</item>

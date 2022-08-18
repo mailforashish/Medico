@@ -50,7 +50,7 @@ public class OrderDetailActivity extends AppCompatActivity implements ApiRespons
     ApiManager apiManager;
     HideStatus hideStatus;
     private String typeName = "";
-    private int currentStep = 2;
+    private int trackStatus = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +84,7 @@ public class OrderDetailActivity extends AppCompatActivity implements ApiRespons
 
         binding.tvOrderItemCount.setText(totalItems + " Items");
         binding.tvOrderAmount.setText(String.valueOf(orderDataList.getCutAmount()));
-       // binding.tvDeliverDate.setText(String.valueOf("Delivery Date " + orderDataList.getDeliveredDate()));
+        // binding.tvDeliverDate.setText(String.valueOf("Delivery Date " + orderDataList.getDeliveredDate()));
 
         Log.e("orderItem", "sizefix " + orderItem.size());
         binding.rvOrderItem.setLayoutManager(new LinearLayoutManager(OrderDetailActivity.this, LinearLayoutManager.VERTICAL, false));
@@ -114,15 +114,14 @@ public class OrderDetailActivity extends AppCompatActivity implements ApiRespons
             }
         });
 
-        List<String> steps = new ArrayList<>();
-        steps.add("Order \nPlace");
-        steps.add("Order \nProcessing");
-        steps.add("Out for \nDelivery");
-        steps.add("Order \nDelivered");
-        //final StepView stepView = findViewById(R.id.step_view);
-        binding.stepView.setSteps(steps);
-        binding.stepView.go(currentStep);
-        binding.stepView.done(true);
+        List<String> track = new ArrayList<>();
+        track.add("Order \nPlace");
+        track.add("Order \nProcessing");
+        track.add("Out for \nDelivery");
+        track.add("Order \nDelivered");
+        binding.trackView.setSteps(track);
+        binding.trackView.setTrackStatus(trackStatus);
+        binding.trackView.done(true);
         registerReceiver(receiver, new IntentFilter("REASON_CHANGED_ACTION"));
     }
 
@@ -160,6 +159,13 @@ public class OrderDetailActivity extends AppCompatActivity implements ApiRespons
 
             }
         }
+
+        public void needHelp() {
+            startActivity(new Intent(mContext, NeedHelpActivity.class));
+            finish();
+        }
+
+
     }
 
   /*  void print(List<OrderItem> a, int index) {
