@@ -79,7 +79,6 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 }
                 viewHolder = new myViewHolder(v1);
                 break;
-
             case LOADING:
                 View v2 = inflater.inflate(R.layout.item_progress, parent, false);
                 viewHolder = new LoadingVH(v2);
@@ -109,7 +108,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     holder.tv_off_price.setText("₹ " + String.valueOf(String.format("%.2f", priceAfterDiscount)));
                     Glide.with(context).load(list.get(position).getImages().get(0).getImageUrl())
                             .apply(new RequestOptions().placeholder(R.drawable.ic_order_mediciens).error
-                                    (R.drawable.ic_order_mediciens).circleCrop()).into(holder.iv_medicine);
+                                    (R.drawable.ic_order_mediciens)).into(holder.iv_medicine);
 
                     holder.tv_add_cart.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -197,11 +196,6 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     Intent intent = new Intent(context, ProductDetailsActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("drug_id", list.get(position).getDrugId());
-                    bundle.putSerializable("pd_Name", list.get(position).getDrugName());
-                    bundle.putSerializable("pd_Type", list.get(position).getDrugType());
-                    bundle.putSerializable("manufacture", list.get(position).getManufactur());
-                    bundle.putSerializable("price", list.get(position).getUnitPrice());
-                    bundle.putSerializable("discount", list.get(position).getDiscount());
                     intent.putExtras(bundle);
                     context.startActivity(intent);
 

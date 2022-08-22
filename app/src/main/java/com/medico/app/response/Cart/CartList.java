@@ -1,9 +1,9 @@
-package com.medico.app.response.Cartlist;
+package com.medico.app.response.Cart;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class CartResult {
+public class CartList {
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -72,6 +72,4 @@ public class CartResult {
     }
 
 
-
 }
-

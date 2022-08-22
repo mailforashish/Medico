@@ -35,4 +35,5 @@
         <attr name="sv_steps" format="reference" />
         <attr name="sv_typeface" format="reference" />
     </declare-styleable>
+
 </resources>

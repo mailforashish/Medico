@@ -1,17 +1,15 @@
-package com.medico.app.response.Cartlist;
+package com.medico.app.response.ProductDetail;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-public class CartResponse {
+public class ProductDetailResponse {
     @SerializedName("success")
     @Expose
     private Boolean success;
     @SerializedName("data")
     @Expose
-    private List<CartResult> data = null;
+    private ProductResult data;
     @SerializedName("message")
     @Expose
     private String message;
@@ -24,11 +22,11 @@ public class CartResponse {
         this.success = success;
     }
 
-    public List<CartResult> getData() {
+    public ProductResult getData() {
         return data;
     }
 
-    public void setData(List<CartResult> data) {
+    public void setData(ProductResult data) {
         this.data = data;
     }
 
@@ -39,8 +37,4 @@ public class CartResponse {
     public void setMessage(String message) {
         this.message = message;
     }
-
-
-
-
 }

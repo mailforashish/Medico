@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.medico.app.R;
+import com.medico.app.dialog.LegalDialog;
 import com.medico.app.response.MyAccountList;
 import com.medico.app.response.ProductList.ProductListResponse;
 import com.medico.app.utils.MedicoLoading;
@@ -76,11 +78,16 @@ public class NeedHelpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         holder.iv_option.setImageResource(list.get(position).getOptions_image());
                         holder.tv_option.setText(list.get(position).getOptions());
                         holder.viewCommon.setVisibility(View.GONE);
+                        holder.rl_legal.setOnClickListener(v -> {
+                            new LegalDialog(context,position);
+                        });
                     } else {
                         holder.iv_option.setVisibility(View.GONE);
                         holder.tv_option.setText(list.get(position).getOptions());
                         holder.viewCommon.setVisibility(View.VISIBLE);
                     }
+
+
                     break;
 
                 } catch (Exception e) {
@@ -108,18 +115,21 @@ public class NeedHelpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public TextView tv_option;
         public ImageView iv_option;
         private View viewCommon;
+        private RelativeLayout rl_legal;
 
         public myViewHolder(View itemView) {
             super(itemView);
             tv_option = itemView.findViewById(R.id.tv_option);
             iv_option = itemView.findViewById(R.id.iv_option);
             viewCommon = itemView.findViewById(R.id.viewCommon);
+            rl_legal = itemView.findViewById(R.id.rl_legal);
 
         }
     }
 
     protected class LoadingVH extends RecyclerView.ViewHolder implements View.OnClickListener {
         private MedicoLoading progress;
+
         public LoadingVH(View itemView) {
             super(itemView);
             progress = itemView.findViewById(R.id.progress);
@@ -128,6 +138,7 @@ public class NeedHelpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 progress.setVisibility(View.VISIBLE);
             }
         }
+
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
@@ -166,6 +177,7 @@ public class NeedHelpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         notifyItemChanged(list.size() - 1);
         if (errorMsg != null) this.errorMsg = errorMsg;
     }
+
     public List<MyAccountList> getList() {
         return list;
     }

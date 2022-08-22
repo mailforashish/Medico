@@ -17,10 +17,9 @@ import android.widget.TextView;
 import com.google.android.material.tabs.TabLayout;
 import com.medico.app.R;
 import com.medico.app.activity.CartActivity;
-import com.medico.app.activity.MobileNumberActivity;
-import com.medico.app.activity.OTPVerifyActivity;
 import com.medico.app.adapter.NotificationMenuAdapter;
-import com.medico.app.response.Cartlist.CartResult;
+import com.medico.app.response.Cart.CartList;
+import com.medico.app.response.Cart.CartResult;
 import com.medico.app.utils.SessionManager;
 
 import java.util.ArrayList;
@@ -33,7 +32,7 @@ public class NotificationFragment extends Fragment {
     private TextView tvCartItem;
     private NotificationMenuAdapter notificationMenuAdapter;
     private SessionManager sessionManager;
-    List<CartResult> cartItem = new ArrayList<>();
+    List<CartList> cartItem = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -7,7 +7,6 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Paint;
@@ -20,18 +19,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.medico.app.R;
 import com.medico.app.databinding.ActivityPrescriptionBinding;
-import com.medico.app.response.Cartlist.CartResult;
+import com.medico.app.response.Cart.CartList;
+import com.medico.app.response.Cart.CartResult;
 import com.medico.app.utils.HideStatus;
 import com.medico.app.utils.SessionManager;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +40,7 @@ public class PrescriptionActivity extends AppCompatActivity {
     private String eventValue;
     private SessionManager sessionManager;
     private String amount;
-    private List<CartResult> cartLists = new ArrayList<>();
+    private List<CartList> cartLists = new ArrayList<>();
     boolean isExpandable;
     String prescriptionImage;
 
@@ -60,7 +55,7 @@ public class PrescriptionActivity extends AppCompatActivity {
         if (cartLists != null) {
             binding.tvCartItem.setText(cartLists.size() + " Item in cart require prescription");
             StringBuilder builder = new StringBuilder();
-            for (CartResult details : cartLists) {
+            for (CartList details : cartLists) {
                 builder.append(details.getProductId().getDrugName() + "\n");
             }
             binding.tvDrugName.setText(builder.toString());

@@ -22,5 +22,7 @@ public class Constant {
     public static int CREATE_ORDER_UPI = 18;
     public static int VERIFY_PAYMENT = 19;
     public static int ORDER_LIST = 20;
+    public static int EDIT_PROFILE = 21;
+    public static int PRODUCT_DETAIL = 22;
 
 }

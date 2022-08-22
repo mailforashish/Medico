@@ -3,8 +3,6 @@ package com.medico.app.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,20 +12,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.Gson;
 import com.medico.app.R;
 import com.medico.app.activity.OrderDetailActivity;
-import com.medico.app.activity.ProductDetailsActivity;
-import com.medico.app.response.Address.AddressResult;
-import com.medico.app.response.Cartlist.CartResult;
-import com.medico.app.response.OrderRequest.OrderItem;
 import com.medico.app.response.OrderResponse.AddressList;
 import com.medico.app.response.OrderResponse.DrugData;
 import com.medico.app.response.OrderResponse.DrugList;
 import com.medico.app.response.OrderResponse.OrderDataList;
-import com.medico.app.response.OrderResponse.OrderListResult;
 
-import java.io.Serializable;
 import java.util.List;
 
 
@@ -51,47 +42,45 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        if (orderList.get(position).getStatus().equals("1")) {
-            holder.tv_order_status.setText("Processing");
-        } else if (orderList.get(position).getStatus().equals("2")) {
-            holder.tv_order_status.setText("Packing");
-        } else if (orderList.get(position).getStatus().equals("3")) {
-            holder.tv_order_status.setText("Shipped");
-        } else if (orderList.get(position).getStatus().equals("4")) {
-            holder.tv_order_status.setText("Delivered");
-        } else if (orderList.get(position).getStatus().equals("5")) {
-            holder.tv_order_status.setText("Failed");
-        }
-        List<AddressList> address = orderList.get(position).getAddress();
-        if (address != null && !address.isEmpty())
-            holder.tv_patients_name.setText(address.get(0).getName());
-        // holder.tv_place_on.setText("Place On " + String.valueOf(orderList.get(position).getDeliveredDate()));
-        List<DrugData> drugs = orderList.get(position).getDrugs();
-        if (drugs != null && !drugs.isEmpty()) {
-            List<DrugList> drug = drugs.get(0).getDrug();
-            if (drug != null && !drug.isEmpty()) {
-                if (drugs.size() == 1) {
-                    holder.tv_all_order_list.setText(drug.get(0).getDrugName());
-                    holder.tv_more.setVisibility(View.GONE);
-                } else if (2 <= drugs.size()) // 2 <= 3
-                {
-                    holder.tv_all_order_list.setText(drug.get(0).getDrugName() + "\n"
-                            + drug.get(1).getDrugName());
-                    holder.tv_more.setVisibility(View.VISIBLE);
-                }
-            }
-        }
-
-        holder.linear_place_on.setOnClickListener(view -> {
-            Intent intent = new Intent(context, OrderDetailActivity.class);
-            OrderDataList listNew = orderList.get(position);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("LIST", listNew);
-            intent.putExtras(bundle);
-            context.startActivity(intent);
-        });
-
         try {
+            if (orderList.get(position).getStatus().equals("1")) {
+                holder.tv_order_status.setText("Processing");
+            } else if (orderList.get(position).getStatus().equals("2")) {
+                holder.tv_order_status.setText("Packing");
+            } else if (orderList.get(position).getStatus().equals("3")) {
+                holder.tv_order_status.setText("Shipped");
+            } else if (orderList.get(position).getStatus().equals("4")) {
+                holder.tv_order_status.setText("Delivered");
+            } else if (orderList.get(position).getStatus().equals("5")) {
+                holder.tv_order_status.setText("Failed");
+            }
+
+            List<AddressList> address = orderList.get(position).getAddress();
+            if (address != null && !address.isEmpty())
+                holder.tv_patients_name.setText(address.get(0).getName());
+            // holder.tv_place_on.setText("Place On " + String.valueOf(orderList.get(position).getDeliveredDate()));
+            List<DrugData> drugs = orderList.get(position).getDrugs();
+            if (drugs != null && !drugs.isEmpty()) {
+                List<DrugList> drug = drugs.get(0).getDrug();
+                if (drug != null && !drug.isEmpty()) {
+                    if (drugs.size() == 1) {
+                        holder.tv_all_order_list.setText(drug.get(0).getDrugName());
+                        holder.tv_more.setVisibility(View.GONE);
+                    } else if (2 <= drugs.size()) {
+                        holder.tv_all_order_list.setText(drug.get(0).getDrugName() + "\n"
+                                + drug.get(1).getDrugName());
+                        holder.tv_more.setVisibility(View.VISIBLE);
+                    }
+                }
+                holder.linear_place_on.setOnClickListener(view -> {
+                    Intent intent = new Intent(context, OrderDetailActivity.class);
+                    OrderDataList listNew = orderList.get(position);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("LIST", listNew);
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+                });
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

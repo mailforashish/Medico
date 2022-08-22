@@ -11,11 +11,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.medico.app.R;
-import com.medico.app.response.Cartlist.CartResult;
-import com.medico.app.response.OrderRequest.OrderItem;
 import com.medico.app.response.OrderResponse.DrugList;
-import com.medico.app.response.OrderResponse.OrderListResult;
-import com.medico.app.response.ProductList.ProductListResponse;
 
 import java.util.List;
 

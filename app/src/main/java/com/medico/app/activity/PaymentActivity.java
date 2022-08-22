@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.medico.app.dialog.OrderCompletedDialog;
 import com.medico.app.response.Address.AddressResult;
+import com.medico.app.response.Cart.CartList;
 import com.medico.app.response.OrderProduct.CreateOrderResponse;
 import com.medico.app.response.OrderProduct.CreateOrderResponseUpi;
 import com.medico.app.response.OrderProduct.CreateOrderResult;
@@ -28,7 +29,7 @@ import com.medico.app.R;
 import com.medico.app.adapter.PaymentOffersAdapter;
 import com.medico.app.databinding.ActivityPaymentBinding;
 import com.medico.app.interfaceClass.PlaceOrder;
-import com.medico.app.response.Cartlist.CartResult;
+import com.medico.app.response.Cart.CartResult;
 import com.medico.app.response.PaymentOfferList;
 import com.medico.app.response.ProductList.ProductListResponse;
 import com.medico.app.retrofit.ApiManager;
@@ -45,10 +46,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.medico.app.utils.SessionManager.CITY;
 import static com.medico.app.utils.SessionManager.LATITUDE;
 import static com.medico.app.utils.SessionManager.LONGITUDE;
-import static com.medico.app.utils.SessionManager.PIN_CODE;
 
 public class PaymentActivity extends AppCompatActivity implements ApiResponseInterface, PaymentResultListener, PlaceOrder {
     ActivityPaymentBinding binding;
@@ -60,7 +59,7 @@ public class PaymentActivity extends AppCompatActivity implements ApiResponseInt
     SessionManager sessionManager;
     private int address_position;
     private List<AddressResult> addressLists = new ArrayList<>();
-    private List<CartResult> purchaseLists = new ArrayList<>();
+    private List<CartList> purchaseLists = new ArrayList<>();
     private String shippingCharge = "0";
     List<Drug> orderItem = new ArrayList<>();
     private String orderId;
@@ -177,6 +176,7 @@ public class PaymentActivity extends AppCompatActivity implements ApiResponseInt
             if (rsp != null) {
                 sessionManager.saveListInLocal("cart", cartList);
                 new OrderCompletedDialog(this, "Medico" + System.currentTimeMillis(), amount);
+
             }
         }
         if (ServiceCode == Constant.CREATE_ORDER_UPI) {

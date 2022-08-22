@@ -1,4 +1,4 @@
-package com.medico.app.response.Cartlist;
+package com.medico.app.response.Cart;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -274,7 +274,7 @@
                             android:layout_height="30dp"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
-                            android:src="@drawable/ic_order_mediciens" />
+                            android:src="@drawable/ic_orders_my_bag" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -414,7 +414,7 @@
                             android:layout_height="30dp"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
-                            android:src="@drawable/ic_wallet_dr" />
+                            android:src="@drawable/ic_wallet_my" />
 
                         <TextView
                             android:id="@+id/tv_wallet"

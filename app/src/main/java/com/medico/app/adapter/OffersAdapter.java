@@ -59,12 +59,10 @@ public class OffersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         holder.tv_offer_info.setText(list.get(position).getOffers());
                         holder.tv_code_text.setText("Code: " + list.get(position).getOffers_code());
                     } else if (type.equals("PRODUCT")){
-
                         // Glide.with(context).load(R.drawable.female_placeholder).apply(new RequestOptions()).into(holder.user_image);
                     }
                     holder.tv_offer_info.setText(list.get(position).getOffers());
                     holder.tv_code_text.setText(list.get(position).getOffers_code());
-
 
                 } catch (Exception e) {
                 }

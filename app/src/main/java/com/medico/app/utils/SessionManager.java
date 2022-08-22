@@ -11,7 +11,8 @@ import com.medico.app.activity.MainActivity;
 import com.medico.app.activity.StartActivity;
 import com.medico.app.response.Address.AddressResult;
 import com.medico.app.response.Banner.BannerResult;
-import com.medico.app.response.Cartlist.CartResult;
+import com.medico.app.response.Cart.CartList;
+import com.medico.app.response.Cart.CartResult;
 import com.medico.app.response.OTp.OTPResponse;
 
 import java.lang.reflect.Type;
@@ -141,12 +142,12 @@ public class SessionManager {
     }
 
 
-    public List<CartResult> getListFromLocal(String key) {
+    public List<CartList> getListFromLocal(String key) {
         if (pref != null) {
             Gson gson = new Gson();
-            List<CartResult> drugsList;
+            List<CartList> drugsList;
             String string = pref.getString(key, null);
-            Type type = new TypeToken<List<CartResult>>() {
+            Type type = new TypeToken<List<CartList>>() {
             }.getType();
             drugsList = gson.fromJson(string, type);
             return drugsList;

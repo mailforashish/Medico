@@ -1,7 +1,7 @@
 package com.medico.app.retrofit;
 
-import com.google.gson.JsonObject;
 import com.medico.app.response.AddEdit.AddEditAddressResponse;
+import com.medico.app.response.EditProfile.EditProfileResponse;
 import com.medico.app.response.OrderProduct.CreateOrderResponse;
 import com.medico.app.response.OrderProduct.CreateOrderResponseUpi;
 import com.medico.app.response.OrderRequest.OrderProductRequests;
@@ -11,9 +11,10 @@ import com.medico.app.response.Addcart.AddCartResponse;
 import com.medico.app.response.Addcart.RemoveCartResponse;
 import com.medico.app.response.Address.AddressResponse;
 import com.medico.app.response.Banner.BannerResponse;
-import com.medico.app.response.Cartlist.CartResponse;
+import com.medico.app.response.Cart.CartResponse;
 import com.medico.app.response.OTp.OTPResponse;
 import com.medico.app.response.PinCode.PinCodeResponse;
+import com.medico.app.response.ProductDetail.ProductDetailResponse;
 import com.medico.app.response.ProductList.ProductListResponse;
 import com.medico.app.response.LoginResponse;
 import com.medico.app.response.stateList.StateResponse;
@@ -89,6 +90,10 @@ public interface ApiInterface {
     @GET("products")
     Call<ProductListResponse> getSearchProduct(@Query("q") String p, @Query("per_page") String lim);
 
+    @GET("product-details")
+    Call<ProductDetailResponse> getProduct(@Header("Authorization") String token, @Header("Accept") String accept, @Query("drug_id") String drug_id);
+
+
     @POST("place-order")
     Call<CreateOrderResponse> OrderProduct(@Header("Authorization") String token, @Header("Accept") String accept,
                                            @Body OrderProductRequests order_detail);
@@ -108,6 +113,12 @@ public interface ApiInterface {
 
     @GET("{pincode}")
     Call<PinCodeResponse> getPinCode(@Path("pincode") String pin);
+
+    @FormUrlEncoded
+    @POST("mobile-profile-update")
+    Call<EditProfileResponse> editProfileData(@Header("Authorization") String token, @Header("Accept") String accept,
+                                              @Field("first_name") String first_name, @Field("last_name") String last_name,
+                                              @Field("mobile") String mobile, @Field("email") String email, @Field("password") String password);
 
    /* @POST("cash-free-payment")
     Call<Object> cashFreePayment(

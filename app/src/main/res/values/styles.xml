@@ -60,13 +60,13 @@
         <attr name="animDuration" format="integer" />
         <attr name="animDelay" format="integer" />
         <attr name="animInterpolator" format="enum">
-            <enum name="accelerate" value="0"/>
-            <enum name="decelerate" value="1"/>
-            <enum name="accelerateDecelerate" value="2"/>
-            <enum name="anticipate" value="3"/>
-            <enum name="anticipateOvershoot" value="4"/>
-            <enum name="linear" value="5"/>
-            <enum name="overshoot" value="6"/>
+            <enum name="accelerate" value="0" />
+            <enum name="decelerate" value="1" />
+            <enum name="accelerateDecelerate" value="2" />
+            <enum name="anticipate" value="3" />
+            <enum name="anticipateOvershoot" value="4" />
+            <enum name="linear" value="5" />
+            <enum name="overshoot" value="6" />
         </attr>
     </declare-styleable>
 
@@ -88,5 +88,20 @@
         <item name="sv_stepLineWidth">0.5dp</item>
         <item name="sv_textSize">14sp</item>
     </style>
+
+    <declare-styleable name="ReadMoreTextView">
+        <attr name="trimExpandedText" format="string" />
+        <attr name="trimCollapsedText" format="string" />
+        <attr name="trimLength" format="integer" />
+        <attr name="showTrimExpandedText" format="boolean" />
+        <attr name="colorClickableText" format="color" />
+        <attr name="trimLines" format="integer" />
+        <attr name="trimMode">
+            <enum name="trimModeLine" value="0" />
+            <enum name="trimModeLength" value="1" />
+        </attr>
+    </declare-styleable>
+    <string name="read_less">show less</string>
+    <string name="read_more">show more</string>
 
 </resources>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
+<data>
 
         <variable
             name="clickListener"
@@ -44,8 +44,9 @@
                         android:id="@+id/iv_offerIcon_percent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="5dp"
                         android:layout_centerHorizontal="true"
+                        android:contentDescription="null"
+                        android:paddingRight="5dp"
                         android:src="@drawable/ic_discount" />
                 </RelativeLayout>
 
@@ -145,8 +146,7 @@
             android:layout_above="@+id/cl_viewCart"
             android:layout_below="@+id/collapse"
             android:background="@color/white"
-            android:clipToPadding="false"
-            android:visibility="visible">
+            android:clipToPadding="false">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/app_bar_layout"
@@ -484,40 +484,6 @@
                             android:layout_marginEnd="15dp"
                             android:paddingBottom="0dp">
 
-                            <!-- <RelativeLayout
-                                 android:id="@+id/ll_enroll"
-                                 android:layout_width="match_parent"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginTop="10dp"
-                                 android:background="@drawable/enroll_bg"
-                                 android:orientation="horizontal"
-                                 app:layout_constraintTop_toTopOf="parent">
-
-                                 <TextView
-                                     android:id="@+id/tv_get_off"
-                                     android:layout_width="wrap_content"
-                                     android:layout_height="wrap_content"
-                                     android:paddingLeft="15dp"
-                                     android:paddingTop="10dp"
-                                     android:paddingBottom="10dp"
-                                     android:text="Get 5% additional cashback with PLUS membership"
-                                     android:textColor="@color/colorPrimary" />
-
-                                 <TextView
-                                     android:id="@+id/tv_enrol_now"
-                                     android:layout_width="match_parent"
-                                     android:layout_height="30dp"
-                                     android:layout_below="@+id/tv_get_off"
-                                     android:background="@drawable/ic_enroll_bg"
-                                     android:drawableStart="@drawable/ic_pluse_new"
-                                     android:drawableEnd="@drawable/ic_forword_round"
-                                     android:drawablePadding="10dp"
-                                     android:padding="5dp"
-                                     android:text="Enroll now enjoy free delivery on your order"
-                                     android:textColor="@color/white" />
-
-                             </RelativeLayout>-->
-
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:id="@+id/cl_add_cart"
                                 android:layout_width="match_parent"
@@ -648,148 +614,6 @@
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <!--<View
-                             android:id="@+id/v_medicine_unit_seperator"
-                             android:layout_width="match_parent"
-                             android:layout_height="5dp"
-                             android:layout_marginBottom="10dp"
-                             android:background="#f4f7fb"
-                             android:visibility="visible" />
-
-                         <androidx.constraintlayout.widget.ConstraintLayout
-                             android:id="@+id/cl_offers"
-                             android:layout_width="match_parent"
-                             android:layout_height="wrap_content"
-                             android:layout_marginStart="15dp"
-                             android:layout_marginTop="10dp"
-                             android:layout_marginEnd="15dp"
-                             android:visibility="gone"
-                             android:background="@drawable/dotted_offer_pd"
-                             android:paddingBottom="12dp">
-
-                             <ImageView
-                                 android:id="@+id/iv_offers"
-                                 android:layout_width="40dp"
-                                 android:layout_height="40dp"
-                                 android:src="@drawable/ic_offer_icon_bg"
-                                 app:layout_constraintStart_toStartOf="parent"
-                                 app:layout_constraintTop_toTopOf="parent" />
-
-                             <TextView
-                                 android:id="@+id/tv_offer_heading"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginStart="10dp"
-                                 android:layout_marginTop="10dp"
-                                 android:fontFamily="@font/opensans_bold"
-                                 android:text="Offers Just For you"
-                                 android:textColor="@color/colorPrimary"
-                                 android:textSize="14sp"
-                                 app:layout_constraintStart_toStartOf="parent"
-                                 app:layout_constraintTop_toTopOf="parent" />
-
-                             <TextView
-                                 android:id="@+id/tv_viewAll_offer"
-                                 android:layout_width="0dp"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginTop="10dp"
-                                 android:layout_marginEnd="15dp"
-                                 android:fontFamily="@font/opensans_semibold"
-                                 android:gravity="end"
-                                 android:text="View All"
-                                 android:textColor="@color/colorPrimary"
-                                 android:textSize="12sp"
-                                 app:layout_constraintEnd_toEndOf="parent"
-                                 app:layout_constraintStart_toEndOf="@+id/tv_offer_heading"
-                                 app:layout_constraintTop_toTopOf="parent" />
-
-                             <androidx.recyclerview.widget.RecyclerView
-                                 android:id="@+id/rv_offerList_vertical"
-                                 android:layout_width="0dp"
-                                 android:layout_height="wrap_content"
-                                 android:clipToPadding="false"
-                                 app:layout_constraintEnd_toEndOf="@+id/tv_viewAll_offer"
-                                 app:layout_constraintStart_toStartOf="@+id/tv_offer_heading"
-                                 app:layout_constraintTop_toBottomOf="@+id/iv_offers" />
-                         </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <View
-                             android:id="@+id/divider_layout_offers_vertical"
-                             android:layout_width="match_parent"
-                             android:layout_height="10dp"
-                             android:layout_marginTop="20dp"
-                             android:background="@color/grey_header_bg" />
-
-                         <include
-                             android:id="@+id/layout_medicine_composition"
-                             layout="@layout/layout_contains_medicine_pdp"
-                             android:layout_width="match_parent"
-                             android:layout_height="wrap_content"
-                             android:layout_marginTop="5dp" />
-
-                         <View
-                             android:id="@+id/divider_layout_medicine_composition"
-                             android:layout_width="match_parent"
-                             android:layout_height="10dp"
-                             android:layout_marginTop="5dp"
-                             android:background="@color/color_grey" />
-
-                         <androidx.constraintlayout.widget.ConstraintLayout
-                             android:id="@+id/cl_together"
-                             android:layout_width="match_parent"
-                             android:layout_height="wrap_content"
-                             android:visibility="gone"
-                             android:paddingBottom="12dp">
-
-                             <TextView
-                                 android:id="@+id/tv_together"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginStart="10dp"
-                                 android:layout_marginTop="10dp"
-                                 android:fontFamily="@font/opensans_bold"
-                                 android:text="Frequently Bought Together"
-                                 android:textColor="@color/colorPrimary"
-                                 android:textSize="14sp"
-                                 app:layout_constraintStart_toStartOf="parent"
-                                 app:layout_constraintTop_toTopOf="parent" />
-
-                             <TextView
-                                 android:id="@+id/tv_view_all"
-                                 android:layout_width="0dp"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginTop="10dp"
-                                 android:layout_marginEnd="15dp"
-                                 android:fontFamily="@font/opensans_semibold"
-                                 android:gravity="end"
-                                 android:text="View All"
-                                 android:textColor="@color/colorPrimary"
-                                 android:textSize="12sp"
-                                 app:layout_constraintEnd_toEndOf="parent"
-                                 app:layout_constraintStart_toEndOf="@+id/tv_together"
-                                 app:layout_constraintTop_toTopOf="parent" />
-
-                             <TextView
-                                 android:id="@+id/tv_selected_md_name"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginStart="10dp"
-                                 android:layout_marginTop="10dp"
-                                 android:text="with Ecosprin 75mg Strip Of 14 tablets"
-                                 android:textColor="@color/grey_light"
-                                 android:textSize="12sp"
-                                 app:layout_constraintStart_toStartOf="parent"
-                                 app:layout_constraintTop_toBottomOf="@+id/tv_together" />
-
-                             <androidx.recyclerview.widget.RecyclerView
-                                 android:id="@+id/rv_together"
-                                 android:layout_width="0dp"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginTop="10dp"
-                                 app:layout_constraintStart_toStartOf="@+id/tv_together"
-                                 app:layout_constraintTop_toBottomOf="@+id/tv_selected_md_name" />
-                         </androidx.constraintlayout.widget.ConstraintLayout>-->
-
                         <View
                             android:id="@+id/divider_cl_together"
                             android:layout_width="match_parent"
@@ -806,24 +630,17 @@
                             android:fontFamily="@font/opensans_bold"
                             android:text="Medical Description"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="14sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:textSize="14sp" />
 
-                        <TextView
+                        <com.medico.app.utils.ReadMoreTextView
                             android:id="@+id/tv_md_desc_input"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
                             android:layout_marginBottom="10dp"
-                            android:fontFamily="@font/opensans_regular"
-                            android:justificationMode="inter_word"
-                            android:text="Ecosprin 75 tablet is an antiplatelet medicine(blood thinner).it contains aspirin as its active"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="12sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:colorClickableText="@color/colorPrimary" />
 
                     </LinearLayout>
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -933,6 +750,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@+id/iv_back"
+                android:drawableStart="@drawable/ic_rupees_new"
                 android:fontFamily="@font/opensans_bold"
                 android:text="40"
                 android:textColor="@color/color_header_text"

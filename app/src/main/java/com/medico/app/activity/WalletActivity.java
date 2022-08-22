@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.medico.app.R;
 import com.medico.app.databinding.ActivityWalletBinding;
@@ -20,6 +21,10 @@ public class WalletActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_wallet);
         hideStatus = new HideStatus(getWindow(), true);
         binding.setClickListener(new EventHandler(this));
+
+
+
+
     }
 
     public class EventHandler {

@@ -23,14 +23,13 @@ import com.google.gson.Gson;
 import com.medico.app.R;
 import com.medico.app.activity.MainActivity;
 import com.medico.app.activity.CartActivity;
-import com.medico.app.adapter.CartAdapter;
 import com.medico.app.adapter.ProductAdapter;
 import com.medico.app.databinding.FragmentHealthCareBinding;
 import com.medico.app.interfaceClass.CartItemCount;
 import com.medico.app.response.Addcart.AddCartResponse;
 import com.medico.app.response.Addcart.RemoveCartResponse;
-import com.medico.app.response.Cartlist.CartResponse;
-import com.medico.app.response.Cartlist.CartResult;
+import com.medico.app.response.Cart.CartList;
+import com.medico.app.response.Cart.CartResult;
 import com.medico.app.response.ProductList.ProductListResponse;
 import com.medico.app.retrofit.ApiManager;
 import com.medico.app.retrofit.ApiResponseInterface;
@@ -47,7 +46,7 @@ public class HealthCareFragment extends Fragment implements CartItemCount, ApiRe
     SessionManager sessionManager;
     ProductAdapter productAdapter;
     List<ProductListResponse.Data> list = new ArrayList<>();
-    List<CartResult> ItemList = new ArrayList<>();
+    List<CartList> ItemList = new ArrayList<>();
     ApiManager apiManager;
     GridLayoutManager gridLayoutManager;
     private static final int PAGE_START = 1;
@@ -227,11 +226,6 @@ public class HealthCareFragment extends Fragment implements CartItemCount, ApiRe
        /* if (productAdapter != null) {
             productAdapter.refreshrecyclerview();
             productAdapter.notifyDataSetChanged();
-        }*/
-
-       /*if (CartActivity.fresh) {
-            //need to change in arraylist than only you can notify your adapter.
-            //add some data in array list or remove data.than try to notify it.
         }*/
 
     }

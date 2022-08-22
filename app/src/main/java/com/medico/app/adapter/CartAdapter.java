@@ -17,7 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.medico.app.R;
 import com.medico.app.interfaceClass.CartItemCount;
-import com.medico.app.response.Cartlist.CartResult;
+import com.medico.app.response.Cart.CartList;
+import com.medico.app.response.Cart.CartResult;
 import com.medico.app.utils.MaxLimit;
 import com.medico.app.utils.SessionManager;
 
@@ -26,14 +27,14 @@ import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private Context context;
-    public List<CartResult> cartList;
+    public List<CartList> cartList;
     SessionManager sessionManager;
     TextView tv_amount_input;
     Button btn_pay;
     CartItemCount cartItemCount;
     MaxLimit maxLimit;
 
-    public CartAdapter(Context context, CartItemCount cartItemCount, List<CartResult> cartList, TextView tv_amount_input, Button btn_pay) {
+    public CartAdapter(Context context, CartItemCount cartItemCount, List<CartList> cartList, TextView tv_amount_input, Button btn_pay) {
         this.context = context;
         this.cartItemCount = cartItemCount;
         this.cartList = cartList;
@@ -52,7 +53,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final CartResult listNew = cartList.get(position);
+        final CartList listNew = cartList.get(position);
         try {
             holder.tv_drug_name.setText(listNew.getProductId().getDrugName());
             holder.tv_manufacturer.setText(listNew.getProductId().getManufactur());
@@ -70,7 +71,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         }
 
         if (cartList != null) {
-            for (CartResult d : cartList) {
+            for (CartList d : cartList) {
                 if (listNew.getId() == d.getId()) {
                     listNew.setQuantity(d.getQuantity());
                 }

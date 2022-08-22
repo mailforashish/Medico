@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,8 +33,9 @@ import com.medico.app.interfaceClass.ShowFragment;
 import com.medico.app.activity.SearchProductActivity;
 import com.medico.app.response.Banner.BannerResponse;
 import com.medico.app.response.Banner.BannerResult;
-import com.medico.app.response.Cartlist.CartResponse;
-import com.medico.app.response.Cartlist.CartResult;
+import com.medico.app.response.Cart.CartList;
+import com.medico.app.response.Cart.CartResponse;
+import com.medico.app.response.Cart.CartResult;
 import com.medico.app.response.CategoryList;
 import com.medico.app.response.HealthArticleList;
 import com.medico.app.response.stateList.StateResponse;
@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment implements ShowFragment, ApiResponseI
     List<HealthArticleList> healthArticleLists = new ArrayList<>();
     private List<String> statesListNew = new ArrayList<>();
     private List<StateResult> statesList = new ArrayList<>();
-    private List<CartResult> cartList;
+    private List<CartList> cartList;
     private StateAdapter stateAdapter;
     ApiManager apiManager;
 
@@ -195,7 +195,7 @@ public class HomeFragment extends Fragment implements ShowFragment, ApiResponseI
         if (ServiceCode == Constant.CART_LIST) {
             CartResponse rsp = (CartResponse) response;
             if (rsp != null) {
-                cartList = rsp.getData();
+                cartList = rsp.getData().getCart();
                 sessionManager.saveListInLocal("cart", cartList);
             }
 

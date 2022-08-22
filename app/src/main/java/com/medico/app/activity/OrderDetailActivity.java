@@ -11,30 +11,23 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 
 
 import com.google.android.material.tabs.TabLayout;
-import com.google.gson.Gson;
 import com.medico.app.R;
 import com.medico.app.adapter.OrderItemAdapter;
 import com.medico.app.databinding.ActivityOrderDetailBinding;
 import com.medico.app.dialog.OrderCancelDialog;
 import com.medico.app.response.Addcart.AddCartResponse;
-import com.medico.app.response.Address.AddressResult;
-import com.medico.app.response.Cartlist.CartResult;
-import com.medico.app.response.OrderRequest.OrderItem;
 import com.medico.app.response.OrderResponse.DrugList;
 import com.medico.app.response.OrderResponse.OrderDataList;
-import com.medico.app.response.OrderResponse.OrderListResult;
 import com.medico.app.retrofit.ApiManager;
 import com.medico.app.retrofit.ApiResponseInterface;
 import com.medico.app.utils.Constant;
 import com.medico.app.utils.HideStatus;
 import com.medico.app.utils.SessionManager;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +43,7 @@ public class OrderDetailActivity extends AppCompatActivity implements ApiRespons
     ApiManager apiManager;
     HideStatus hideStatus;
     private String typeName = "";
-    private int trackStatus = 2;
+    private int trackStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +55,6 @@ public class OrderDetailActivity extends AppCompatActivity implements ApiRespons
         apiManager = new ApiManager(this, this);
 
         orderDataList = (OrderDataList) getIntent().getSerializableExtra("LIST");
-        Log.e("getData", "fomrAdapter " + new Gson().toJson(orderDataList));
         List<DrugList> objectItemList = orderDataList.getDrugs().get(0).getDrug();
         totalItems = String.valueOf(objectItemList.size());
         if (orderDataList != null) {
@@ -85,8 +77,6 @@ public class OrderDetailActivity extends AppCompatActivity implements ApiRespons
         binding.tvOrderItemCount.setText(totalItems + " Items");
         binding.tvOrderAmount.setText(String.valueOf(orderDataList.getCutAmount()));
         // binding.tvDeliverDate.setText(String.valueOf("Delivery Date " + orderDataList.getDeliveredDate()));
-
-        Log.e("orderItem", "sizefix " + orderItem.size());
         binding.rvOrderItem.setLayoutManager(new LinearLayoutManager(OrderDetailActivity.this, LinearLayoutManager.VERTICAL, false));
         orderItemAdapter = new OrderItemAdapter(OrderDetailActivity.this, objectItemList);
         binding.rvOrderItem.setAdapter(orderItemAdapter);
@@ -113,7 +103,8 @@ public class OrderDetailActivity extends AppCompatActivity implements ApiRespons
 
             }
         });
-
+        //show status according to api status data..
+        trackStatus = objectItemList.get(0).getStatus();
         List<String> track = new ArrayList<>();
         track.add("Order \nPlace");
         track.add("Order \nProcessing");

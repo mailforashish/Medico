@@ -21,8 +21,9 @@ import com.medico.app.interfaceClass.CartItemCount;
 import com.medico.app.response.Addcart.RemoveCartResponse;
 import com.medico.app.response.Address.AddressResponse;
 import com.medico.app.response.Address.AddressResult;
-import com.medico.app.response.Cartlist.CartResponse;
-import com.medico.app.response.Cartlist.CartResult;
+import com.medico.app.response.Cart.CartList;
+import com.medico.app.response.Cart.CartResponse;
+import com.medico.app.response.Cart.CartResult;
 import com.medico.app.retrofit.ApiManager;
 import com.medico.app.retrofit.ApiResponseInterface;
 import com.medico.app.utils.Constant;
@@ -37,7 +38,7 @@ public class CartActivity extends AppCompatActivity implements ApiResponseInterf
     ActivityCartBinding binding;
     private CartAdapter cartAdapter;
     private MainAddressAdapter addressAdapter;
-    private List<CartResult> cartList = new ArrayList<>();
+    private List<CartList> cartList = new ArrayList<>();
     private List<AddressResult> addressLists = new ArrayList<>();
     private SessionManager sessionManager;
     private LinearLayoutManager linearLayoutManager;
@@ -112,7 +113,7 @@ public class CartActivity extends AppCompatActivity implements ApiResponseInterf
         if (ServiceCode == Constant.CART_LIST) {
             CartResponse rsp = (CartResponse) response;
             if (rsp != null) {
-                cartList = rsp.getData();
+                cartList = rsp.getData().getCart();
                 cartAdapter = new CartAdapter(CartActivity.this, this, cartList, tv_amount_input, binding.btnPay);
                 binding.rvCartItem.setAdapter(cartAdapter);
                 cartAdapter.notifyDataSetChanged();
@@ -154,7 +155,6 @@ public class CartActivity extends AppCompatActivity implements ApiResponseInterf
         }
 
         public void buttonPay() {
-
             if (cartList != null && !cartList.isEmpty() && addressLists != null && !addressLists.isEmpty()) {
                 startActivity(new Intent(CartActivity.this, PrescriptionActivity.class)
                         .putExtra("Event", "Cart")

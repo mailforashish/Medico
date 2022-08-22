@@ -8,19 +8,14 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.medico.app.R;
-import com.medico.app.adapter.CartAdapter;
 import com.medico.app.adapter.OrderListAdapter;
 import com.medico.app.databinding.ActivityOrderListBinding;
-import com.medico.app.response.Cartlist.CartResponse;
-import com.medico.app.response.Cartlist.CartResult;
 import com.medico.app.response.OrderResponse.OrderDataList;
 import com.medico.app.response.OrderResponse.OrderListResponse;
-import com.medico.app.response.OrderResponse.OrderListResult;
 import com.medico.app.retrofit.ApiManager;
 import com.medico.app.retrofit.ApiResponseInterface;
 import com.medico.app.utils.Constant;
 import com.medico.app.utils.HideStatus;
-import com.medico.app.utils.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;

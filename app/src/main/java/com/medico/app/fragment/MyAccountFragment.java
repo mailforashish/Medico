@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,6 @@ import com.medico.app.utils.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class MyAccountFragment extends Fragment {
     FragmentMyAccountBinding binding;
@@ -49,7 +49,6 @@ public class MyAccountFragment extends Fragment {
         setData();
     }
 
-
     public class EventHandler {
         Context mContext;
 
@@ -60,7 +59,6 @@ public class MyAccountFragment extends Fragment {
         public void editProfile() {
             startActivity(new Intent(getContext(), EditProfileActivity.class));
         }
-
         public void userLogOut() {
             new ExitDialog(MyAccountFragment.this);
         }
@@ -74,7 +72,6 @@ public class MyAccountFragment extends Fragment {
         binding.tvMobile.setText(sessionManager.getMobile());
         binding.tvEmail.setText(sessionManager.getUserEmail());
     }
-
     private void setData() {
         MyAccountList list1 = new MyAccountList("Order", R.drawable.ic_orders_my_bag);
         myAccountLists.add(list1);
@@ -95,6 +92,5 @@ public class MyAccountFragment extends Fragment {
         list1 = new MyAccountList("Legal", R.drawable.ic_legal_my);
         myAccountLists.add(list1);
     }
-
 
 }

@@ -42,7 +42,7 @@
                         android:id="@+id/edtName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="5dp"
                         android:imeOptions="actionNext"
                         android:inputType="textCapSentences"
                         android:longClickable="false"
@@ -50,6 +50,17 @@
                         android:text="Arjun Arora"
                         android:textColor="@color/black_new"
                         android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_name_error"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/floatEmail"
+                        android:layout_marginStart="5dp"
+                        android:text="Enter Valid Name"
+                        android:textColor="#ff0000"
+                        android:textSize="12sp"
+                        android:visibility="invisible" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -109,7 +120,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/floatEmail"
                         android:layout_marginStart="5dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="5dp"
                         android:text="Not verifyed"
                         android:textColor="#ff0000"
                         android:textSize="12sp"
@@ -121,7 +132,7 @@
                     android:id="@+id/rl_re_verify"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginBottom="10dp"
                     android:background="@color/white"
                     android:paddingLeft="12dp"
@@ -183,7 +194,6 @@
                 android:textColor="@color/white"
                 android:textSize="16sp" />
         </LinearLayout>
-
 
     </RelativeLayout>
 </layout>

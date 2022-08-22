@@ -21,7 +21,6 @@ import android.util.Log;
 import android.view.Gravity;
 
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,8 +29,8 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.medico.app.response.Address.AddressResult;
-import com.medico.app.response.Cartlist.CartResult;
+import com.medico.app.response.Cart.CartList;
+import com.medico.app.response.Cart.CartResult;
 import com.medico.app.R;
 import com.medico.app.databinding.ActivityMainBinding;
 import com.medico.app.fragment.HealthCareFragment;
@@ -46,8 +45,6 @@ import com.medico.app.utils.SessionManager;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements TextSizeIncrease {
     ActivityMainBinding binding;
@@ -71,8 +68,7 @@ public class MainActivity extends AppCompatActivity implements TextSizeIncrease 
     private String city_name = "";
     private String pin_code = "";
     private int REQUEST_CODE_CHECK_SETTINGS = 2022;
-    private List<AddressResult> addressLists = new ArrayList<>();
-    private List<CartResult> purchaseLists = new ArrayList<>();
+    private List<CartList> purchaseLists = new ArrayList<>();
     HideStatus hideStatus;
     private NetworkCheck networkCheck;
 
@@ -94,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements TextSizeIncrease 
         binding.viewBarHome.setVisibility(View.VISIBLE);
 
         sessionManager = new SessionManager(this);
-        addressLists = sessionManager.getAddressFromLocal("address");
         purchaseLists = sessionManager.getListFromLocal("cart");
 
         View header = binding.navigationView.getHeaderView(0);
@@ -142,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements TextSizeIncrease 
         }
 
         public void myOrders() {
-            if (addressLists.size() > 1 && purchaseLists.size() > 1) {
+            if (purchaseLists != null && !purchaseLists.isEmpty()) {
                 startActivity(new Intent(mContext, OrderListActivity.class));
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 drawer.closeDrawer(Gravity.LEFT);
@@ -232,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements TextSizeIncrease 
             showFragment(homeFragment);
             textSizeIncrease.setTextSize(binding.tvHome.getId());
             binding.viewBarHome.setVisibility(View.VISIBLE);
-        }else if (pos.equals("2")){
+        } else if (pos.equals("2")) {
             unselectAllMenu();
             binding.ivNotificationTab.setImageResource(R.drawable.ic_noti_selected);
             showFragment(notificationFragment);

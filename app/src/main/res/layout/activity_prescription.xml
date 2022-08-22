@@ -171,6 +171,7 @@
                         android:layout_height="wrap_content"
                         android:buttonTint="#14BFFF"
                         android:clickable="true"
+                        android:checked="true"
                         android:onClick="@{() -> clickListener.radioPrescription()}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/linear_prescription" />
