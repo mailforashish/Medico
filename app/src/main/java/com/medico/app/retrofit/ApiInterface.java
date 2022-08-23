@@ -14,6 +14,7 @@ import com.medico.app.response.Banner.BannerResponse;
 import com.medico.app.response.Cart.CartResponse;
 import com.medico.app.response.OTp.OTPResponse;
 import com.medico.app.response.PinCode.PinCodeResponse;
+import com.medico.app.response.Prescription.PrescriptionResponse;
 import com.medico.app.response.ProductDetail.ProductDetailResponse;
 import com.medico.app.response.ProductList.ProductListResponse;
 import com.medico.app.response.LoginResponse;
@@ -120,10 +121,7 @@ public interface ApiInterface {
                                               @Field("first_name") String first_name, @Field("last_name") String last_name,
                                               @Field("mobile") String mobile, @Field("email") String email, @Field("password") String password);
 
-   /* @POST("cash-free-payment")
-    Call<Object> cashFreePayment(
-            @Header("Authorization") String token,
-            @Header("Accept") String accept,
-            @Body CashFreePaymentRequest cashFreePaymentRequest);*/
+   @GET("perception-gallery")
+   Call<PrescriptionResponse> getPrescriptionData(@Header("Authorization") String token, @Header("Accept") String accept);
 
 }

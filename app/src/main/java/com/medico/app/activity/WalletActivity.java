@@ -22,9 +22,6 @@ public class WalletActivity extends AppCompatActivity {
         hideStatus = new HideStatus(getWindow(), true);
         binding.setClickListener(new EventHandler(this));
 
-
-
-
     }
 
     public class EventHandler {

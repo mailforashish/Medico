@@ -39,6 +39,9 @@ public class DrugList implements Serializable {
     @SerializedName("total")
     @Expose
     private Object total;
+    @SerializedName("image_url")
+    @Expose
+    private String image_url;
 
     public Integer getDrugId() {
         return drugId;
@@ -128,5 +131,12 @@ public class DrugList implements Serializable {
         this.total = total;
     }
 
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
 }
 

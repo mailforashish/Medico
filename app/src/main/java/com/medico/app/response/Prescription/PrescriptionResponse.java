@@ -6,10 +6,12 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class PrescriptionResponse {
+    @SerializedName("success")
+    @Expose
     private Boolean success;
     @SerializedName("data")
     @Expose
-    private List<String> data = null;
+    private List<PrescriptionResult> data = null;
     @SerializedName("message")
     @Expose
     private String message;
@@ -22,11 +24,11 @@ public class PrescriptionResponse {
         this.success = success;
     }
 
-    public List<String> getData() {
+    public List<PrescriptionResult> getData() {
         return data;
     }
 
-    public void setData(List<String> data) {
+    public void setData(List<PrescriptionResult> data) {
         this.data = data;
     }
 
@@ -37,5 +39,7 @@ public class PrescriptionResponse {
     public void setMessage(String message) {
         this.message = message;
     }
+
+
 
 }

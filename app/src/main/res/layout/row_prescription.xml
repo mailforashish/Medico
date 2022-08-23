@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardBackgroundColor="@color/transparent"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="1dp"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_purchase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="5dp">
+
+        <ImageView
+            android:id="@+id/iv_prescription"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/home_care"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_order_in_progress"
+            android:ellipsize="end"
+            android:fontFamily="@font/opensans_semibold"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="23/08/2022"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

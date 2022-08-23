@@ -3,6 +3,8 @@ package com.medico.app.response.Cart;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class ProductId {
     @SerializedName("drug_id")
     @Expose
@@ -37,6 +39,9 @@ public class ProductId {
     @SerializedName("is_cart")
     @Expose
     private Boolean isCart;
+    @SerializedName("images")
+    @Expose
+    private List<CartImage> images = null;
 
     public String getDrugId() {
         return drugId;
@@ -126,4 +131,11 @@ public class ProductId {
         this.isCart = isCart;
     }
 
+    public List<CartImage> getImages() {
+        return images;
+    }
+
+    public void setImages(List<CartImage> images) {
+        this.images = images;
+    }
 }

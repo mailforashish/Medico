@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-<data>
+    <data>
 
         <variable
             name="clickListener"
@@ -632,7 +632,7 @@
                             android:textColor="@color/colorPrimary"
                             android:textSize="14sp" />
 
-                        <com.medico.app.utils.ReadMoreTextView
+                        <TextView
                             android:id="@+id/tv_md_desc_input"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -640,7 +640,9 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="10dp"
-                            app:colorClickableText="@color/colorPrimary" />
+                            android:fontFamily="@font/opensans_regular"
+                            android:justificationMode="inter_word"
+                            android:textColor="@color/color_header_text" />
 
                     </LinearLayout>
                 </com.google.android.material.appbar.CollapsingToolbarLayout>

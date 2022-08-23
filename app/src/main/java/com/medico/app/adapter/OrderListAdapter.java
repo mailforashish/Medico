@@ -18,6 +18,7 @@ import com.medico.app.response.OrderResponse.AddressList;
 import com.medico.app.response.OrderResponse.DrugData;
 import com.medico.app.response.OrderResponse.DrugList;
 import com.medico.app.response.OrderResponse.OrderDataList;
+import com.medico.app.utils.MedicoDateFormater;
 
 import java.util.List;
 
@@ -58,7 +59,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
             List<AddressList> address = orderList.get(position).getAddress();
             if (address != null && !address.isEmpty())
                 holder.tv_patients_name.setText(address.get(0).getName());
-            // holder.tv_place_on.setText("Place On " + String.valueOf(orderList.get(position).getDeliveredDate()));
+            holder.tv_place_on.setText("Place On " +
+                    String.valueOf(MedicoDateFormater.formatDateFromString(
+                            "dd-MM-yyyy hh:mm a" ,"dd-MM-yyyy", orderList.get(position).getCreatedAt())));
             List<DrugData> drugs = orderList.get(position).getDrugs();
             if (drugs != null && !drugs.isEmpty()) {
                 List<DrugList> drug = drugs.get(0).getDrug();

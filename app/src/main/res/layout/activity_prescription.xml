@@ -17,7 +17,6 @@
         android:paddingTop="25dp"
         tools:context=".activity.PrescriptionActivity">
 
-
         <ImageView
             android:id="@+id/iv_back"
             android:layout_width="32dp"
@@ -46,8 +45,8 @@
             app:layout_constraintStart_toEndOf="@+id/iv_back"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <ScrollView
+            android:id="@+id/sv_prescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fillViewport="true"
@@ -80,29 +79,11 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/opensans_semibold"
-                    android:maxLines="3"
                     android:text="&#8226;Eco Sprin 75MG STRIP OF 14 Tablets"
                     android:textColor="@color/color_header_text"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_cart_item" />
-
-                <TextView
-                    android:id="@+id/tv_viewMore"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="15dp"
-                    android:onClick="@{() -> clickListener.viewMore()}"
-                    android:drawableEnd="@drawable/ic_arrow_medicine"
-                    android:drawablePadding="5dp"
-                    android:text="View More"
-                    android:fontFamily="@font/opensans_semibold"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/color_secondary"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_drug_name" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_have_prescription"
@@ -117,7 +98,7 @@
                     android:paddingBottom="15dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_viewMore">
+                    app:layout_constraintTop_toBottomOf="@+id/tv_drug_name">
 
                     <ImageView
                         android:id="@+id/iv_payment_icon"
@@ -170,8 +151,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:buttonTint="#14BFFF"
-                        android:clickable="true"
                         android:checked="true"
+                        android:clickable="true"
                         android:onClick="@{() -> clickListener.radioPrescription()}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/linear_prescription" />
@@ -443,7 +424,36 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/tv_prescription"
             android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_back_hide"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:onClick="@{() -> clickListener.backPage()}"
+                android:src="@drawable/ic_back_pay"
+                app:layout_constraintEnd_toStartOf="@+id/tv_prescription_hide"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_prescription_hide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/opensans_bold"
+                android:text="Prescription Records"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/iv_back_hide"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/iv_empty"
@@ -468,6 +478,7 @@
                 app:layout_constraintTop_toBottomOf="@id/iv_empty" />
 
             <TextView
+                android:id="@+id/tv_record"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -485,6 +496,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.5" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_prescription"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toBottomOf="@+id/tv_prescription_hide" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

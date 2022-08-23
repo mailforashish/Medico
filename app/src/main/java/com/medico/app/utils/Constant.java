@@ -24,5 +24,6 @@ public class Constant {
     public static int ORDER_LIST = 20;
     public static int EDIT_PROFILE = 21;
     public static int PRODUCT_DETAIL = 22;
+    public static int PRESCRIPTION_LIST = 23;
 
 }

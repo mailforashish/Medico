@@ -14,7 +14,6 @@ import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,15 +37,14 @@ import com.medico.app.response.Addcart.RemoveCartResponse;
 import com.medico.app.response.Banner.BannerResult;
 import com.medico.app.response.Cart.CartList;
 import com.medico.app.response.Cart.CartResponse;
-import com.medico.app.response.Cart.CartResult;
 import com.medico.app.response.DescriptionList;
-import com.medico.app.response.OffersList;
 import com.medico.app.response.ProductDetail.ProductDetailResponse;
 import com.medico.app.retrofit.ApiManager;
 import com.medico.app.retrofit.ApiResponseInterface;
 import com.medico.app.utils.Constant;
 import com.medico.app.utils.HideStatus;
 import com.medico.app.utils.MaxLimit;
+import com.medico.app.utils.ReadMoreTextView;
 import com.medico.app.utils.PaginationAdapterCallback;
 import com.medico.app.utils.SessionManager;
 
@@ -343,7 +341,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements ApiResp
                 binding.tvStrikePriceTop.setText("MRP " + Price);
                 binding.tvStrikePriceTop.setPaintFlags(binding.tvStrikePriceTop.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 binding.tvDiscountPercentTop.setText(Discount + "% OFF");
+                //
                 binding.tvMdDescInput.setText(rsp.getData().getDescription());
+                new ReadMoreTextView(binding.tvMdDescInput, 3, "View More", true);
 
                 binding.tabDetail.addTab(binding.tabDetail.newTab().setText("Uses"));
                 binding.tabDetail.addTab(binding.tabDetail.newTab().setText("Side effect"));
@@ -379,7 +379,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements ApiResp
         }
         if (ServiceCode == Constant.REMOVE_CART) {
             RemoveCartResponse rsp = (RemoveCartResponse) response;
-            TotalCartItem = rsp.getData();
+            TotalCartItem = rsp.getData().getCart().size();
             binding.tvCartNum.setText(String.valueOf(TotalCartItem));
             binding.tvCartItem.setText(String.valueOf(TotalCartItem) + "Item" + "\n" + "in Cart");
             Log.e("CartFunction", "Total Item After remove " + TotalCartItem);
@@ -515,6 +515,66 @@ public class ProductDetailsActivity extends AppCompatActivity implements ApiResp
 
 
     }
+
+
+    /*public static void makeTextViewResizable(final TextView tv, final int maxLine, final String expandText, final boolean viewMore) {
+
+        if (tv.getTag() == null) {
+            tv.setTag(tv.getText());
+        }
+        ViewTreeObserver vto = tv.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+            @SuppressWarnings("deprecation")
+            @Override
+            public void onGlobalLayout() {
+                String text;
+                int lineEndIndex;
+                ViewTreeObserver obs = tv.getViewTreeObserver();
+                obs.removeOnGlobalLayoutListener(this);
+
+                if (maxLine == 0) {
+                    lineEndIndex = tv.getLayout().getLineEnd(0);
+                    text = tv.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
+                } else if (maxLine > 0 && tv.getLineCount() >= maxLine) {
+                    lineEndIndex = tv.getLayout().getLineEnd(maxLine - 1);
+                    text = tv.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
+                } else {
+                    lineEndIndex = tv.getLayout().getLineEnd(tv.getLayout().getLineCount() - 1);
+                    text = tv.getText().subSequence(0, lineEndIndex) + " " + expandText;
+                }
+                tv.setText(text);
+                tv.setMovementMethod(LinkMovementMethod.getInstance());
+                tv.setText(addClickablePartTextViewResizable(tv.getText().toString(), tv, lineEndIndex, expandText,
+                                viewMore), TextView.BufferType.SPANNABLE);
+            }
+        });
+    }
+
+
+
+    private static SpannableStringBuilder addClickablePartTextViewResizable(final String str , final TextView tv,
+                                                                            final int maxLine, final String spanableText, final boolean viewMore) {
+        SpannableStringBuilder ssb = new SpannableStringBuilder(str);
+
+        if (str.contains(spanableText)) {
+            ssb.setSpan(new MySpannable(false){
+                @Override
+                public void onClick(View widget) {
+                    tv.setLayoutParams(tv.getLayoutParams());
+                    tv.setText(tv.getTag().toString(), TextView.BufferType.SPANNABLE);
+                    tv.invalidate();
+                    if (viewMore) {
+                        makeTextViewResizable(tv, -1, "View Less", false);
+                    } else {
+                        makeTextViewResizable(tv, 3, "View More", true);
+                    }
+                }
+            }, str.indexOf(spanableText), str.indexOf(spanableText) + spanableText.length(), 0);
+
+        }
+        return ssb;
+    }*/
 
 }
 

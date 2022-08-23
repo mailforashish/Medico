@@ -15,10 +15,16 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.medico.app.R;
 import com.medico.app.interfaceClass.CartItemCount;
+import com.medico.app.response.Cart.CartImage;
 import com.medico.app.response.Cart.CartList;
 import com.medico.app.response.Cart.CartResult;
+import com.medico.app.response.Cart.ProductId;
+import com.medico.app.response.OrderResponse.AddressList;
+import com.medico.app.response.OrderResponse.DrugData;
 import com.medico.app.utils.MaxLimit;
 import com.medico.app.utils.SessionManager;
 
@@ -64,12 +70,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             holder.tv_real_price.setText(String.valueOf("MRP " + listNew.getProductId().getUnitPrice()));
             float priceAfterDiscount = actualPrice - totalDiscount;
             holder.tv_off_price.setText("₹ " + String.valueOf(String.format("%.2f", priceAfterDiscount)));
-            //Glide.with(context).load(listNew.medicine_image).into(holder.iv_medicine);
+            List<CartImage> drug_image = cartList.get(position).getProductId().getImages();
+            if (drug_image != null && !drug_image.isEmpty()) {
+                Glide.with(context).load(drug_image.get(0).getImageUrl())
+                        .apply(new RequestOptions().placeholder(R.drawable.ic_order_mediciens).error
+                                (R.drawable.ic_order_mediciens)).into(holder.iv_medicine);
+            }
             updateprice();
+
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
-
         if (cartList != null) {
             for (CartList d : cartList) {
                 if (listNew.getId() == d.getId()) {
@@ -110,7 +121,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                         }
                     }
                 }
-
             }
         });
 

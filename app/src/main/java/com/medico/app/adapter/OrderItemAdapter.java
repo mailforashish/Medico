@@ -10,7 +10,10 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.medico.app.R;
+import com.medico.app.response.OrderResponse.AddressList;
 import com.medico.app.response.OrderResponse.DrugList;
 
 import java.util.List;
@@ -45,8 +48,11 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
         float priceAfterDiscount = actualPrice - totalDiscount;
         holder.tv_price.setText("₹ " + String.valueOf(String.format("%.2f", priceAfterDiscount)));
         holder.tv_quantity.setText("Qty " + String.valueOf(listNew.getQuantity()));
-        //Glide.with(context).load(listNew.medicine_image).into(holder.iv_medicine);
-
+        if (listNew.getImage_url() != null && !listNew.getImage_url().isEmpty()) {
+            Glide.with(context).load(listNew.getImage_url())
+                    .apply(new RequestOptions().placeholder(R.drawable.ic_order_mediciens).error
+                            (R.drawable.ic_order_mediciens)).into(holder.iv_medicine);
+        }
     }
 
     @Override
@@ -72,8 +78,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
             tv_strike_price = itemView.findViewById(R.id.tv_strike_price);
             tv_discount_percent = itemView.findViewById(R.id.tv_discount_percent);
             tv_quantity = itemView.findViewById(R.id.tv_quantity);
-
-
+            iv_medicine = itemView.findViewById(R.id.iv_medicine);
         }
     }
 

@@ -190,7 +190,7 @@ public class HealthCareFragment extends Fragment implements CartItemCount, ApiRe
         }
         if (ServiceCode == Constant.REMOVE_CART) {
             RemoveCartResponse rsp = (RemoveCartResponse) response;
-            TotalCartItem = rsp.getData();
+            TotalCartItem = rsp.getData().getCart().size();
             binding.tvCartItem.setText(String.valueOf(TotalCartItem));
             Log.e("CartFunction", "Total Item After remove " + TotalCartItem);
         }
