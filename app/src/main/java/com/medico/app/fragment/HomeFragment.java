@@ -323,6 +323,10 @@ public class HomeFragment extends Fragment implements ShowFragment, ApiResponseI
         } else {
             binding.tvCurrentLocation.setText(location.get(PIN_CODE) + " " + location.get(CITY));
         }
+        cartList = sessionManager.getListFromLocal("cart");
+        if (cartList != null) {
+            binding.tvCartItem.setText(String.valueOf(cartList.size()));
+        }
     }
 
     @Override
