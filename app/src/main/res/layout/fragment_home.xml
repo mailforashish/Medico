@@ -77,13 +77,38 @@
                 android:textColor="@color/color_header_text"
                 android:textSize="12sp" />
 
-
-            <ImageView
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> clickListener.openNotification()}"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/ic_notification" />
+                android:layout_alignParentTop="true"
+                android:onClick="@{() -> clickListener.openCartPage()}"
+                android:layout_alignParentRight="true">
+
+                <ImageView
+                    android:id="@+id/iv_cart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_cart"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvCartItem"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginBottom="25dp"
+                    android:background="@drawable/shape_home_message_bg"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="9sp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@+id/cl_cart"
+                    app:layout_constraintEnd_toEndOf="@+id/cl_cart" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </RelativeLayout>
 
         <RelativeLayout

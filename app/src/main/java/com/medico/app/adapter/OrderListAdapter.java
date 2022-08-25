@@ -61,7 +61,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
                 holder.tv_patients_name.setText(address.get(0).getName());
             holder.tv_place_on.setText("Place On " +
                     String.valueOf(MedicoDateFormater.formatDateFromString(
-                            "dd-MM-yyyy hh:mm a" ,"dd-MM-yyyy", orderList.get(position).getCreatedAt())));
+                            "dd-MM-yyyy hh:mm a", "dd-MM-yyyy", orderList.get(position).getCreatedAt())));
             List<DrugData> drugs = orderList.get(position).getDrugs();
             if (drugs != null && !drugs.isEmpty()) {
                 List<DrugList> drug = drugs.get(0).getDrug();
@@ -69,7 +69,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
                     if (drugs.size() == 1) {
                         holder.tv_all_order_list.setText(drug.get(0).getDrugName());
                         holder.tv_more.setVisibility(View.GONE);
-                    } else if (2 <= drugs.size()) {
+                    } else if (drugs.size() >= 2) {
                         holder.tv_all_order_list.setText(drug.get(0).getDrugName() + "\n"
                                 + drug.get(1).getDrugName());
                         holder.tv_more.setVisibility(View.VISIBLE);

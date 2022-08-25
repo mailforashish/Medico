@@ -39,7 +39,9 @@ import com.medico.app.utils.PaginationScrollListener;
 import com.medico.app.utils.SessionManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HealthCareFragment extends Fragment implements CartItemCount, ApiResponseInterface, PaginationAdapterCallback {
     FragmentHealthCareBinding binding;
@@ -55,6 +57,7 @@ public class HealthCareFragment extends Fragment implements CartItemCount, ApiRe
     private int TOTAL_PAGES;
     private int currentPage = PAGE_START;
     private int TotalCartItem;
+    HashMap<String, String> cart_local = new HashMap<String, String>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -106,6 +109,10 @@ public class HealthCareFragment extends Fragment implements CartItemCount, ApiRe
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), CartActivity.class);
+                /*for (Map.Entry<String, String> entry : cart_local.entrySet()) {
+                    String product_id = entry.getKey();
+                    String quantity = entry.getValue();
+                }*/
                 startActivity(intent);
             }
         });
@@ -129,10 +136,16 @@ public class HealthCareFragment extends Fragment implements CartItemCount, ApiRe
     public void getCartItem(boolean add, String action, String product_id, String quantity) {
         if (add) {
             if (action.equals("addCart")) {
+                //cart_local.put(product_id, quantity);
+                //Log.e("LocalManage", "addCart " + cart_local);
                 apiManager.addCart(product_id, quantity);
             } else if (action.equals("remove")) {
+                //cart_local.remove(product_id);
+                //Log.e("LocalManage", "remove " + cart_local);
                 apiManager.deleteCart(product_id);
             } else if (action.equals("UpdateQuantity")) {
+                //cart_local.put(product_id, quantity);
+                //Log.e("LocalManage", "UpdateQuantity " + cart_local);
                 apiManager.changeQuantity(product_id, quantity);
             }
         }

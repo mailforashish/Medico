@@ -34,7 +34,6 @@ public class ApiClient {
                 .readTimeout(30, TimeUnit.SECONDS)
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(20, TimeUnit.SECONDS)
-
                 .build();
 
         return httpClient;

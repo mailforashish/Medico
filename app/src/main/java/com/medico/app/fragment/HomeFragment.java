@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 
 import com.medico.app.R;
 import com.medico.app.activity.AllCategoryActivity;
+import com.medico.app.activity.CartActivity;
 import com.medico.app.activity.MainActivity;
 import com.medico.app.adapter.HealthArticleAdapter;
 import com.medico.app.adapter.BannerAdapter;
@@ -153,8 +154,11 @@ public class HomeFragment extends Fragment implements ShowFragment, ApiResponseI
             startActivity(new Intent(mContext, AllCategoryActivity.class));
         }
 
-        public void openNotification() {
-            ((MainActivity) getActivity()).rePlaceFragment("2");
+        public void openCartPage() {
+            if (cartList != null && !cartList.isEmpty()) {
+                startActivity(new Intent(mContext, CartActivity.class));
+            }
+
         }
 
     }
@@ -196,6 +200,7 @@ public class HomeFragment extends Fragment implements ShowFragment, ApiResponseI
             CartResponse rsp = (CartResponse) response;
             if (rsp != null) {
                 cartList = rsp.getData().getCart();
+                binding.tvCartItem.setText(String.valueOf(cartList.size()));
                 sessionManager.saveListInLocal("cart", cartList);
             }
 

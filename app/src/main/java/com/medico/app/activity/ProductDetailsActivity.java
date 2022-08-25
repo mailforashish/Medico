@@ -26,19 +26,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.medico.app.R;
 import com.medico.app.adapter.BannerAdapter;
+import com.medico.app.adapter.ImageAdapter;
 import com.medico.app.databinding.ActivityProductDetailsBinding;
 import com.medico.app.adapter.ProductDescritionAdapter;
 import com.medico.app.response.Addcart.AddCartResponse;
 import com.medico.app.response.Addcart.RemoveCartResponse;
-import com.medico.app.response.Banner.BannerResult;
 import com.medico.app.response.Cart.CartList;
 import com.medico.app.response.Cart.CartResponse;
 import com.medico.app.response.DescriptionList;
 import com.medico.app.response.ProductDetail.ProductDetailResponse;
+import com.medico.app.response.ProductDetail.ProductImages;
 import com.medico.app.retrofit.ApiManager;
 import com.medico.app.retrofit.ApiResponseInterface;
 import com.medico.app.utils.Constant;
@@ -63,8 +65,8 @@ public class ProductDetailsActivity extends AppCompatActivity implements ApiResp
     private ImageView[] dots;
     SessionManager sessionManager;
     List<CartList> cartList = new ArrayList<>();
-    private List<BannerResult> bannerList = new ArrayList<>();
-    private BannerAdapter bannerAdapter;
+    private List<ProductImages> imageList = new ArrayList<>();
+    private ImageAdapter bannerAdapter;
     ApiManager apiManager;
     private ProductDescritionAdapter productDescritionAdapter;
     List<DescriptionList> descriptionLists = new ArrayList<>();
@@ -77,6 +79,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements ApiResp
     private int TotalCartItem;
     HideStatus hideStatus;
     MaxLimit maxLimit;
+    public boolean isImageChanged = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,10 +94,6 @@ public class ProductDetailsActivity extends AppCompatActivity implements ApiResp
         apiManager = new ApiManager(this, this);
         apiManager.getProduct(Drug_Id);
         apiManager.getCartList();
-        bannerList = sessionManager.getBannerFromLocal("banner");
-        if (bannerList != null) {
-            setBannerData();
-        }
 
         linearLayoutManager = new LinearLayoutManager(this);
         binding.rvSideEffect.setLayoutManager(linearLayoutManager);
@@ -162,8 +161,8 @@ public class ProductDetailsActivity extends AppCompatActivity implements ApiResp
                                         }
                                     }
                                 }
-                            }, 50);
-                            //waiting for 50ms because when scrolling down from top, the variable isListGoingUp is still true until the onScrolled method is executed
+                            }, 40);
+                            //waiting for 40ms because when scrolling down from top, the variable isListGoingUp is still true until the onScrolled method is executed
                         }
                     }
                 }
@@ -214,29 +213,28 @@ public class ProductDetailsActivity extends AppCompatActivity implements ApiResp
                 }
             }
         });
-        binding.nsvBelowTabs.getViewTreeObserver()
-                .addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-                    @Override
-                    public void onScrollChanged() {
-                        // Log.e("VisibleTop", "appBar " + (binding.nsvBelowTabs.getBottom() - (200)));
-                        // Log.e("VisibleTop", "nsvBelowTabs " + (binding.nsvBelowTabs.getHeight() + binding.nsvBelowTabs.getScrollY()));
-                        if ((binding.nsvBelowTabs.getBottom() - (200)) <= (binding.nsvBelowTabs.getHeight() + binding.nsvBelowTabs.getScrollY())) {
-                            //scroll view is at bottom
-                            binding.collapse.setVisibility(View.VISIBLE);
-                            binding.collapse.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
-                        } else {
-                            binding.collapse.setVisibility(View.INVISIBLE);
-                            binding.collapse.animate().translationY(-binding.collapse.getHeight()).setInterpolator(new AccelerateInterpolator(2));
-                            //scroll view is not at bottom
-                        }
-                    }
-                });
-
         Animation animMove = new TranslateAnimation(0.0f, 10.0f, 0.0f, 0.0f);
         animMove.setDuration(300);
         animMove.setRepeatMode(Animation.REVERSE);
         animMove.setRepeatCount(Animation.INFINITE);
         binding.ivOfferIconPercent.startAnimation(animMove);
+        //for show collapsing layout code here
+        binding.appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (Math.abs(verticalOffset) == appBarLayout.getTotalScrollRange()) {
+                    binding.collapse.setVisibility(View.VISIBLE);
+                    binding.collapse.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
+                } else if (verticalOffset == 0) {
+                    binding.collapse.setVisibility(View.INVISIBLE);
+                    binding.collapse.animate().translationY(-binding.collapse.getHeight()).setInterpolator(new AccelerateInterpolator(2));
+                } else {
+                    binding.collapse.setVisibility(View.INVISIBLE);
+                    binding.collapse.animate().translationY(-binding.collapse.getHeight()).setInterpolator(new AccelerateInterpolator(2));
+                }
+            }
+        });
+
 
     }
 
@@ -282,7 +280,6 @@ public class ProductDetailsActivity extends AppCompatActivity implements ApiResp
                     apiManager.changeQuantity(Drug_Id, binding.tvQuantity.getText().toString());
                 } else {
                     Toast.makeText(mContext, "limit exceeded", Toast.LENGTH_SHORT).show();
-
                 }
             }
 
@@ -305,6 +302,18 @@ public class ProductDetailsActivity extends AppCompatActivity implements ApiResp
             }
         }
 
+        public void saveLater() {
+            if (isImageChanged) {
+                binding.ivRxHeart.setImageResource(R.drawable.ic_heart);
+                isImageChanged = false;
+            } else {
+                binding.ivRxHeart.setImageResource(R.drawable.ic_save_heart);
+                isImageChanged = true;
+                apiManager.saveForLater(Drug_Id);
+            }
+
+        }
+
     }
 
     @Override
@@ -318,6 +327,11 @@ public class ProductDetailsActivity extends AppCompatActivity implements ApiResp
         if (ServiceCode == Constant.PRODUCT_DETAIL) {
             ProductDetailResponse rsp = (ProductDetailResponse) response;
             if (rsp != null) {
+                //show image slider for Product detail page
+                imageList = rsp.getData().getImages();
+                if (imageList != null) {
+                    setBannerData();
+                }
                 Product_Name = rsp.getData().getDrugName();
                 Product_Type = rsp.getData().getPackingType();
                 Manufacture = rsp.getData().getManufactur();
@@ -341,7 +355,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements ApiResp
                 binding.tvStrikePriceTop.setText("MRP " + Price);
                 binding.tvStrikePriceTop.setPaintFlags(binding.tvStrikePriceTop.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 binding.tvDiscountPercentTop.setText(Discount + "% OFF");
-                //
+                //show more and view less
                 binding.tvMdDescInput.setText(rsp.getData().getDescription());
                 new ReadMoreTextView(binding.tvMdDescInput, 3, "View More", true);
 
@@ -357,11 +371,8 @@ public class ProductDetailsActivity extends AppCompatActivity implements ApiResp
                 binding.tabDetail.addTab(binding.tabDetail.newTab().setText("HowToUse"));
                 binding.tabDetail.addTab(binding.tabDetail.newTab().setText("HowWorks"));
                 binding.tabDetail.addTab(binding.tabDetail.newTab().setText("QuickTips"));
-
                 setData(rsp);
-
             }
-
         }
         if (ServiceCode == Constant.ADD_CART) {
             AddCartResponse rsp = (AddCartResponse) response;
@@ -396,7 +407,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements ApiResp
                     } else {
                         binding.clViewCart.setVisibility(View.GONE);
                     }
-                    Log.e("cartData", "" + new Gson().toJson(cartList));
+                    //Log.e("cartData", "" + new Gson().toJson(cartList));
                     for (int i = 0; i < cartList.size(); i++) {
                         if (cartList.get(i).getProductId().getDrugId().equals(Drug_Id)) {
                             binding.btMdAddCart.setVisibility(View.GONE);
@@ -405,12 +416,17 @@ public class ProductDetailsActivity extends AppCompatActivity implements ApiResp
                             binding.btMdAddCartTop.setVisibility(View.GONE);
                             binding.llAddPlusMinusTop.setVisibility(View.VISIBLE);
                             binding.tvQuantityTop.setText(Integer.toString(cartList.get(i).getQuantity()));
-
                         }
                     }
                 }
             }
 
+        }
+        if (ServiceCode == Constant.SAVE_LATER) {
+            CartResponse rsp = (CartResponse) response;
+            if (rsp != null) {
+
+            }
         }
     }
 
@@ -419,7 +435,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements ApiResp
     }
 
     private void setBannerData() {
-        bannerAdapter = new BannerAdapter(bannerList, this);
+        bannerAdapter = new ImageAdapter(imageList, this);
         binding.bannerPager.setAdapter(bannerAdapter);
         TimerTask timerTask = new TimerTask() {
             @Override
@@ -427,7 +443,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements ApiResp
                 binding.bannerPager.post(new Runnable() {
                     @Override
                     public void run() {
-                        binding.bannerPager.setCurrentItem((binding.bannerPager.getCurrentItem() + 1) % bannerList.size());
+                        binding.bannerPager.setCurrentItem((binding.bannerPager.getCurrentItem() + 1) % imageList.size());
                     }
                 });
             }
@@ -467,9 +483,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements ApiResp
         try {
             if (binding.dotsLayoutDetails != null)
                 binding.dotsLayoutDetails.removeAllViews();
-            dots = new ImageView[bannerList.size()];
+            dots = new ImageView[imageList.size()];
 
-            for (int i = 0; i < bannerList.size(); i++) {
+            for (int i = 0; i < imageList.size(); i++) {
                 dots[i] = new ImageView(this);
                 if (i == current_position) {
                     dots[i].setImageDrawable(ContextCompat.getDrawable(this, R.drawable.active_lab_dots));
@@ -513,68 +529,12 @@ public class ProductDetailsActivity extends AppCompatActivity implements ApiResp
         list2 = new DescriptionList(R.drawable.ic_order_mediciens, "Quick Tips", rsp.getData().getQuickTips().trim());
         descriptionLists.add(list2);
 
-
     }
 
-
-    /*public static void makeTextViewResizable(final TextView tv, final int maxLine, final String expandText, final boolean viewMore) {
-
-        if (tv.getTag() == null) {
-            tv.setTag(tv.getText());
-        }
-        ViewTreeObserver vto = tv.getViewTreeObserver();
-        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-
-            @SuppressWarnings("deprecation")
-            @Override
-            public void onGlobalLayout() {
-                String text;
-                int lineEndIndex;
-                ViewTreeObserver obs = tv.getViewTreeObserver();
-                obs.removeOnGlobalLayoutListener(this);
-
-                if (maxLine == 0) {
-                    lineEndIndex = tv.getLayout().getLineEnd(0);
-                    text = tv.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
-                } else if (maxLine > 0 && tv.getLineCount() >= maxLine) {
-                    lineEndIndex = tv.getLayout().getLineEnd(maxLine - 1);
-                    text = tv.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
-                } else {
-                    lineEndIndex = tv.getLayout().getLineEnd(tv.getLayout().getLineCount() - 1);
-                    text = tv.getText().subSequence(0, lineEndIndex) + " " + expandText;
-                }
-                tv.setText(text);
-                tv.setMovementMethod(LinkMovementMethod.getInstance());
-                tv.setText(addClickablePartTextViewResizable(tv.getText().toString(), tv, lineEndIndex, expandText,
-                                viewMore), TextView.BufferType.SPANNABLE);
-            }
-        });
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
-
-
-
-    private static SpannableStringBuilder addClickablePartTextViewResizable(final String str , final TextView tv,
-                                                                            final int maxLine, final String spanableText, final boolean viewMore) {
-        SpannableStringBuilder ssb = new SpannableStringBuilder(str);
-
-        if (str.contains(spanableText)) {
-            ssb.setSpan(new MySpannable(false){
-                @Override
-                public void onClick(View widget) {
-                    tv.setLayoutParams(tv.getLayoutParams());
-                    tv.setText(tv.getTag().toString(), TextView.BufferType.SPANNABLE);
-                    tv.invalidate();
-                    if (viewMore) {
-                        makeTextViewResizable(tv, -1, "View Less", false);
-                    } else {
-                        makeTextViewResizable(tv, 3, "View More", true);
-                    }
-                }
-            }, str.indexOf(spanableText), str.indexOf(spanableText) + spanableText.length(), 0);
-
-        }
-        return ssb;
-    }*/
-
 }
 

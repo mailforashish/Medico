@@ -89,4 +89,8 @@
         <item name="sv_textSize">14sp</item>
     </style>
 
+    <declare-styleable name="ExpandableTextView">
+        <attr name="trimLength" format="integer"/>
+    </declare-styleable>
+
 </resources>

@@ -2,6 +2,7 @@ package com.medico.app.retrofit;
 
 import com.medico.app.response.AddEdit.AddEditAddressResponse;
 import com.medico.app.response.EditProfile.EditProfileResponse;
+import com.medico.app.response.MoveToCart.MoveToCartResponse;
 import com.medico.app.response.OrderProduct.CreateOrderResponse;
 import com.medico.app.response.OrderProduct.CreateOrderResponseUpi;
 import com.medico.app.response.OrderRequest.OrderProductRequests;
@@ -67,6 +68,15 @@ public interface ApiInterface {
     @GET("carts")
     Call<CartResponse> getCartData(@Header("Authorization") String token, @Header("Accept") String accept);
 
+    @FormUrlEncoded
+    @POST("save-for-later")
+    Call<CartResponse> saveLater(@Header("Authorization") String token, @Header("Accept") String accept, @Field("drug_id") String drug_id);
+
+    @FormUrlEncoded
+    @POST("move-to-cart")
+    Call<MoveToCartResponse> moveToCart(@Header("Authorization") String token, @Header("Accept") String accept,
+                                        @Field("drug_id") String drug_id, @Field("quantity") String quantity);
+
     @GET("address-list")
     Call<AddressResponse> getAddressData(@Header("Authorization") String token, @Header("Accept") String accept);
 
@@ -121,7 +131,7 @@ public interface ApiInterface {
                                               @Field("first_name") String first_name, @Field("last_name") String last_name,
                                               @Field("mobile") String mobile, @Field("email") String email, @Field("password") String password);
 
-   @GET("perception-gallery")
-   Call<PrescriptionResponse> getPrescriptionData(@Header("Authorization") String token, @Header("Accept") String accept);
+    @GET("perception-gallery")
+    Call<PrescriptionResponse> getPrescriptionData(@Header("Authorization") String token, @Header("Accept") String accept);
 
 }

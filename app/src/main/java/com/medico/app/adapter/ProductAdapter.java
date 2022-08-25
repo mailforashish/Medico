@@ -92,7 +92,6 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         switch (getItemViewType(position)) {
             case ITEM:
-
                 final myViewHolder holder = (myViewHolder) hld;
                 if (type.equals("HealthCare")) {
                     final ProductListResponse.Data listNew = list.get(position);

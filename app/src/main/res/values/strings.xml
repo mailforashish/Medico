@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Medico</string>
+    <string name="app_name">GoMedico</string>
     <string name="your_Specialist">Find your Specialist</string>
     <string name="your_doctor">Now it\'s easy to make an appointment with your doctor.</string>
     <string name="search_pharmacy">Search Pharmacy</string>

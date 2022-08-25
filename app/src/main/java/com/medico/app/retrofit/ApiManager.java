@@ -10,6 +10,7 @@ import com.medico.app.dialog.MyProgressDialog;
 import com.medico.app.dialog.NoInternetDialog;
 import com.medico.app.response.AddEdit.AddEditAddressResponse;
 import com.medico.app.response.EditProfile.EditProfileResponse;
+import com.medico.app.response.MoveToCart.MoveToCartResponse;
 import com.medico.app.response.OrderProduct.CreateOrderResponse;
 import com.medico.app.response.OrderProduct.CreateOrderResponseUpi;
 import com.medico.app.response.OrderRequest.OrderProductRequests;
@@ -234,13 +235,37 @@ public class ApiManager {
         });
     }
 
+    public void moveToCart(String drug_id, String quantity) {
+        Call<MoveToCartResponse> call = apiService.moveToCart(authToken, "application/json", drug_id, quantity);
+        call.enqueue(new Callback<MoveToCartResponse>() {
+            @Override
+            public void onResponse(Call<MoveToCartResponse> call, Response<MoveToCartResponse> response) {
+                 //Log.e("MovetoCart", "MovetoCart Response " + new Gson().toJson(response.body()));
+                if (response.isSuccessful() && response.body() != null) {
+                    if (response.body().getSuccess()) {
+                        mApiResponseInterface.isSuccess(response.body(), Constant.MOVE_TO_CART);
+                        Toast.makeText(mContext, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        mApiResponseInterface.isError(response.body().getMessage());
+                        Toast.makeText(mContext, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MoveToCartResponse> call, Throwable t) {
+                //closeDialog();
+                Log.e("MovetoCart", "MovetoCart Error " + t.getMessage());
+            }
+        });
+    }
 
     public void deleteCart(String product_id) {
         Call<RemoveCartResponse> call = apiService.deleteCartData(authToken, "application/json", product_id);
         call.enqueue(new Callback<RemoveCartResponse>() {
             @Override
             public void onResponse(Call<RemoveCartResponse> call, Response<RemoveCartResponse> response) {
-                 Log.e("CartFunction", "Cart Item Remove Response " + new Gson().toJson(response.body()));
+                Log.e("CartFunction", "Cart Item Remove Response " + new Gson().toJson(response.body()));
                 if (response.isSuccessful() && response.body() != null) {
                     mApiResponseInterface.isSuccess(response.body(), Constant.REMOVE_CART);
                     Toast.makeText(mContext, "Remove Item ", Toast.LENGTH_LONG).show();
@@ -280,7 +305,7 @@ public class ApiManager {
         call.enqueue(new Callback<CartResponse>() {
             @Override
             public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
-                Log.e("CartFunction", "Cart Item List Response " + new Gson().toJson(response.body()));
+                //Log.e("CartFunction", "Cart Item List Response " + new Gson().toJson(response.body()));
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().getData() != null) {
                         mApiResponseInterface.isSuccess(response.body(), Constant.CART_LIST);
@@ -291,6 +316,28 @@ public class ApiManager {
             @Override
             public void onFailure(Call<CartResponse> call, Throwable t) {
                 Log.e("CartFunction", "Cart List Error " + t.getMessage());
+                Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
+    public void saveForLater(String drug_id) {
+        Call<CartResponse> call = apiService.saveLater(authToken, "application/json", drug_id);
+        call.enqueue(new Callback<CartResponse>() {
+            @Override
+            public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
+                //Log.e("SAVELater", "SAVELater Response " + new Gson().toJson(response.body()));
+                if (response.isSuccessful() && response.body() != null) {
+                    if (response.body().getData() != null) {
+                        mApiResponseInterface.isSuccess(response.body(), Constant.CART_LIST);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CartResponse> call, Throwable t) {
+                Log.e("SAVELater", "SAVELater List Error " + t.getMessage());
                 Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
@@ -373,7 +420,6 @@ public class ApiManager {
     }
 
     public void deleteAddress(String address_id) {
-
         Call<Object> call = apiService.deleteAddressData(authToken, "application/json", address_id);
         call.enqueue(new Callback<Object>() {
             @Override
@@ -419,11 +465,11 @@ public class ApiManager {
     }
 
     public void getProduct(String drugId) {
-        Call<ProductDetailResponse> call = apiService.getProduct(authToken, "application/json",drugId);
+        Call<ProductDetailResponse> call = apiService.getProduct(authToken, "application/json", drugId);
         call.enqueue(new Callback<ProductDetailResponse>() {
             @Override
             public void onResponse(Call<ProductDetailResponse> call, Response<ProductDetailResponse> response) {
-                Log.e("ProductDetail", "Product Detail Response " + new Gson().toJson(response.body()));
+                //Log.e("ProductDetail", "Product Detail Response " + new Gson().toJson(response.body()));
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().getData() != null) {
                         mApiResponseInterface.isSuccess(response.body(), Constant.PRODUCT_DETAIL);
@@ -441,12 +487,12 @@ public class ApiManager {
 
     public void createOrder(OrderProductRequests orderProductRequests) {
         Call<CreateOrderResponse> call = apiService.OrderProduct(authToken, "application/json", orderProductRequests);
-        Log.e("orderLog", "request = " + call.request().toString());
+        //Log.e("orderLog", "request = " + call.request().toString());
         call.enqueue(new Callback<CreateOrderResponse>() {
             @Override
             public void onResponse(Call<CreateOrderResponse> call, Response<CreateOrderResponse> response) {
                 //Log.e("createOrderDetail", new Gson().toJson(response.body().getResult()));
-                Log.e("orderLog", "responce = " + new Gson().toJson(response.body()));
+                //Log.e("orderLog", "responce = " + new Gson().toJson(response.body()));
                 if (response.body().getSuccess()) {
                     mApiResponseInterface.isSuccess(response.body(), Constant.CREATE_ORDER);
                 } else {
@@ -516,7 +562,7 @@ public class ApiManager {
         call.enqueue(new Callback<OrderListResponse>() {
             @Override
             public void onResponse(Call<OrderListResponse> call, Response<OrderListResponse> response) {
-                Log.e("OrderList", "Order List Response " + new Gson().toJson(response.body()));
+                //Log.e("OrderList", "Order List Response " + new Gson().toJson(response.body()));
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().getResult() != null) {
                         mApiResponseInterface.isSuccess(response.body(), Constant.ORDER_LIST);
@@ -534,11 +580,11 @@ public class ApiManager {
 
 
     public void editProfile(String name, String mobile, String email) {
-        Call<EditProfileResponse> call = apiService.editProfileData(authToken, "application/json", name, "",  mobile, email,"");
+        Call<EditProfileResponse> call = apiService.editProfileData(authToken, "application/json", name, "", mobile, email, "");
         call.enqueue(new Callback<EditProfileResponse>() {
             @Override
             public void onResponse(Call<EditProfileResponse> call, Response<EditProfileResponse> response) {
-                 Log.e("EditProfile","response "+ new Gson().toJson(response.body()));
+                //Log.e("EditProfile", "response " + new Gson().toJson(response.body()));
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().getSuccess()) {
                         mApiResponseInterface.isSuccess(response.body(), Constant.EDIT_PROFILE);
@@ -547,6 +593,7 @@ public class ApiManager {
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<EditProfileResponse> call, Throwable t) {
                 Toast.makeText(mContext, "Not Edited", Toast.LENGTH_LONG).show();
@@ -560,7 +607,7 @@ public class ApiManager {
         call.enqueue(new Callback<PrescriptionResponse>() {
             @Override
             public void onResponse(Call<PrescriptionResponse> call, Response<PrescriptionResponse> response) {
-                Log.e("PrescriptionList", "Prescription Response " + new Gson().toJson(response.body()));
+               // Log.e("PrescriptionList", "Prescription Response " + new Gson().toJson(response.body()));
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().getData() != null) {
                         mApiResponseInterface.isSuccess(response.body(), Constant.PRESCRIPTION_LIST);
